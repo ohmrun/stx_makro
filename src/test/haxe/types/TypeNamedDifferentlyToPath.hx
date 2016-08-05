@@ -1,0 +1,3 @@
+package types;
+
+typedef Fandango = {};
