@@ -16,7 +16,6 @@ import haxe.macro.Type;
   import tink.macro.Types;
 #end
 
-
 enum CloneAssignment{
   //HeadAssignment(c:CloneAssignment);
   ErrorAssignment(cause:String,?pos:haxe.macro.Position);
@@ -52,7 +51,7 @@ class Clone{
           var tval = tref.get();
           log(tval.pack);
           switch(tval.name){
-          case "String" : PrimitiveImmutable(type,None);
+          case "String"   : PrimitiveImmutable(type,None);
             case "Array"  :
               var generic = forTypeAssignment(params[0]);
               var ct      = Context.toComplexType(params[0]);

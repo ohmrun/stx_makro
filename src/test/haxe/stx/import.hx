@@ -1,7 +1,7 @@
 import haxe.macro.Context;
 #if macro
 
-using stx.Upshot;
+//using stx.Upshot;
 using tink.MacroApi;
 
 import haxe.macro.Expr;

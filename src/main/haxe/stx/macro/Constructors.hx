@@ -28,7 +28,7 @@ class Constructors{
           if(constructor_ref == null){
             return -1;
           }
-          
+
           function unpack(t:Type){
             return switch (t) {
               case TLazy(t) : unpack(t());
@@ -45,7 +45,7 @@ class Constructors{
           return -1;
       }
       return -1;
-    }      
+    }
   #end
 }
 class Typedefs{
@@ -55,6 +55,6 @@ class Typedefs{
     */
     static public function constructor(e:Expr){
       Macro.unit();
-    }      
+    }
   #end
 }

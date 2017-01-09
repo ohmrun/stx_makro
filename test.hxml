@@ -2,7 +2,7 @@
 -cp src/test/haxe
 -dce no
 -main Test.hx
--neko test/neko.n
+
 
 -lib stx_tuple
 -lib stx_maybe
@@ -24,6 +24,5 @@
 -lib utest
 
 
-
 -lib thx.core
--cmd neko test/neko.n
+-x test/neko.n

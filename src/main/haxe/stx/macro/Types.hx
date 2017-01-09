@@ -1,8 +1,9 @@
 package stx.macro;
 
-
 import stx.Equal;
+
 #if macro
+  using thx.Arrays;
   using stx.macro.Types;
 
   import tink.macro.Exprs;
@@ -14,20 +15,36 @@ import stx.Equal;
 #end
 
 class Types{
-
-  static public macro function equals(l:Expr,r:Expr){
-    var lt = Context.typeof(l);
-    var rt = Context.typeof(r);
-    equalsImpl(lt,rt);
-    return macro {};
-  }
-  static public macro function blum(e:Expr){
-    var t = Context.typeof(e);
-    var a = path(t);
-    
-    return macro {};
-  }
   #if macro
+  static public function isTerminal(type:Type):Bool{
+    return if(getParams(type).length > 0){
+      false;
+    }else{
+      switch(type){
+        case TType(t,_)       :
+          isTerminal(Context.follow(t.get().type));
+        case TAbstract(a,_)   :
+          var l = identify(a.get().type);
+          var r = identify(type);
+          if(l == r){
+            true;
+          }else{
+            isTerminal(Context.followWithAbstracts(a.get().type));
+          }
+        case _.identify() => "String" : true;
+        case TInst(_)                 : false;
+        case TAnonymous(_)            : false;
+        default                       : true;
+      }
+    }
+  }
+  static public function findTypeByName(name:String){
+    return /*Context.getModule(name).find(
+      function(type0){
+        return identify(type0) == name;
+      }
+    );*/ Context.getType(name);
+  }
   static public function isAnonType(type:Type):Bool{
     return (switch (type){
       case TAnonymous(at) : true;
@@ -42,70 +59,12 @@ class Types{
       tink.macro.Types.toString(tink.macro.Types.toComplex(type));
     }
   }
-static public function nominal(type:Type):String{
-  return if(isAnonType(type)){
+  static public function nominal(type:Type):String{
+    return if(isAnonType(type)){
+          "";
+        }else{
         "";
-      }else{
-        "";
-      }
-  }
-
-  static public function bfs(t:Type){
-    //var handler = function()
-  }
-  static public function baseTypeNominallyEquals(l:BaseType,r:BaseType){
-    var equality = true;
-    if(l.pack.length != r.pack.length){
-      equality = false;
-    }else{
-      for(i in 0...l.pack.length){
-        var lpack = l.pack[0];
-        var rpack = r.pack[0];
-        if(lpack!=rpack){
-          equality = false;
         }
-      }
-      if(equality){
-        if(l.name!=r.name){
-          equality = false;
-        }
-      }
-      if(equality){
-        equality = (l.module==r.module);
-      }
-    }
-    return equality;
-  }
-  static public function paramsEquals(l:Array<Type>,r:Array<Type>):Bool {
-    var equality = true;
-    if(l.length != r.length){
-      equality = false;
-    }
-    if(equality){
-      for (idx in 0...l.length){
-        if(!equalsImpl(l[idx],r[idx])){
-
-        }
-      }
-    }
-    return equality;
-  }
-  static public function equalsImpl(l:Type,r:Type):Bool{
-    return switch ([l,r]) {
-      case [TMono( t0 ),TMono( t1 )]                : equals(t0.get(),t1.get());
-      case [TEnum(lt,lparams),TEnum(rt,rparams)]    :
-        baseTypeNominallyEquals(getBaseType(l),getBaseType(r)) && paramsEquals(lparams,rparams);
-      default : false;
-      /*
-
-      case TInst( t : Ref<ClassType>, params : Array<Type> );:
-      case TType( t : Ref<DefType>, params : Array<Type> );:
-      case TFun( args : Array<{ name : String, opt : Bool, t : Type }>, ret : Type );:
-      case TAnonymous( a : Ref<AnonType> );:
-      case TDynamic( t : Null<Type> );:
-      case TLazy( f : Void -> Type );:
-      case TAbstract( t : Ref<AbstractType>, params : Array<Type> );:*/
-    }
   }
   static public function name(t:Null<Type>):Option<String>{
     return switch (t) {
@@ -210,6 +169,27 @@ static public function nominal(type:Type):String{
     return switch type {
       case TInst(_,_): true;
       default : false;
+    }
+  }
+  public static function isString(type:Type):Bool{
+    return switch type {
+      case _.path() => Some("String") : true;
+      default : false;
+    }
+  }
+  public static function isInt(type:Type):Bool{
+    return switch(type){
+      case _.path() => Some("StdTypes.Int"): true;
+      default : false;
+    }
+  }
+  /**
+  */
+  static public function getFields(type:Type):Array<ClassField>{
+    return switch(type){
+      case TAnonymous( a ) : a.get().fields;
+      case TInst(v,_)      : v.get().fields.get();
+      default : [];
     }
   }
   #end

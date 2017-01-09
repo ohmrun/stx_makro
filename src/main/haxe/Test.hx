@@ -19,7 +19,7 @@ import utest.Runner;
 //import stx.macro.ExtractTest;
 //import stx.Macro;
 
-class Main{
+class TEst{
   static function main(){
     var a = new stx.macro.TupleTest();
   }
