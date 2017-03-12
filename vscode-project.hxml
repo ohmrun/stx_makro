@@ -1,0 +1,113 @@
+#automatically generated do not edit
+#@date Sat May 07 2016 10:03:01 GMT+0200 (CEST)
+-cp /media/i/haxe/metah/src/main/haxe/
+-cp /media/i/haxe/metah/src/test/haxe/
+-dce no
+-main Test.hx
+-neko test/neko.n
+#@begin-cache -lib pointwise
+-cp /media/i/src/haxe/lib/pointwise/0,8,5/src/main/haxe/
+-D pointwise=0.8.5
+-cp /media/i/src/haxe/lib/stx_tuple/0,0,2/src/main/haxe/
+-D stx_tuple=0.0.2
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,11/src/
+-D tink_core=1.0.0-rc.11
+#@end-cache
+#@begin-cache -lib stx_chunk
+-cp /media/i/haxe/stx_chunk/src/main/haxe/
+-D stx_chunk=0.0.0
+#@end-cache
+#@begin-cache -lib stx_maybe
+-cp /media/i/haxe/stx_maybe/src/
+-D stx_maybe=0.0.0
+#@end-cache
+#@begin-cache -lib stx_tuple
+-cp /media/i/src/haxe/lib/stx_tuple/0,0,2/src/main/haxe/
+-D stx_tuple=0.0.2
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+#@end-cache
+#@begin-cache -lib lenox
+-cp /media/i/haxe/lenox/src/main/haxe/
+-D lenox=0.0.0
+#@end-cache
+#@begin-cache -lib tink_core
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,12/src/
+-D tink_core=1.0.0-rc.12
+#@end-cache
+#@begin-cache -lib tink_macro
+-cp /media/i/src/haxe/lib/tink_macro/0,7,1/src/
+-D tink_macro=0.7.1
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,12/src/
+-D tink_core=1.0.0-rc.12
+#@end-cache
+#@begin-cache -lib stx_addendum
+-cp /media/i/haxe/stx_addendum/src/main/haxe/
+-D stx_addendum=0.0.0
+#@end-cache
+#@begin-cache -lib utest
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+#@end-cache
+#@begin-cache -lib pointwise
+#automatically generated do not edit
+#@date Sat May 07 2016 10:03:01 GMT+0200 (CEST)
+-cp /media/i/haxe/metah/src/main/haxe/
+-cp /media/i/haxe/metah/src/test/haxe/
+-dce no
+-main Test.hx
+-neko test/neko.n
+#@begin-cache -lib pointwise
+-cp /media/i/src/haxe/lib/pointwise/0,8,5/src/main/haxe/
+-D pointwise=0.8.5
+-cp /media/i/src/haxe/lib/stx_tuple/0,0,2/src/main/haxe/
+-D stx_tuple=0.0.2
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,11/src/
+-D tink_core=1.0.0-rc.11
+#@end-cache
+#@begin-cache -lib stx_chunk
+-cp /media/i/haxe/stx_chunk/src/main/haxe/
+-D stx_chunk=0.0.0
+#@end-cache
+#@begin-cache -lib stx_maybe
+-cp /media/i/haxe/stx_maybe/src/
+-D stx_maybe=0.0.0
+#@end-cache
+#@begin-cache -lib stx_tuple
+-cp /media/i/src/haxe/lib/stx_tuple/0,0,2/src/main/haxe/
+-D stx_tuple=0.0.2
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+#@end-cache
+#@begin-cache -lib lenox
+-cp /media/i/haxe/lenox/src/main/haxe/
+-D lenox=0.0.0
+#@end-cache
+#@begin-cache -lib tink_core
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,12/src/
+-D tink_core=1.0.0-rc.12
+#@end-cache
+#@begin-cache -lib tink_macro
+-cp /media/i/src/haxe/lib/tink_macro/0,7,1/src/
+-D tink_macro=0.7.1
+-cp /media/i/src/haxe/lib/tink_core/1,0,0-rc,12/src/
+-D tink_core=1.0.0-rc.12
+#@end-cache
+#@begin-cache -lib stx_addendum
+-cp /media/i/haxe/stx_addendum/src/main/haxe/
+-D stx_addendum=0.0.0
+#@end-cache
+#@begin-cache -lib utest
+-cp /media/i/src/haxe/lib/utest/1,3,10/src/
+-D utest=1.3.10
+#@end-cache
+#@begin-cache -lib pointwise
+#@end-cache
+-cmd neko test/neko.n
+
+
+-cp /tmp/7a5291644f498f45bbac935c88ba9e4b5d65671d
