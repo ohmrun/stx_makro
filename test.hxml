@@ -3,7 +3,12 @@
 -dce no
 -main Test.hx
 
+--macro Test.build()
 
+-D thx_core
+-lib stx_di
+-lib thx.core
+-lib figah
 -lib stx_tuple
 -lib stx_maybe
 -lib stx_transducers

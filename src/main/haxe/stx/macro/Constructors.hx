@@ -41,7 +41,6 @@ class Constructors{
             default : -1;
           }
         default :
-          trace(type);
           return -1;
       }
       return -1;

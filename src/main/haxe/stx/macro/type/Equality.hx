@@ -8,6 +8,8 @@ static public function bfs(t:Type){
   //var handler = function()
 }
 static public function baseTypeNominallyEquals(l:BaseType,r:BaseType){
+  var li : Ident = l;
+  var ri : Ident = r;
   var equality = true;
   if(l.pack.length != r.pack.length){
     equality = false;

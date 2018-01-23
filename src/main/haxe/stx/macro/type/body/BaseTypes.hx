@@ -1,5 +1,6 @@
 package stx.macro;
 
+import fig.core.Package;
 import haxe.macro.Type;
 
 class BaseTypes{
@@ -13,5 +14,10 @@ class BaseTypes{
     var module_els = b.module.split(".");
     var out        = module_els[module_els.length-1] != b.name;
     return out;
+  }
+  static public function equals(l:BaseType,r:BaseType){
+    var lp : Ident = l;
+    var rp : Ident = r;
+    return (lp == rp) && l.module==r.module; 
   }
 }

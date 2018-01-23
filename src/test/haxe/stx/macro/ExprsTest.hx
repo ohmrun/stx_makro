@@ -1,5 +1,6 @@
 package stx.macro;
 
+import stx.macro.expr.Module;
 import haxe.macro.Expr;
 
 class ExprsTest{
@@ -10,7 +11,6 @@ class ExprsTest{
     var a = [];
     //Exprs.quote(a[1]);
     //Exprs.quote(var something = "oops");
-    Exprs.quote(new TestClass());
   }
 }
 class TestClass{

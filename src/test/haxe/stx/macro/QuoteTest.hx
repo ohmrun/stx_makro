@@ -33,6 +33,7 @@ class QuoteTest{
             pos : {  } 
         }
     }
+    /*
     public function test(){
         trace("___________");
         var out = Q.quote({
@@ -44,5 +45,5 @@ class QuoteTest{
     
         trace("___________");
             
-    }
+    }*/
 }

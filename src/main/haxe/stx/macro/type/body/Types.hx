@@ -11,7 +11,11 @@ import stx.Equal;
   import haxe.macro.Type;
   import haxe.macro.Expr;
   import haxe.macro.Context;
+
   import stx.macro.Exprs;
+  import stx.macro.type.EnumTypes;
+  import stx.macro.type.ClassTypes;
+  import stx.macro.type.Params;
 #end
 
 class Types{
@@ -63,7 +67,7 @@ class Types{
     return if(isAnonType(type)){
           "";
         }else{
-        "";
+          "";
         }
   }
   static public function name(t:Null<Type>):Option<String>{
@@ -189,8 +193,19 @@ class Types{
     return switch(type){
       case TAnonymous( a ) : a.get().fields;
       case TInst(v,_)      : v.get().fields.get();
-      default : [];
+      default               : [];
+    }
+  }
+  static public function eqR(l:Type,r:Type,eq:Type->Type->Bool):Bool{
+    return switch([l,r]){
+      case [TMono(t0),TMono(t1)]        : eq(t0.get(),t1.get());
+      case [TEnum(t0,p0),TEnum(t1,p1)]  : 
+        EnumTypes.eqR(t0.get(),t1.get(),eq) && Params.eqR(p0,p1,eq);
+      case [TInst(t0,p0),TInst(t1,p1)]  : 
+        ClassTypes.eqR(t0.get(),t1.get(),eq) && Params.eqR(p0,p1,eq);
+      default : false;
     }
   }
   #end
+  
 }

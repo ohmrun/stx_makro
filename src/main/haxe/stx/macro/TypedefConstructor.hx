@@ -10,16 +10,16 @@ package stx.macro;
 @:dce
 class StructHelper {
   public static macro function make(typeExpr:Expr, fieldExprs:Array<Expr>):Expr {
-  var type = try
-Context.getType(typeExpr.toString())
-catch (e:Dynamic)
-throw new Error(e.toString(), typeExpr.pos);
- 
-switch (type.follow()) {
-case TAnonymous(_.get() => anon):
-var fieldInits = new Map();
-for (e in fieldExprs) {
-switch (e) {
+  var type = try{
+    Context.getType(typeExpr.toString())
+  }catch (e:Dynamic){
+    throw new Error(e.toString(), typeExpr.pos);
+  }
+  switch (type.follow()) {
+    case TAnonymous(_.get() => anon):
+      var fieldInits = new Map();
+        for (e in fieldExprs) {
+        switch (e) {
 case macro $i{fieldName} = $value:
 fieldInits[fieldName] = {expr: value.expr, pos: e.pos};
 default:

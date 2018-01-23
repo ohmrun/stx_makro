@@ -4,6 +4,8 @@ package stx.macro;
 using thx.Arrays;
 using thx.Strings;
 
+import stx.macro.expr.Equality;
+
 import stx.Macro;
 import haxe.ds.Option;
 
@@ -71,12 +73,8 @@ class Exprs{
     }
     return rec(e,[]).join(".");
   }
-  #end
-}
-class Positions{
-  #if macro
-  static public inline function equals(l:Position,r:Position):Bool{
-    return true;//(l.file == r.file) && (l.min == r.min) && (l.max == r.max);
+  static public function eq(l:Expr,r:Expr):Bool{
+    return new Equality().apply(l,r);
   }
   #end
 }
