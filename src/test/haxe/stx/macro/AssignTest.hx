@@ -27,20 +27,6 @@ class AssignTest{
     );*/
   }
 }
-typedef BaseTDef = {
-  var a : String;
-  var b : Int;
-  var c : Float;
-}
-typedef NarrowTDef = {
-  var a : String;
-  var b : Int;
-}
-typedef WideTDef = {
-  >BaseTDef,
-  var d : Int;
-}
-typedef Incompatible = {
-  var a : String;
-  var b : Int;
-}
+
+
+

@@ -1,14 +1,9 @@
-import haxe.macro.Context;
+package stx;
+
+import stx.fn.Package;
+import stx.fp.Package;
 #if macro
-
-//using stx.Upshot;
-using tink.MacroApi;
-
-import haxe.macro.Expr;
-import haxe.macro.Type;
-
-import haxe.macro.Printer;
-import thx.ReadonlyArray in Array;
-using thx.Options;
+import stx.macro.Package;
 
 #end
+import stx.macro.core.Package;

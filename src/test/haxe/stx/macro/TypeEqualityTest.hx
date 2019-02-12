@@ -1,19 +1,8 @@
 package stx.macro;
 
-import stx.macro.type.EnumTypes;
-import stx.macro.BaseTypes;
-import stx.macro.Types;
-import stx.macro.type.TypeParameters;
-import fig.core.Package;
-import stx.types.*;
 
-class TypeEqualityTest{
-    public function new(){
-
-    }
-    public function test(){
-        TypeEqualities.apply(new SimpleClassType());
-    }
+class TypeEqualityTest extends TestCase{
+    
 }
 class TypeEquality{
     var flags : TypeEqualityFlags;
@@ -27,8 +16,6 @@ class TypeEquality{
 }
 class TypeEqualities{
     static public macro function apply(e:Expr):Expr{
-        var type = stx.macro.Exprs.getType(e);
-            
         return macro true;
     }
 #if macro
