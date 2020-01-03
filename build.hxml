@@ -18,4 +18,4 @@
 -lib stx
 -lib stx_graph
 
--cp src/dev1/haxe
+-cp src/main/haxe
