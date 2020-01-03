@@ -1,11 +1,11 @@
-import haxe.macro.Type;
-import stx.test.Package;
-
-class Main extends TestRunner{
+class Main{
   static public function main(){
-        
+    #if test
+      #if macro   
+        utest.UTest.run(stx.makro.Package.macro_tests());
+      #else
+        utest.UTest.run(stx.makro.Package.tests());
+      #end       
+    #end
   }
 }
-#if macro
-
-#end

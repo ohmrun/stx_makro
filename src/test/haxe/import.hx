@@ -11,7 +11,8 @@ import stx.core.head.Data;
 import stx.core.Package;
 import stx.fn.Package;
 import stx.fp.Package;
-import stx.test.Package;
+import stx.log.Package;
+
 
 import types.*;
 
@@ -28,5 +29,8 @@ import types.*;
   import tink.macro.Sisyphus;
   import tink.macro.Types in TKTypes;
 #end
-  using stx.core.Lift;
-  using stx.ds.Lift;
+
+
+using stx.core.Lift;
+using stx.ds.Lift;
+using stx.log.Lift;

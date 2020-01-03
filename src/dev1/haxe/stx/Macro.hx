@@ -4,7 +4,7 @@ using stx.core.Lift;
 import haxe.ds.StringMap;
 
 class Macro{
-  static public var build(default,null) : stx.macro.core.pack.Build;
+  static public var build(default,null) : stx.makro.core.pack.Build;
   static public var anons(default,null) : AnonsMap = new AnonsMap();
 }
 abstract AnonsMap(StringMap<String>){

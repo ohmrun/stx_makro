@@ -1,17 +1,21 @@
--cp src/dev1/haxe
--cp src/test/haxe
-
--dce no
-#--macro stx.macro.core.body.Builds.build()
 -main Main.hx
--D no-macro-cache
--D eval-stack
 --interp
 
--lib stx
--lib stx_graph
--lib stx_test
+
+#--macro stx.macro.core.body.Builds.build()
+
+-dce no
+-D no-macro-cache
+-D eval-stack
+-D test
+
+-lib utest
 -lib yaml
 -lib tink_macro
 -lib tink_lang
 -lib tink_typecrawler
+
+-lib stx
+-lib stx_graph
+
+-cp src/dev1/haxe
