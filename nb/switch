@@ -1,0 +1,22 @@
+
+case EUnop( op , postFix, e  ):
+case EVars( vars ):
+case EFunction( name , f):
+case EBlock( exprs ):
+case  EFor( it , expr  ):
+case EIn( e1 , e2  ):
+case EIf( econd , eif , eelse ):
+case EWhile( econd , e , normalWhile):
+case ESwitch( e , cases, edef):
+case ETry( e , catches ):
+case EReturn( e ):
+case EBreak:
+case EContinue:
+case EUntyped( e  ):
+case EThrow( e  ):
+case ECast( e , t ):
+case EDisplay( e , isCall):
+case EDisplayNew( t ):
+case ETernary( econd , eif , eelse  ):
+case ECheckType( e , t ):
+case EMeta( s, e  ):
