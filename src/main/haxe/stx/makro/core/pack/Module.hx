@@ -1,17 +1,16 @@
 package stx.makro.core.pack;
 
-using stx.makro.Lift;
 
-import stx.makro.core.head.data.Module in ModuleT;
-
-@:forward abstract Module(ModuleT) from ModuleT{
-
+@:forward abstract Module(SourceIdentDef) from SourceIdentDef{
+  public function new(self){
+    this = self;
+  }
   public function cons(str:String):Module{
     return switch([this.module,this.pack]){
-      case [null,[]]  : { module : null, pack : [str], name : this.name};
-      case [null,arr] : { module : null, pack : [str].ds().concat(arr), name : this.name};
-      case [md,[]]    : { module : '$str.$md', pack : [] , name : this.name };
-      case [md,arr]   : { module : '$str.$md', pack : [str].ds().concat(arr) , name : this.name } ;
+      case [None,[]]        : { module : None, pack : [str], name : this.name};
+      case [Some(md),[]]    : { module : Some(new haxe.io.Path('$str${md.sep()}$md')), pack : [] , name : this.name };
+      case [None,arr]       : { module : None, pack : [str].concat(arr).prj(), name : this.name};
+      case [Some(md),arr]   : { module : Some(new haxe.io.Path('$str${md.sep()}$md')), pack : [str].concat(arr).prj() , name : this.name } ;
     }
   }
   public function call(str):MethodRef{
@@ -26,21 +25,18 @@ import stx.makro.core.head.data.Module in ModuleT;
     function f(next,memo) return efield(memo,next).expr(pos);
 
     return switch([id.module,id.pack]){
-      case [null,[]]  : ident(head);
-      case [null,arr] : 
-        var arr = arr.snoc(head);
-        arr.tail().fold(f,ident(arr.head().def(()->"")));
-      case [str,_]  : 
-        var arr = str.split(".").ds().snoc(head);
-        arr.tail().fold(f,ident(arr.head().def(()->"")));
-    }
+      case [None,[]]      : ident(head);
+      case [None,arr]     : 
+        var arr = __.of(arr).defv([]).snoc(head);
+        arr.tail().lfold(f,ident(arr.head().def(()->"")));
+      case [Some(dir),_]  : 
+        var arr = dir.split().snoc(head);
+        arr.tail().lfold(f,ident(arr.head().def(()->"")));
+    };
   }
-  public function toString():String{
-    return switch([this.module,this.pack]){
-      case [null,[]]  : this.name;
-      case [null,arr] : arr.snoc(this.name).join(".");
-      case [md,[]]    : '$md.${this.name}';
-      case [md,arr]   : '$md.${this.name}';
-    }
+  public function equals(that:SourceIdentDef){
+    var thix = new SourceIdent(this);
+    var thax = new SourceIdent(that);
+    return thix.eq(thax);
   }
 }

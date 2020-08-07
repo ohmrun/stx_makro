@@ -1,7 +1,7 @@
 package stx.makro.type.body;
 
 class EnumTypes{
-  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:Product<TFunParamArray,Option<Expr>>,pos){
+  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:TFunParamArray->TFunParamArray->Option<Expr>,pos){
     function prep(str:String,p:TFunParam):TFunParam return  { name : '${str}${p.name}', opt : p.opt, t : p.t };
     
     return getBinaryCases(
@@ -35,10 +35,10 @@ class EnumTypes{
     return {
       name    : e.name,
       pack    : e.pack,
-      module  : e.module
+      module  : new haxe.io.Path(e.module)
     };
   }
-  @:noUsing static public function getBinaryCases(e0,e1,gen:Product<EnumValueConstructor,Array<Case>>,pos){
+  @:noUsing static public function getBinaryCases(e0,e1,gen:EnumValueConstructor->EnumValueConstructor->Array<Case>,pos){
     var lparams = getConstructors(e0);
     var rparams = getConstructors(e1);
     var e0id    = getModule(e0);
@@ -60,7 +60,7 @@ class EnumTypes{
         (next0,memo1:Array<Case>) -> memo1.concat(next0),
         memo
       ),
-      [].ds()
+      []
     );
     ExprDefs.ESwitch(
       ExprDefs.EArrayDecl([Exprs.mark(pos).prj(),Exprs.mark(pos).prj()]).expr(pos),
@@ -74,7 +74,7 @@ class EnumTypes{
           (c) -> EnumValueConstructor.make(e,getModule(e).call(c.key),c.val)
         ).map(gen).fold(
           (next,memo:Array<Case>) ->  memo.concat(next),
-          [].ds()
+          []
         );
     return ExprDefs.ESwitch(
       Exprs.mark(pos),
@@ -106,7 +106,7 @@ class EnumTypes{
               expr   : case_expr
             }
           }
-        ).map((c) -> [c].ds()).def(() -> [].ds());
+        ).map((c) -> [c]).def(() -> []);
       }
     ,pos
     );
@@ -123,16 +123,16 @@ class EnumTypes{
    */
   @:noUsing static public function switcher<U>(e:EnumType,handler:Array<TFunParam>->Expr,pos,def):Expr->Expr{
     var each = constructorHandler(e,
-      handler.fn().fork((x)->x)
+      handler.fn().split((x)->x)
     );
     var next = [];
     for(key => val in each){
       var case_call_source = val.snd();
       var case_call : Array<StdExpr> = case_call_source.map(
-        (v:TFunParam) -> v.name.toModule().expr(pos)
+        (v:TFunParam) -> v.name.toModule().map(x -> x.expr(pos)).force()
       );
-      var head  = key.toModule().expr(pos);
-      var value = case_call.empty() ? head : ExprDefs.ECall(head,case_call.prj()).expr(pos);
+      var head  = key.toModule().force().expr(pos);
+      var value = !case_call.is_defined() ? head : ExprDefs.ECall(head,case_call.prj()).expr(pos);
       var case_ : Case = {
         expr    : val.fst(),
         values  : [value]
@@ -144,14 +144,18 @@ class EnumTypes{
       ).expr(pos);
   }
   @:noUsing static public function getConstructors(e:EnumType):Map<String,TFunParamArray>{
-    return KVs.fromMap(e.constructs).fold(
+    return e.constructs.toArrayKV().fold(
       (next,memo:Map<String,TFunParamArray>) -> next.into(
         (k,v) -> switch v.type {
-          case TFun(args,_) : memo.set(k,(args:TFunParamArray));
-          default           : memo.set(k,[]);
+          case TFun(args,_) : 
+            memo.set(k,(args:TFunParamArray));
+            memo;
+          default           : 
+            memo.set(k,[]);
+            memo;
         }
-      )
-      ,Maps.string()
+      ),
+      __.core().Map().String()
     );
   } 
   @:noUsing static public function constructorHandler<U>(e:EnumType,handler:Array<TFunParam>->U):StringMap<U>{

@@ -8,8 +8,8 @@ import stx.makro.body.Types;
   }
   @:from static public function fromType(type:Type):TypeParam{
     return new TypeParam(switch(type){
-      case TInst(t, []): Types.getModule(type);
-      default : __.fault().unexpected(); null; 
+      case TInst(t, [])             : type.getModule().force(); 
+      default                       : throw __.fault().of(UnexpectedMacroCondition);
     });
   }
 }

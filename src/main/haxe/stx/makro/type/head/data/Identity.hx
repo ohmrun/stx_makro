@@ -5,7 +5,7 @@ import stx.makro.core.pack.Module in ModuleA;
 
 enum Identity {
 	TAwkward;
-  TLambda(args:Array<Field<IdentityA>>,ret:IdentityA);
+	TLambda(args:Array<Field<IdentityA>>,ret:IdentityA);
 	TAnon(arr:Array<Field<IdentityA>>);
 	TParametrised(t:IdentityA, params:Array<IdentityA>);
 	TIdentity(ident:ModuleA);

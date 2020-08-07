@@ -1,10 +1,10 @@
 package stx;
 
-using stx.core.Lift;
 import haxe.ds.StringMap;
 
-class Macro{
-  static public var build(default,null) : stx.makro.core.pack.Build;
+using stx.Nano;
+
+@:allow(stx.makro)class Macro{
   static public var anons(default,null) : AnonsMap = new AnonsMap();
 }
 abstract AnonsMap(StringMap<String>){

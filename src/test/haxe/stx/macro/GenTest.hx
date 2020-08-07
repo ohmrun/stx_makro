@@ -36,7 +36,7 @@ class GenTest extends Case{
     };   
     var printer = new Printer();
     var show    = printer.printTypeDefinition(td);
-    build.deploy(td);
+    build.publish(td);
     return macro {};
   }
 }

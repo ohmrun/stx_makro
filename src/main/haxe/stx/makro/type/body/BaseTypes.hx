@@ -9,8 +9,9 @@ class BaseTypes{
   static public function getModule(b:BaseType):Module{
     return {
       name : b.name,
-      pack : b.pack
-    }
+      pack : b.pack,
+      module : None
+    };
   }
   static public function hasPack(b:BaseType):Bool{
     return b.pack != null && b.pack.length > 0;

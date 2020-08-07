@@ -2,45 +2,49 @@ package stx.makro;
 
 using Lambda;
 
-using tink.CoreApi;
 
 import haxe.ds.StringMap;
+import haxe.io.Path;
 import haxe.macro.Type;
 import haxe.macro.Expr;
 
-import stx.makro.alias.*;
+using tink.CoreApi;
+
+import stx.makro.core.head.Data;
+
+
+using stx.Pico;
+using stx.Nano;
+
+import stx.makro.alias.StdExprDef;
+import stx.makro.alias.StdConstant;
+import stx.makro.alias.StdType;
+
+using stx.Fn;
+using stx.Fp;
+using stx.Ds;
+using stx.Log;
+using stx.ASys;
+using stx.Arw;
+using stx.Ext;
 
 #if macro
-  import tink.typecrawler.FieldInfo;
-  import tink.typecrawler.Generator;
-  import tink.typecrawler.*;
+  import tink.macro.Member;
+  import stx.makro.type.head.Data;
+  
+  import stx.makro.alias.*;
 
   import haxe.macro.Context; 
   import haxe.macro.Context.*;
 
+  using haxe.macro.Tools;
+
+  using tink.MacroApi;
+  using stx.makro.Lift;
 
   import stx.makro.core.Package;
   import stx.makro.Package;
   import stx.makro.type.Package;
   import stx.makro.expr.Package;
-
-  using haxe.macro.Tools;
-  using tink.MacroApi;
-  using stx.makro.Lift;
+  import stx.makro.gen.Package;
 #end
-
-import stx.core.head.Data;
-
-import stx.core.Package;
-import stx.fn.Package;
-import stx.fp.Package;
-import stx.ds.Package;
-import stx.log.Package;
-import stx.fp.Package;
-
-using stx.core.Lift;
-using stx.fn.Lift;
-using stx.ds.Lift;
-using stx.assert.Lift;
-using stx.reflect.Lift;
-using stx.log.Lift;

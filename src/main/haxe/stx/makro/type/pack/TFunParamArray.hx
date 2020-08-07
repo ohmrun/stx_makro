@@ -8,7 +8,7 @@ package stx.makro.type.pack;
     return ExprDefs.ECall(
       m.expr(pos).prj(),
       this.map(
-        (param) -> param.getModule().expr(pos)
+        (param) -> param.getModule().force().expr(pos)
       ).prj()
     ).expr(pos);
   }

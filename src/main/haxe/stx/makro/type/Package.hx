@@ -14,3 +14,8 @@ typedef EnumValueConstructor   = stx.makro.type.pack.EnumValueConstructor;
 
 typedef EnumType          = stx.makro.type.pack.EnumType;
 typedef EnumTypes         = stx.makro.type.body.EnumTypes;
+
+typedef ClassType         = stx.makro.type.pack.ClassType;
+typedef ClassTypes        = stx.makro.type.body.ClassTypes;
+
+typedef ClassAndParam     = stx.makro.type.pack.ClassAndParam;

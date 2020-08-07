@@ -9,8 +9,8 @@ import stx.makro.type.head.data.TFunParam in TFunParamT;
     return 
       this.name == that.name && 
       this.opt == that.opt && 
-      this.t.stx().getIdentity().equals(
-        that.t.stx().getIdentity()
+      this.t.makro().getIdentity().equals(
+        that.t.makro().getIdentity()
       );
   }
   public function getModule(){

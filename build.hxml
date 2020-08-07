@@ -1,21 +1,33 @@
--main Main.hx
---interp
+#--macro stx.makro.Plugin.use()
+--macro Main.boot()
 
-
-#--macro stx.macro.core.body.Builds.build()
-
--dce no
--D no-macro-cache
--D eval-stack
--D test
+-D no-deprecation-warnings
+#-dce no
+#-D no-macro-cache
+#-D eval-stack
+-D test=stx_makro
 
 -lib utest
--lib yaml
--lib tink_macro
--lib tink_lang
--lib tink_typecrawler
 
--lib stx
--lib stx_graph
+-lib tink_core
+-lib tink_macro
+
+-lib stx_ext
+-lib stx_pico
+-lib stx_nano
+-lib stx_fn
+-lib stx_fp
+-lib stx_ds
+-lib stx_asys
+-lib stx_makro
+-lib stx_build
 
 -cp src/main/haxe
+
+--each
+  -D make
+  -main Main.hx
+  --interp
+--next
+  -main Main.hx
+  --interp

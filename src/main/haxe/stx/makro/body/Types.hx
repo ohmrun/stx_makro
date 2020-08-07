@@ -2,7 +2,7 @@ package stx.makro.body;
 
 class Types{ 
   static public function getMeta(t:Type){
-    return (getBaseType(t):stx.core.pack.Option<BaseType>).map(
+    return (getBaseType(t):stx.pico.Option<BaseType>).map(
       (bt) -> bt.meta.get()
     ).def(()->[]);
   }
@@ -16,7 +16,7 @@ class Types{
     var out = [];
     for (i in 0...params.length){
       var param = params[i];
-      var p : TypeParam = param.t;
+      var p  = TypeParam.fromType(param.t);
       trace(p);
       var impl = implementations[i];
       
@@ -87,15 +87,16 @@ class Types{
         });
     }
   }
-  static public function getModule(t:Type):Null<Module>{
+  static public function getModule(t:Type):Option<Module>{
     return if(isAnonymous(t)){
-      null;
+      None;
     }else{
       var base = getBaseType(t);
-      {
+      Some(({
         name : base.name,
-        pack : base.pack
-      };
+        pack : base.pack,
+        module : None
+      }:Module));
     } 
   }
   static public function isAnonymous(t:Type):Bool{
@@ -119,64 +120,68 @@ class Types{
       default                       : [];
     }
   }
-  static public function mod<T>():Y2<Monoid<T>,Type,T>{
+  static public function mod<T>():Y<Couple<Monoid<T>,Type>,T>{
     var idents = new haxe.ds.StringMap();
 
-    return function rec(fn:Y2<Monoid<T>,Type,T>){
-      return function(m:Monoid<T>,type:haxe.macro.Type):T{
-        var ident = tink.macro.Types.getID(type);
-        //trace('ident: "$ident"');
-        if(ident == null){
+    return function rec(fn:Y<Couple<Monoid<T>,Type>,T>){
+      return function(tp:Couple<Monoid<T>,haxe.macro.Type>):T{
+        return tp.decouple(
+          (m:Monoid<T>,type) -> {
+            var ident = tink.macro.Types.getID(type);
+            //trace('ident: "$ident"');
+            if(ident == null){
 
-        }else{
-          if(idents.exists(ident)){
-            return m.prior();
-          }else{
-            idents.set(ident,true);
+            }else{
+              if(idents.exists(ident)){
+                return m.unit();
+              }else{
+                idents.set(ident,true);
+              }
+            }
+            function f(m,t) return fn(rec)(__.couple(m,t));
+            function fld(next:Type,memo:Monoid<T>):Monoid<T> { return memo.put(f(memo,next)); };
+
+            function pr(ct)  return ct.type;
+            function pr2(tp) return tp.t; 
+
+            return switch (type) {
+              case TMono(t)         :
+                __.option(t.get()).map(f.bind(m)).def(m.unit);
+              case TEnum(t, params) :
+                t.get().params.map(pr2).fold(fld,
+                  params.fold(fld,m)
+                ).unit();
+              case TInst(t, params):
+                params.fold(fld,m).unit();
+              case TType(t, params):
+                params.fold(fld,m).unit();
+              case TFun(args, ret):
+                args.map(pr2)
+                    .fold(fld,fld(ret,m))
+                    .unit();
+              case TAnonymous(a):
+                a.get().fields
+                .map(pr)
+                .fold(fld,m)
+                .unit();
+              case TDynamic(t):
+                __.option(t)
+                  .map(
+                    (t) -> fld(t,m).unit()
+                  ).def(m.unit);
+              case TLazy(lz):
+                fld(lz(),m).unit();
+              case TAbstract(t, params):
+                t.get().array.map(pr)
+                .fold(fld,
+                    params.fold(fld,
+                      fld(t.get().type,m)
+                    )
+                ).unit();
+                
+            }
           }
-        }
-        function f(m,t) return fn(rec)(m,t);
-        function fld(next:Type,memo:Monoid<T>):Monoid<T> { return memo.put(f(memo,next)); };
-
-        function pr(ct)  return ct.type;
-        function pr2(tp) return tp.t; 
-
-        return switch (type) {
-          case TMono(t)         :
-            __.option(t.get()).map(f.bind(m)).def(m.prior);
-          case TEnum(t, params) :
-            t.get().params.map(pr2).fold(fld,
-              params.fold(fld,m)
-            ).prior();
-          case TInst(t, params):
-            params.fold(fld,m).prior();
-          case TType(t, params):
-            params.fold(fld,m).prior();
-          case TFun(args, ret):
-            args.map(pr2)
-                .fold(fld,fld(ret,m))
-                .prior();
-          case TAnonymous(a):
-            a.get().fields
-             .map(pr)
-             .fold(fld,m)
-             .prior();
-          case TDynamic(t):
-            __.option(t)
-              .map(
-                (t) -> fld(t,m).prior()
-              ).def(m.prior);
-          case TLazy(lz):
-            fld(lz(),m).prior();
-          case TAbstract(t, params):
-            t.get().array.map(pr)
-             .fold(fld,
-                params.fold(fld,
-                  fld(t.get().type,m)
-                )
-             ).prior();
-            
-        }
+        );
       }
     }
   }

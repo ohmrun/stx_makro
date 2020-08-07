@@ -8,7 +8,7 @@ import haxe.macro.Type in TypeT;
   public function new(self){
     this = self;
   }
-  public function getModule(){
+  public function getModule():Option<Module>{
     return Types.getModule(this);
   }
   public function isAnonymous(){

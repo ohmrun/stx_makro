@@ -6,19 +6,19 @@ import stx.makro.core.head.data.MethodRef in MethodRefT;
   public function new(self){
     this = self;
   }
-  static public function fromModule(ident:Module,call:String){
+  static public function fromModule(ident:Module,call:String):MethodRef{
     return {
       name    : ident.name,
-      pack    : ident.pack,
+      pack    : __.of(ident.pack).or(()->[]).val(),
       module  : ident.module,
       call    : call
     }
   }
   public function toModule():Module{
     return {
-      name : this.name,
-      pack : this.pack,
-      module : this.module
+      name    : this.name,
+      pack    : this.pack,
+      module  : this.module
     };
   }
   @:noUsing public function expr(pos){ 
@@ -33,10 +33,12 @@ import stx.makro.core.head.data.MethodRef in MethodRefT;
       case [null,[],name]     : f(name,ident(head));
       case [null,arr,name]    : 
         var arr0 = arr.snoc(name).snoc(head);
-        arr0.tail().fold(f,ident(arr0.head().def(()->"")));
+        arr0.tail().lfold(f,ident(arr0.head().def(()->"")));
       case [str,_,name]       : 
-        var arr0 = str.split(".").ds().snoc(head);
-        arr0.tail().fold(f,ident(arr0.head().def(()->"")));
+        var arr0 = str.map(
+          (dir) -> dir.split().snoc(head)
+        ).defv([]);
+        arr0.tail().lfold(f,ident(arr0.head().def(()->"")));
     }
   }
 }
