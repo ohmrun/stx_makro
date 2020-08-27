@@ -77,7 +77,7 @@ class Equals{
     }
   }*/
   static public function apply(type:Type){
-    var ftc = FTC.run(
+    var ftc = Y.run(
       EqualsMonoids.unit(),
       type
     );

@@ -1,5 +1,3 @@
-#--macro stx.makro.Plugin.use()
---macro Main.boot()
 
 -D no-deprecation-warnings
 #-dce no
@@ -19,8 +17,8 @@
 -lib stx_fp
 -lib stx_ds
 -lib stx_asys
--lib stx_makro
 -lib stx_build
+-lib stx_makro
 
 -cp src/main/haxe
 
@@ -28,6 +26,7 @@
   -D make
   -main Main.hx
   --interp
+  --macro Main.boot()
 --next
   -main Main.hx
   --interp

@@ -21,11 +21,6 @@ class LiftType{
     return new stx.makro.Type(t);
   }
 }
-class LiftExpr{
-  static public function makro(e:StdExpr):Expr{
-    return new stx.makro.Expr(e);
-  }
-}
 class LiftEnumType{
   static public function makro(e:StdEnumType):EnumType{
     return new EnumType(e);

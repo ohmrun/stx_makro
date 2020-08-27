@@ -3,8 +3,8 @@ package stx.makro.pack;
 import haxe.macro.Context;
 import stx.makro.Package;
 import stx.makro.expr.Package;
-import stx.makro.expr.pack.Constant;
-import stx.makro.expr.pack.ExprDef;
+import stx.makro.expr.Constant;
+import stx.makro.expr.ExprDef;
 
 
 class Api{

@@ -23,7 +23,7 @@ class Plugin{
 
   static public macro function use(){
     //#if (test||debug)
-      __.log().trace('stx.makro.Plugin.use');
+    __.log().trace('stx.makro.Plugin.use');
     //#end
     var args          = Sys.args();
     var gen_location  = Sys.getCwd() + 'src/gen/haxe';

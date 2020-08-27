@@ -10,7 +10,7 @@ import haxe.macro.Expr;
 
 using tink.CoreApi;
 
-import stx.makro.core.head.Data;
+import stx.makro.Core;
 
 
 using stx.Pico;
@@ -30,7 +30,6 @@ using stx.Ext;
 
 #if macro
   import tink.macro.Member;
-  import stx.makro.type.head.Data;
   
   import stx.makro.alias.*;
 
@@ -42,9 +41,8 @@ using stx.Ext;
   using tink.MacroApi;
   using stx.makro.Lift;
 
-  import stx.makro.core.Package;
-  import stx.makro.Package;
-  import stx.makro.type.Package;
-  import stx.makro.expr.Package;
-  import stx.makro.gen.Package;
+  import stx.makro.Core;
+  import stx.Makro;
+  import stx.makro.Type;
+  import stx.makro.Expr;
 #end

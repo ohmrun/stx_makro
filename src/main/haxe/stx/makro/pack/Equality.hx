@@ -15,7 +15,6 @@ import stx.makro.Package;
 
 import types.*;
 
-
 class Equals{
   macro static public function apply(e:Expr){
     var type = Context.typeof(e);
@@ -26,7 +25,7 @@ class Equals{
   #if macro
   static public function _apply(type:Type){
     return (
-      function rec(ftc:FTC<Monoid<EqualBuild>,Type,EqualBuild>):Monoid<EqualBuild>->Type->EqualBuild{ 
+      function rec(ftc:Y<Monoid<EqualBuild>,Type,EqualBuild>):Monoid<EqualBuild>->Type->EqualBuild{ 
         return function(m:Monoid<EqualBuild>,type:Type){
           trace('rec $type');
           function f(t) return ftc(rec)(m,type);
