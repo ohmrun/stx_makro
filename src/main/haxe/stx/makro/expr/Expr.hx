@@ -6,7 +6,7 @@ package stx.makro.expr;
   public function new(self:StdExpr){
     this = self;
   } 
-  static public function lift(self:StdExpr){
+  static public function lift(self:StdExpr):Expr{
     return new Expr(self);
   }
   static public function mark(pos:Pos):Expr{
@@ -18,11 +18,11 @@ package stx.makro.expr;
   public function getType():stx.makro.Type{
     return stx.makro.Type._.getType(self);
   }
-  static public function ref(str:String,pos){
-    return {
+  static public function ref(str:String,pos):Expr{
+    return lift({
       pos : pos,
       expr : EConst(CIdent(str))
-    };
+    });
   }
   public function prj():StdExpr{
     return this;
@@ -125,7 +125,7 @@ class ExprLift{
 }
 class LiftExpr extends Clazz{
   static public function makro(e:StdExpr):Expr{
-    return new stx.makro.Expr(e);
+    return Expr.lift(e);
   }
   
   public var Constant = {
