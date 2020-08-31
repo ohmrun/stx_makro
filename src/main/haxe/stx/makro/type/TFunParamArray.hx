@@ -6,10 +6,10 @@ package stx.makro.type;
   }
   public function call(m:MethodCall,pos):Expr{
     return ExprDef.ECall(
-      m.expr(pos).prj(),
-      this.map(
+      m.expr(pos),
+      ExprArray.unto((this.map(
         (param) -> param.getModule().toExpr()
-      ).prj()
+      )))
     ).expr(pos);
   }
 } 

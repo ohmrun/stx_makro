@@ -220,3 +220,13 @@ class TypeLift{
     }
   }
 }
+class LiftClassType{
+  static public function makro(ct:StdClassType):stx.makro.type.ClassType{
+    return ct;
+  }
+}
+class LiftType{
+  static public function makro(t:StdType):Type{
+    return new stx.makro.Type(t);
+  }
+}

@@ -1,13 +1,13 @@
 package stx;
 
 import haxe.ds.StringMap;
-
+import stx.makro.alias.StdMetadataEntry;
 
 typedef MakroFailure            = stx.fail.MakroFailure;
 
 #if macro
-  typedef Type                  = stx.makro.Type;
   typedef Expr                  = stx.makro.Expr;
+  typedef Type                  = stx.makro.Type;
 #end
 
 @:allow(stx.makro)class Makro{
@@ -29,3 +29,18 @@ abstract AnonsMap(StringMap<String>){
     }
   }
 }
+class LiftMakro{
+  static public function toModule(str:String):Option<stx.makro.core.Module>{
+    var arr             = str.split(".");
+    var name : String   = arr.pop();
+    return Some(new stx.makro.core.Module({
+      name : name,
+      pack : arr,
+      module : None
+    }));
+  }
+  static public function here(stx:Wildcard){
+    return haxe.macro.Context.currentPos();
+  }
+}
+

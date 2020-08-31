@@ -5,6 +5,7 @@ using Lambda;
 
 import haxe.ds.StringMap;
 import haxe.io.Path;
+
 import haxe.macro.Type;
 import haxe.macro.Expr;
 
@@ -39,10 +40,9 @@ using stx.Ext;
   using haxe.macro.Tools;
 
   using tink.MacroApi;
-  using stx.makro.Lift;
 
-  import stx.makro.Core;
-  import stx.Makro;
-  import stx.makro.Type;
-  import stx.makro.Expr;
+  using stx.makro.Core;
+  using stx.Makro;
+  using stx.makro.Type;
+  using stx.makro.Expr;
 #end

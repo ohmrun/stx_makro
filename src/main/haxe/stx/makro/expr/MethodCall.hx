@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 typedef MethodCallDef = {
   var data : MethodRef;
-  var args : Array<Expr>;
+  var args : ExprArray;
 }
 
 abstract MethodCall(MethodCallDef) from MethodCallDef{
@@ -12,7 +12,7 @@ abstract MethodCall(MethodCallDef) from MethodCallDef{
   static public function pure(def:MethodCallDef){
     return new MethodCall(def);
   }
-  static public function make(ref:MethodRef,args:Array<Expr>):MethodCall{
+  static public function make(ref:MethodRef,args:ExprArray):MethodCall{
     return pure({
       data : ref,
       args : args

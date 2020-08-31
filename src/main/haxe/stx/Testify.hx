@@ -1,7 +1,7 @@
 package stx;
 
 #if macro
-  using stx.makro.Lift;
+  using stx.Makro;
 #end
 
 class Testify{

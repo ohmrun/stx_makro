@@ -70,9 +70,9 @@ class EnumTypeLift{
       []
     );
     ExprDef.ESwitch(
-      ExprDef.EArrayDecl([Expr.mark(pos).prj(),Expr.mark(pos).prj()]).expr(pos),
+      ExprDef.EArrayDecl([Expr.mark(pos),Expr.mark(pos)]).expr(pos),
       next.prj(),
-      Expr.unit(pos).prj()
+      Expr.unit(pos)
     ).expr(pos);
   }
   @:noUsing static public function getSwitch(e:EnumType,gen:Unary<EnumValueConstructor,Array<Case>>,pos):Expr{
@@ -92,11 +92,11 @@ class EnumTypeLift{
   @:noUsing static public function getSimpleSwitch(e:EnumType,gen:TFunParamArray->Option<Expr>,pos):Expr{
     return getSwitch(e,
       function(cons){
-        var args = cons.args.map(
+        var args = ExprArray.lift(cons.args.map(
           (tfp) -> {
             return Constant.CIdent(tfp.name).toExpr(pos);
           }
-        );
+        ));
         trace(cons.ref);
         var call = ExprDef.ECall(
           Expr._._.MethodRef.toExpr(cons.ref,pos),
@@ -135,11 +135,11 @@ class EnumTypeLift{
     var next = [];
     for(key => val in each){
       var case_call_source = val.snd();
-      var case_call : Array<StdExpr> = case_call_source.map(
+      var case_call : ExprArray = case_call_source.map(
         (v:TFunParam) -> v.name.toModule().map(x -> x.toExpr(pos)).force()
       );
       var head  = key.toModule().force().toExpr(pos);
-      var value = !case_call.is_defined() ? head : ExprDef.ECall(head,case_call.prj()).expr(pos);
+      var value = !case_call.is_defined() ? head : ExprDef.ECall(head,case_call).expr(pos);
       var case_ : Case = {
         expr    : val.fst(),
         values  : [value]
