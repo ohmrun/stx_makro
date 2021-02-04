@@ -25,9 +25,6 @@ using stx.Fn;
 using stx.Fp;
 using stx.Ds;
 using stx.Log;
-using stx.ASys;
-using stx.Arw;
-using stx.Ext;
 
 #if macro
   import tink.macro.Member;

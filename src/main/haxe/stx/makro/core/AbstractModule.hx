@@ -1,6 +1,6 @@
 package stx.makro.core;
 
 typedef AbstractModule = {
-  >SourceIdentDef,
+  >IdentDef,
   keys : Array<String>
 }

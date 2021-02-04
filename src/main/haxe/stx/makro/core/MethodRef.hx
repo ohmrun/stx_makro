@@ -1,7 +1,7 @@
 package stx.makro.core;
 
 typedef MethodRefDef = {
-  >SourceIdentDef,
+  >ModuleDef,
   call : String,
 }
 
@@ -12,7 +12,7 @@ typedef MethodRefDef = {
   static public function fromModule(ident:Module,call:String):MethodRef{
     return {
       name    : ident.name,
-      pack    : __.of(ident.pack).or(()->[]).val(),
+      pack    : __.option(ident.pack).defv([]),
       module  : ident.module,
       call    : call
     }

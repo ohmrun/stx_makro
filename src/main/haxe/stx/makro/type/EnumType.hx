@@ -77,8 +77,8 @@ class EnumTypeLift{
   }
   @:noUsing static public function getSwitch(e:EnumType,gen:Unary<EnumValueConstructor,Array<Case>>,pos):Expr{
     var cons  = getConstructors(e);    
-    var cases = cons.toIter().map(
-          (c) -> EnumValueConstructor.make(e,getModule(e).call(c.key),c.val)
+    var cases = cons.toIter().map(Field.fromCouple).map(
+          (c:Field<TFunParamArray>) -> EnumValueConstructor.make(e,getModule(e).call(c.key),c.val)
         ).map(gen).fold(
           (next,memo:Array<Case>) ->  memo.concat(next),
           []
@@ -162,7 +162,7 @@ class EnumTypeLift{
             memo;
         }
       ),
-      __.core().Map().String()
+      __.nano().Map().String()
     );
   } 
   @:noUsing static public function constructorHandler<U>(e:EnumType,handler:Array<TFunParam>->U):StringMap<U>{

@@ -84,103 +84,188 @@ class IdentityLift{
 			case TComposed(fst,_)			: toRuntimeString(fst);
 		}
 	}
-  static public function getTypeIdentity(t:Type):Identity{
-    function rec(ftc:Y<Couple<Monoid<Identity>, Type>, Identity>):Couple<Monoid<Identity>,Type>->Identity {
-			return function(tp:Couple<Monoid<Identity>,Type>):Identity {
-				return tp.decouple(
-					(m:Monoid<Identity>, type:Type) -> {
-						function f(t:Type):Identity
-							return ftc(rec)(__.couple(m, t));
-						return switch (type) {
-							case TInst(t, []):
-								type.getModule().map(TIdentity).defv(TAwkward);
-							case TInst(t, arr):
-								type.getModule().map(
-									TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
-								).defv(TAwkward);
-							case TAbstract(t, []):
-								var sigl = Context.signature(type);
-								var abs = t.get();
-								var sigr = Context.signature(abs.type);
-								if (sigl == sigr) {
-									type.getModule().map(TIdentity).defv(TAwkward);
-								} else {
-									type.getModule().map(
-										TIdentity.fn().then(TComposed.bind(_,f(abs.type))).prj()
-									).defv(TAwkward);
-								}
-							case TAbstract(t, arr):
-								var sigl = Context.signature(type);
-								var abs = t.get();
-								var sigr = Context.signature(abs.type);
-								if (sigl == sigr) {
-									type.getModule().map(
-										TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
-									).defv(TAwkward);
-								} else {
-									type.getModule().map(
-										TIdentity.fn().then(
-											TComposed.bind(_,f(abs.type))
-										).then(
-											TParametrised.bind(_,arr.map(f))
-										).prj()
-									).defv(TAwkward);
-								}
-							case TEnum(t, []):
-								type.getModule().map(TIdentity).defv(TAwkward);
-							case TEnum(t, arr):
-								type.getModule().map(
-									TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
-								).defv(TAwkward);
-							case TFun(args, ret):
-								var arr : Array<Field<Identity>> = 
-									args
-									.map(
-										function (arg):Field<Identity>{
-											return Field.create(arg.name,f(arg.t));
-										}
-									);
-								TLambda(
-									arr, 
-									f(ret)
-								);
-							case TAnonymous(t):
-								var o = t.get();
-								TAnon(o.fields.map((cf) -> __.couple(cf.name, f(cf.type)).toField() ));
-							case TDynamic(null):
-								f(type.follow());
-							case TDynamic(v):
-								f(v);
-							case TLazy(fn):
-								f(fn());
-							case TMono(t):
-								switch (t.get()) {
-									case null:
-										var next = type.follow();
-										var lsig = Context.signature(type);
-										var rsig = Context.signature(next);
-										if(lsig == rsig){
-											m.unit();
-										}else{
-											f(next);
-										}
-									case a: f(a);
-								}
-							case TType(t, []):
-								type.getModule().map(TIdentity).defv(TAwkward);
-							case TType(t, arr):
-								type.getModule().map(
-									TIdentity.fn().then(TParametrised.bind(_,arr.map(f)))
-								).defv(TAwkward);
+	static public function getTypeIdentity(type:Type):Identity{
+		var f = getTypeIdentity;
+		return switch(type){
+			case TInst(t,[]):
+				type.getModule().map(TIdentity).defv(TAwkward);	
+			case TInst(t, arr):
+				type.getModule().map(
+					TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+				).defv(TAwkward);
+			case TAbstract(t, []):
+				var sigl = Context.signature(type);
+				var abs = t.get();
+				var sigr = Context.signature(abs.type);
+				if (sigl == sigr) {
+					type.getModule().map(TIdentity).defv(TAwkward);
+				} else {
+					type.getModule().map(
+						TIdentity.fn().then(TComposed.bind(_,f(abs.type))).prj()
+					).defv(TAwkward);
+				}
+			case TAbstract(t, arr):
+				var sigl = Context.signature(type);
+				var abs = t.get();
+				var sigr = Context.signature(abs.type);
+				if (sigl == sigr) {
+					type.getModule().map(
+						TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+					).defv(TAwkward);
+				} else {
+					type.getModule().map(
+						TIdentity.fn().then(
+							TComposed.bind(_,f(abs.type))
+						).then(
+							TParametrised.bind(_,arr.map(f))
+						).prj()
+					).defv(TAwkward);
+				}
+			case TEnum(t, []):
+				type.getModule().map(TIdentity).defv(TAwkward);
+			case TEnum(t, arr):
+				type.getModule().map(
+					TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+				).defv(TAwkward);
+			case TFun(args, ret):
+				var arr : Array<Field<Identity>> = 
+					args
+					.map(
+						function (arg):Field<Identity>{
+							return Field.create(arg.name,f(arg.t));
 						}
-					}
+					);
+				TLambda(
+					arr, 
+					f(ret)
 				);
-			}
-		};
-		var nxt = rec(rec);
-		var out = nxt(__.couple(Identity._.monoid(), t));
-    return out;
-  }
+			case TAnonymous(t):
+				var o = t.get();
+				TAnon(o.fields.map((cf) -> Field.fromCouple(__.couple(cf.name, f(cf.type))) ));
+			case TDynamic(null):
+				f(type.follow());
+			case TDynamic(v):
+				f(v);
+			case TLazy(fn):
+				f(fn());
+			case TMono(t):
+				switch (t.get()) {
+					case null:
+						var next = type.follow();
+						var lsig = Context.signature(type);
+						var rsig = Context.signature(next);
+						if(lsig == rsig){
+							TAwkward;//TODO is this right?
+						}else{
+							f(next);
+						}
+					case a: f(a);
+				}
+			case TType(t, []):
+				type.getModule().map(TIdentity).defv(TAwkward);
+			case TType(t, arr):
+				type.getModule().map(
+					TIdentity.fn().then(TParametrised.bind(_,arr.map(f)))
+				).defv(TAwkward);
+		}
+	}
+  // static public function getTypeIdentity(t:Type):Identity{
+  //   function rec(ftc:Y<Couple<Monoid<Identity>, Type>, Identity>):Couple<Monoid<Identity>,Type>->Identity {
+	// 		return function(tp:Couple<Monoid<Identity>,Type>):Identity {
+	// 			return tp.decouple(
+	// 				(m:Monoid<Identity>, type:Type) -> {
+	// 					function f(t:Type):Identity
+	// 						return ftc(rec)(__.couple(m, t));
+	// 					return switch (type) {
+	// 						case TInst(t, []):
+	// 							type.getModule().map(TIdentity).defv(TAwkward);
+	// 						case TInst(t, arr):
+	// 							type.getModule().map(
+	// 								TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+	// 							).defv(TAwkward);
+	// 						case TAbstract(t, []):
+	// 							var sigl = Context.signature(type);
+	// 							var abs = t.get();
+	// 							var sigr = Context.signature(abs.type);
+	// 							if (sigl == sigr) {
+	// 								type.getModule().map(TIdentity).defv(TAwkward);
+	// 							} else {
+	// 								type.getModule().map(
+	// 									TIdentity.fn().then(TComposed.bind(_,f(abs.type))).prj()
+	// 								).defv(TAwkward);
+	// 							}
+	// 						case TAbstract(t, arr):
+	// 							var sigl = Context.signature(type);
+	// 							var abs = t.get();
+	// 							var sigr = Context.signature(abs.type);
+	// 							if (sigl == sigr) {
+	// 								type.getModule().map(
+	// 									TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+	// 								).defv(TAwkward);
+	// 							} else {
+	// 								type.getModule().map(
+	// 									TIdentity.fn().then(
+	// 										TComposed.bind(_,f(abs.type))
+	// 									).then(
+	// 										TParametrised.bind(_,arr.map(f))
+	// 									).prj()
+	// 								).defv(TAwkward);
+	// 							}
+	// 						case TEnum(t, []):
+	// 							type.getModule().map(TIdentity).defv(TAwkward);
+	// 						case TEnum(t, arr):
+	// 							type.getModule().map(
+	// 								TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
+	// 							).defv(TAwkward);
+	// 						case TFun(args, ret):
+	// 							var arr : Array<Field<Identity>> = 
+	// 								args
+	// 								.map(
+	// 									function (arg):Field<Identity>{
+	// 										return Field.create(arg.name,f(arg.t));
+	// 									}
+	// 								);
+	// 							TLambda(
+	// 								arr, 
+	// 								f(ret)
+	// 							);
+	// 						case TAnonymous(t):
+	// 							var o = t.get();
+	// 							TAnon(o.fields.map((cf) -> __.couple(cf.name, f(cf.type)).toField() ));
+	// 						case TDynamic(null):
+	// 							f(type.follow());
+	// 						case TDynamic(v):
+	// 							f(v);
+	// 						case TLazy(fn):
+	// 							f(fn());
+	// 						case TMono(t):
+	// 							switch (t.get()) {
+	// 								case null:
+	// 									var next = type.follow();
+	// 									var lsig = Context.signature(type);
+	// 									var rsig = Context.signature(next);
+	// 									if(lsig == rsig){
+	// 										m.unit();
+	// 									}else{
+	// 										f(next);
+	// 									}
+	// 								case a: f(a);
+	// 							}
+	// 						case TType(t, []):
+	// 							type.getModule().map(TIdentity).defv(TAwkward);
+	// 						case TType(t, arr):
+	// 							type.getModule().map(
+	// 								TIdentity.fn().then(TParametrised.bind(_,arr.map(f)))
+	// 							).defv(TAwkward);
+	// 					}
+	// 				}
+	// 			);
+	// 		}
+	// 	};
+	// 	var nxt = rec(rec);
+	// 	var out = nxt(__.couple(Identity._.monoid(), t));
+  //   return out;
+  // }
 
 
 	static public function getModuleIdentity(t:ModuleType):Identity{

@@ -16,7 +16,7 @@ class LiftMethodRefToExpr{
         arr0.tail().lfold(f,ident(arr0.head().def(()->"")));
       case [str,_,name]       : 
         var arr0 = str.map(
-          (dir) -> dir.split().snoc(head)
+          (dir) -> dir.into(head).toArray()
         ).defv([]);
         arr0.tail().lfold(f,ident(arr0.head().def(()->"")));
     }

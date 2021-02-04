@@ -6,7 +6,7 @@ import haxe.macro.Expr.TypeDefinition in TypeDefinitionT;
   public function new(self){
     this = __.option(self).force();
   }
-  static public function create(path:Ident,?fields:Array<tink.macro.Member>,?kind:TypeDefKind,?pos:haxe.macro.Expr.Position):TypeDefinition{
+  static public function create(path:IdentDef,?fields:Array<tink.macro.Member>,?kind:TypeDefKind,?pos:haxe.macro.Expr.Position):TypeDefinition{
     var out : TypeDefinitionT = {
       name    : path.name,
       pack    : (cast path.pack:StdArray<String>),
