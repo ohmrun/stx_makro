@@ -1,12 +1,12 @@
 package stx.makro.expr;
 
-@:forward abstract Expr(StdExpr) to StdExpr{
+@:forward abstract Expr(haxe.macro.Expr) to haxe.macro.Expr{
   static public var _(default,never)            = ExprLift;
   static public var ZERO(default,never) : Expr  = lift({ expr : EBlock([]), pos : null });
-  public function new(self:StdExpr){
+  public function new(self:haxe.macro.Expr){
     this = self;
   } 
-  static public function lift(self:StdExpr):Expr{
+  static public function lift(self:haxe.macro.Expr):Expr{
     return new Expr(self);
   }
   static public function mark(pos:Pos):Expr{
@@ -24,7 +24,7 @@ package stx.makro.expr;
       expr : EConst(CIdent(str))
     });
   }
-  public function prj():StdExpr{
+  public function prj():haxe.macro.Expr{
     return this;
   }
   public function show(){
@@ -39,7 +39,7 @@ package stx.makro.expr;
 class ExprLift{
   static public var _(default,never) = new LiftExpr();
 
-  static function lift(self:StdExpr):Expr return Expr.lift(self);
+  static function lift(self:haxe.macro.Expr):Expr return Expr.lift(self);
 
   /*
   static public function mod<T>():Y<Couple<Monoid<T>,Expr>,T>{
@@ -124,7 +124,7 @@ class ExprLift{
   }*/
 }
 class LiftExpr extends Clazz{
-  static public function makro(e:StdExpr):Expr{
+  static public function makro(e:haxe.macro.Expr):Expr{
     return Expr.lift(e);
   }
   

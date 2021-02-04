@@ -17,7 +17,7 @@
 -lib stx_ds
 
 -lib stx_bake
-
+-lib stx_makro
 -cp src/main/haxe
 
 --each

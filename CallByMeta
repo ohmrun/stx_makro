@@ -1,0 +1,86 @@
+class CallByMeta{
+  static var used : Bool = false;
+  macro static public function use(){
+    var changed = false;
+    if(!used){
+              used  = true;
+      var printer   = new haxe.macro.Printer();
+      var here      = __.here();
+      __.log().debug('"$here"');
+      
+      SyntaxHub.classLevel.add(
+        {
+          data  : function (cb:ClassBuilder){
+            var metadata  = cb.target.meta.get();
+            var stx_call  = metadata.ds().filter(
+              (md) -> {
+                //trace(md.name);
+                return md.name.startsWith(":stx.");
+              }
+            );
+            var shows = [];
+            //__.log().debug(metadata.map((md)->md.name));
+            if(stx_call.length>0){
+              changed   = true;
+              var exprs = [];
+              for(call in stx_call){
+                var arr             = call.name.split(".");
+                    arr[0]          = arr[0].substr(1);
+                var arg             = call.params;
+                var show_args       = arg.ds().map(
+                      (x:Expr) -> {
+                        return switch(x.expr){
+                          case EConst(CIdent("__")) :
+                            var a = cb.target.module.split(".");
+                            var b = cb.target.pack;
+                            var c = cb.target.name;
+                            
+                            var path = a;
+                            if(c != a[a.length-1]){
+                              path.push(c);
+                            }
+                            var expr = MacroStringTools.toFieldExpr(path);
+
+                            //trace(printer.printExpr(expr));
+                            expr;
+                          default : x;
+                        };
+                      }
+                    ).prj();
+              
+
+
+
+
+                shows.push(
+                  {
+                    name : call.name,
+                    args : show_args.map(printer.printExpr)
+                  }
+                );
+                var expr    = { pos : Context.currentPos(), expr : ECall(macro $p{arr},$p{show_args}) };
+                    exprs.push(expr);
+              }
+              var fn = switch(macro function(){
+                $b{exprs};
+              }){
+                case { expr : EFunction(_,f) }  : f;
+                case x                          : null;
+              }
+              
+              var member = Member.method(
+                "__init__",
+                fn
+              );
+              member.isStatic = true;
+              cb.addMember(member);
+            }
+            return changed;
+          },  
+          id    : null
+        }
+      );
+    }
+    return macro {};
+  }
+}
