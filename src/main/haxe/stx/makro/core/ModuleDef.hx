@@ -1,5 +1,5 @@
 package stx.makro.core;
 
 typedef ModuleDef = IdentDef & {
-  var module : Option<haxe.io.Path>;
+  @:optional var module : Option<haxe.io.Path>;
 }
