@@ -14,6 +14,7 @@ import stx.makro.alias.StdClassType;
   @:to public function toBaseType():BaseType{
     return this;
   }
+  public function interfaces(ancestors){ return _.interfaces(this,ancestors); }
 }
 class ClassTypeLift{
   @:noUsing static public function interfaces(ct:ClassType,?ancestors:Bool=false):Array<ClassAndParam>{

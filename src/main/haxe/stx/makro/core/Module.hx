@@ -27,6 +27,9 @@ package stx.makro.core;
   private function get_module(){
     return __.option(this.module).flatten();
   } 
+  @:from static public function fromIdentDef(self:IdentDef):Module{
+    return new Module({ name : self.name, pack : self.pack, module : Option.unit() });
+  }
 }
 class ModuleLift{
   static public function toString(id:Module){
