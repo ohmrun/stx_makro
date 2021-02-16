@@ -56,14 +56,14 @@ class Plugin{
       for(entry in entries){
         var body      = entry.name.split(".");
             body[0]   = body[0].substr(1);
-        trace(body);
+        //trace(body);
         var method    = body.pop();
         var params    = entry.params.map(parameter.bind(type)).prj();
         var path      = body.join(".");
         
-        trace(body.join("."));
+        //trace(body.join("."));
         var clazz     = stx.StdType.resolveClass(path);
-        trace(clazz);
+        //trace(clazz);
         if(clazz == null){
           #if (test || debug)
             #if (!stfu)
