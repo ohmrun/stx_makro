@@ -8,7 +8,7 @@ import haxe.macro.Type;
 import haxe.macro.ExprTools;
 import haxe.macro.MacroStringTools;
 
-import stx.makro.alias.StdType;
+import haxe.macro.Type as StdType;
 //import stx.makro.type.Package;
 
 //using stx.core.Lift;
@@ -23,7 +23,7 @@ class Plugin{
 
   static public macro function use(){
     //#if (test||debug)
-    __.log().trace('stx.makro.Plugin.use');
+    trace('stx.makro.Plugin.use');
     //#end
     var args          = Sys.args();
     var gen_location  = Sys.getCwd() + 'src/gen/haxe';
@@ -34,16 +34,17 @@ class Plugin{
   }
   static function module(arr:Array<ModuleType>){
     //__.log().trace('onAfterTyping');
-    #if make
-      method(arr.map(
+    // #if make
+      method(arr.map_filter(
         (mt) -> switch(mt){
-          case TClassDecl(c)     : TInst(c,[]);
-          case TEnumDecl(e)      : TEnum(e,[]);
-          case TTypeDecl(t)      : TType(t,[]);
-          case TAbstract(a)      : TAbstract(a,[]);
+          case TClassDecl(c)     : Some(TInst(c,[]));
+          case TEnumDecl(e)      : Some(TEnum(e,[]));
+          case TTypeDecl(t)      : Some(TType(t,[]));
+          case TAbstract(a)      : Some(TAbstract(a,[]));
+          default                : None;
         }
       ));
-    #end
+    // #end
   }
   static function method(arr:Array<StdType>){
     for(t in arr){
@@ -55,12 +56,14 @@ class Plugin{
       for(entry in entries){
         var body      = entry.name.split(".");
             body[0]   = body[0].substr(1);
+        trace(body);
         var method    = body.pop();
         var params    = entry.params.map(parameter.bind(type)).prj();
         var path      = body.join(".");
         
-
-        var clazz     = stx.ext.alias.StdType.resolveClass(body.join("."));
+        trace(body.join("."));
+        var clazz     = stx.StdType.resolveClass(path);
+        trace(clazz);
         if(clazz == null){
           #if (test || debug)
             #if (!stfu)
@@ -69,16 +72,17 @@ class Plugin{
           #end
         }
         for (clazz in __.option(clazz)){
-          var value = stx.ext.alias.StdType.createInstance(clazz,[]);
-          Reflect.callMethod(value,Reflect.field(value,method),params);
+          var value = stx.StdType.createInstance(clazz,[]);
+          var method_ref  = Reflect.field(value,method);
+          Reflect.callMethod(value,method_ref,params);
         }
       }
     }
   }
-  static function parameter(type:Type,e:HExpr):Dynamic{
+  static function parameter(type:Type,e:Expr):Dynamic{
     return switch(e.expr){
       case EConst(CIdent("__")) : type;
-      default                   : HExprTools.getValue(e);
+      default                   : ExprTools.getValue(e);
     }
   }
 }

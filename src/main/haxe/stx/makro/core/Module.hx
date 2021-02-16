@@ -30,12 +30,15 @@ package stx.makro.core;
   @:from static public function fromIdentDef(self:IdentDef):Module{
     return new Module({ name : self.name, pack : self.pack, module : Option.unit() });
   }
+  public function toString(){
+    return _.toString(this);
+  }
 }
 class ModuleLift{
   static public function toString(id:Module){
     return switch([id.module,id.pack]){
-      case [None,[]]  : id.name;
-      case [None,arr] : '${arr.join(".")}.${id.name}';
+      case [None,[]]        : id.name;
+      case [None,arr]       : '${arr.join(".")}.${id.name}';
       case [Some(module),_] : '${module}.${id.name}';
     }
   }
