@@ -1,7 +1,7 @@
 package stx.macro;
 
 #if macro
-  import tink.macro.Exprs;
+  import tink.macro.HExprs;
   import tink.macro.Types;
   import haxe.macro.Type;
   import haxe.macro.Expr;
@@ -12,9 +12,9 @@ class ConstructorsTest{
   public function new(){}
   #if macro
   public function testGetArityFromClass(){
-    var e0 = Exprs.toExpr(ArityTestZero);
-    var e1 = Exprs.toExpr(ArityTestOne);
-    var e2 = Exprs.toExpr(ArityTestTwo);
+    var e0 = HExprs.toHExpr(ArityTestZero);
+    var e1 = HExprs.toHExpr(ArityTestOne);
+    var e2 = HExprs.toHExpr(ArityTestTwo);
     trace(Context.typeof(e0));
     var a = Constructors.arity(e0);
     var b = Constructors.arity(e1);
@@ -23,7 +23,7 @@ class ConstructorsTest{
 
     var a   =  new ArityTestZero();
     trace(a);
-    var e1  = Exprs.toExpr(a);
+    var e1  = HExprs.toHExpr(a);
     
 
   }

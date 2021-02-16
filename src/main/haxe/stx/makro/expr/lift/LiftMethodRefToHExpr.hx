@@ -1,10 +1,10 @@
 package stx.makro.expr.lift;
 
-class LiftMethodRefToExpr{
-  static public function toExpr(self:MethodRef,pos){ 
+class LiftMethodRefToHExpr{
+  static public function toHExpr(self:MethodRef,pos){ 
     var ref     = self;
-    var efield  = ExprDef.EField;
-    var ident   = Constant.CIdent.fn().then(c -> Expr._._.Constant.toExpr(c,pos));
+    var efield  = HExprDef.EField;
+    var ident   = Constant.CIdent.fn().then(c -> HExpr._._.Constant.toHExpr(c,pos));
     var head    = ref.call;
     function f(next,memo) return efield(memo,next).expr(pos);
 

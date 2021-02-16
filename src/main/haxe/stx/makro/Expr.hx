@@ -1,10 +1,10 @@
 package stx.makro;
 
-typedef Expr              = stx.makro.expr.Expr;
-typedef ExprArray         = stx.makro.expr.ExprArray;
-typedef ExprArrayDef      = stx.makro.expr.ExprArray.ExprArrayDef;
-typedef MethodCall        = stx.makro.expr.MethodCall; 
-typedef ExprDef           = stx.makro.expr.ExprDef;
+typedef HExpr              = stx.makro.expr.HExpr;
+typedef HExprArray         = stx.makro.expr.HExprArray;
+typedef HExprArrayDef      = stx.makro.expr.HExprArray.HExprArrayDef;
+typedef MethodCall         = stx.makro.expr.MethodCall; 
+typedef HExprDef           = stx.makro.expr.HExprDef;
 
 typedef Constant          = stx.makro.expr.Constant;
 
@@ -17,20 +17,20 @@ typedef MetadataEntry     = stx.makro.expr.MetadataEntry;
 
 
 
-typedef LiftConstantToExpr        = stx.makro.expr.lift.LiftConstantToExpr;
-typedef LiftMethodRefToExpr       = stx.makro.expr.lift.LiftMethodRefToExpr;
-typedef LiftModuleToExpr          = stx.makro.expr.lift.LiftModuleToExpr;
+typedef LiftConstantToHExpr        = stx.makro.expr.lift.LiftConstantToHExpr;
+typedef LiftMethodRefToHExpr       = stx.makro.expr.lift.LiftMethodRefToHExpr;
+typedef LiftModuleToHExpr          = stx.makro.expr.lift.LiftModuleToHExpr;
 
 class Cases{
-  static public function foldKeys<T>(m:Monoid<T>,c:Case):Continuation<T,Expr>{
-    return function(constructor:Expr->T):T{
+  static public function foldKeys<T>(m:Monoid<T>,c:Case):Continuation<T,HExpr>{
+    return function(constructor:HExpr->T):T{
       var values = c.values.fold(
-        (next:stx.makro.alias.StdExpr,memo) -> m.plus(constructor(Expr.lift(next)),memo),
+        (next:stx.makro.alias.StdExpr,memo) -> m.plus(constructor(HExpr.lift(next)),memo),
         m.unit()
       );
-      var guard  = c.guard == null ? m.unit() : constructor(Expr.lift(c.guard));
+      var guard  = c.guard == null ? m.unit() : constructor(HExpr.lift(c.guard));
 
-      var expr   = c.expr == null ? m.unit() : constructor(Expr.lift(c.expr));
+      var expr   = c.expr == null ? m.unit() : constructor(HExpr.lift(c.expr));
 
       return m.plus(m.plus(values,guard),expr);
     } 
@@ -48,8 +48,8 @@ class LiftEnumType{
 }
 
 class LiftEBlock {
-  static public function toEBlock(arr:Array<haxe.macro.Expr>):Expr{
-    return Expr.lift({
+  static public function toEBlock(arr:Array<haxe.macro.Expr>):HExpr{
+    return HExpr.lift({
       expr  : StdExprDef.EBlock(arr.prj()),
       pos   : Context.currentPos()
     });

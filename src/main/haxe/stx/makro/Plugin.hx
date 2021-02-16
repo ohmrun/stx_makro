@@ -75,10 +75,10 @@ class Plugin{
       }
     }
   }
-  static function parameter(type:Type,e:Expr):Dynamic{
+  static function parameter(type:Type,e:HExpr):Dynamic{
     return switch(e.expr){
       case EConst(CIdent("__")) : type;
-      default                   : ExprTools.getValue(e);
+      default                   : HExprTools.getValue(e);
     }
   }
 }

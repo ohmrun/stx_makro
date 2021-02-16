@@ -12,7 +12,7 @@ class GetTypeVarsTest{
     f(new GenericTwoClass(gs));
   }
   static macro function f(e){
-    var expr : stx.macro.Expr = e;
+    var expr : stx.macro.HExpr = e;
     var type : stx.macro.Type = Types.getType(e);
     var params = type.getTypeVars();
     trace(params);

@@ -1,54 +1,54 @@
 package stx.makro.expr;
 
-@:forward abstract Expr(haxe.macro.Expr) to haxe.macro.Expr{
-  static public var _(default,never)            = ExprLift;
-  static public var ZERO(default,never) : Expr  = lift({ expr : EBlock([]), pos : null });
+@:forward abstract HExpr(haxe.macro.Expr){
+  static public var _(default,never)             = HExprLift;
+  static public var ZERO(default,never) : HExpr  = lift({ expr : EBlock([]), pos : null });
   public function new(self:haxe.macro.Expr){
     this = self;
   } 
-  static public function lift(self:haxe.macro.Expr):Expr{
-    return new Expr(self);
+  @:noUsing static public function lift(self:haxe.macro.Expr):HExpr{
+    return new HExpr(self);
   }
-  static public function mark(pos:Pos):Expr{
-    return ExprDef.MARK.expr(pos);
+  @:noUsing static public function mark(pos:Pos):HExpr{
+    return HExprDef.MARK.expr(pos);
   }
-  static public function unit(pos:Pos):Expr{
-    return ExprDef.ZERO.expr(pos);
+  @:noUsing static public function unit(pos:Pos):HExpr{
+    return HExprDef.ZERO.expr(pos);
   }  
   public function getType():stx.makro.Type{
     return stx.makro.Type._.getType(self);
   }
-  static public function ref(str:String,pos):Expr{
+  static public function ref(str:String,pos):HExpr{
     return lift({
       pos : pos,
       expr : EConst(CIdent(str))
     });
   }
-  public function prj():haxe.macro.Expr{
-    return this;
-  }
+  public inline function toExpr() return prj();
+  public function prj():haxe.macro.Expr return this;
+
   public function show(){
     var printer = new haxe.macro.Printer();
     return printer.printExpr(this);
   }
-  public var self(get,never):Expr;
-  private function get_self():Expr{
+  public var self(get,never):HExpr;
+  private function get_self():HExpr{
     return lift(this);
   }
 }
-class ExprLift{
-  static public var _(default,never) = new LiftExpr();
+class HExprLift{
+  static public var _(default,never) = new LiftHExpr();
 
-  static function lift(self:haxe.macro.Expr):Expr return Expr.lift(self);
+  @:noUsing static function lift(self:haxe.macro.Expr):HExpr return HExpr.lift(self);
 
   /*
-  static public function mod<T>():Y<Couple<Monoid<T>,Expr>,T>{
-    return function rec(fn:Y<Couple<Monoid<T>,Expr>,T>){
-      return function(tp:Couple<Monoid<T>,Expr>):T{
+  static public function mod<T>():Y<Couple<Monoid<T>,HExpr>,T>{
+    return function rec(fn:Y<Couple<Monoid<T>,HExpr>,T>){
+      return function(tp:Couple<Monoid<T>,HExpr>):T{
         var m = tp.fst();
         var e = tp.snd();
-        function f(e:Expr) return fn(rec)(__.couple(m,e));
-        function fld(next:Expr,memo:T) return m.plus(memo,f(next));
+        function f(e:HExpr) return fn(rec)(__.couple(m,e));
+        function fld(next:HExpr,memo:T) return m.plus(memo,f(next));
         return switch(e.expr){
           case EConst(c)            :   m.unit();
           case EArray(e1, e2)       :   
@@ -60,11 +60,11 @@ class ExprLift{
           case EParenthesis( e )    :   f(lift(e));
           case EObjectDecl( fields ):   m.unit();//TODO
           case EArrayDecl(values)   :
-            ExprArray.lift(values).fold(fld,m.unit());
+            HExprArray.lift(values).fold(fld,m.unit());
           case ECall( e , params  ) : 
-            ExprArray.lift(params).fold(fld,f(lift(e)));
+            HExprArray.lift(params).fold(fld,f(lift(e)));
           case ENew( t , params )   : 
-            ExprArray.lift(params).fold(fld,m.unit());
+            HExprArray.lift(params).fold(fld,m.unit());
           case EUnop( op , postFix , e ):
             f(lift(e));
           case EVars( vars ):
@@ -72,7 +72,7 @@ class ExprLift{
           case EFunction( name , f ):
             m.unit();
           case EBlock( exprs ):
-            ExprArray.lift(exprs).fold(fld,m.unit());
+            HExprArray.lift(exprs).fold(fld,m.unit());
           case EFor( it, expr ):
             m.plus(f(lift(it)),f(lift(expr)));
           case EIf( econd , eif , eelse ):
@@ -123,18 +123,18 @@ class ExprLift{
     }
   }*/
 }
-class LiftExpr extends Clazz{
-  static public function makro(e:haxe.macro.Expr):Expr{
-    return Expr.lift(e);
+class LiftHExpr extends Clazz{
+  static public function makro(e:haxe.macro.Expr):HExpr{
+    return HExpr.lift(e);
   }
   
   public var Constant = {
-    toExpr : (self:Constant,?p:Pos) -> LiftConstantToExpr.toExpr(self,p)
+    toHExpr : (self:Constant,?p:Pos) -> LiftConstantToHExpr.toHExpr(self,p)
   }
   public var MethodRef = {
-    toExpr : (self:MethodRef,?p:Pos) -> LiftMethodRefToExpr.toExpr(self,p)
+    toHExpr : (self:MethodRef,?p:Pos) -> LiftMethodRefToHExpr.toHExpr(self,p)
   }
   public var Module = {
-    toExpr : (self:Module,?p:Pos) -> LiftModuleToExpr.toExpr(self,p)
+    toHExpr : (self:Module,?p:Pos) -> LiftModuleToHExpr.toHExpr(self,p)
   }
 }

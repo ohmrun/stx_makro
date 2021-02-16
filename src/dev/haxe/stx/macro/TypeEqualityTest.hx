@@ -15,7 +15,7 @@ class TypeEquality{
     }
 }
 class TypeEqualities{
-    static public macro function apply(e:Expr):Expr{
+    static public macro function apply(e:HExpr):HExpr{
         return macro true;
     }
 #if macro

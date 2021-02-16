@@ -2,23 +2,23 @@ package stx.makro.head.data;
 
 class Gen {
   public function new() {}
-  public function wrap(placeholder:Expr, ct:ComplexType):Function return throw 'abstract';
-  public function nullable(e:Expr):Expr return throw 'abstract';
-  public function string():Expr return throw 'abstract';
-  public function float():Expr return throw 'abstract';
-  public function int():Expr return throw 'abstract';
-  public function dyn(e:Expr, ct:ComplexType):Expr return throw 'abstract';
-  public function dynAccess(e:Expr):Expr return throw 'abstract';
-  public function bool():Expr return throw 'abstract';
-  public function date():Expr return throw 'abstract';
-  public function bytes():Expr return throw 'abstract';
-  public function anon(fields:Array<FieldInfo>, ct:ComplexType):Expr return throw 'abstract';
-  public function array(e:Expr):Expr return throw 'abstract';
-  public function map(k:Expr, v:Expr):Expr return throw 'abstract';
-  public function enm(constructors:Array<EnumConstructor>, ct:ComplexType, pos:Position, gen:GenType):Expr return throw 'abstract';
-  public function enumAbstract(names:Array<Expr>, e:Expr, ct:ComplexType, pos:Position):Expr return throw 'abstract';
-  public function rescue(t:Type, pos:Position, gen:GenType):Option<Expr> return throw 'abstract';
+  public function wrap(placeholder:HExpr, ct:ComplexType):Function return throw 'abstract';
+  public function nullable(e:HExpr):HExpr return throw 'abstract';
+  public function string():HExpr return throw 'abstract';
+  public function float():HExpr return throw 'abstract';
+  public function int():HExpr return throw 'abstract';
+  public function dyn(e:HExpr, ct:ComplexType):HExpr return throw 'abstract';
+  public function dynAccess(e:HExpr):HExpr return throw 'abstract';
+  public function bool():HExpr return throw 'abstract';
+  public function date():HExpr return throw 'abstract';
+  public function bytes():HExpr return throw 'abstract';
+  public function anon(fields:Array<FieldInfo>, ct:ComplexType):HExpr return throw 'abstract';
+  public function array(e:HExpr):HExpr return throw 'abstract';
+  public function map(k:HExpr, v:HExpr):HExpr return throw 'abstract';
+  public function enm(constructors:Array<EnumConstructor>, ct:ComplexType, pos:Position, gen:GenType):HExpr return throw 'abstract';
+  public function enumAbstract(names:Array<HExpr>, e:HExpr, ct:ComplexType, pos:Position):HExpr return throw 'abstract';
+  public function rescue(t:Type, pos:Position, gen:GenType):Option<HExpr> return throw 'abstract';
   public function reject(t:Type):String return throw 'abstract';
   public function shouldIncludeField(c:ClassField, owner:Option<ClassType>):Bool return true;
-  public function drive(type:Type, pos:Position, gen:Type->Position->Expr):Expr return gen(type, pos);
+  public function drive(type:Type, pos:Position, gen:Type->Position->HExpr):HExpr return gen(type, pos);
 }   

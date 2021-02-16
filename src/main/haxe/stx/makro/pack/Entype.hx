@@ -1,7 +1,7 @@
 package stx.makro.pack;
 
 @:keep class Entype{
-  @:noUsing static public function apply(expr:Expr):Expr{
+  @:noUsing static public function apply(expr:HExpr):HExpr{
     return switch(expr.expr){
       case EParenthesis({ expr :  ECheckType({ expr : EConst(CIdent("_")), pos : _ }, ct ), pos : _ }) :
           macro function(x:Dynamic):$ct { return (x:$ct); }

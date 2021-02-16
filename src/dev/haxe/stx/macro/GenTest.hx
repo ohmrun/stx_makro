@@ -23,7 +23,7 @@ class GenTest extends Case{
             {
               args  : [],
               ret   : null,
-              expr  : ExprDef._.EBlock([]).expr(pos)
+              expr  : HExprDef._.EBlock([]).expr(pos)
             }
           ),
           pos : __.here()

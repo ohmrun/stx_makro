@@ -14,7 +14,7 @@ class IdentifiersTest{
     generic_simple(s);
 
   }
-  static macro function generic_simple(e:Expr){
+  static macro function generic_simple(e:HExpr){
     var type = Context.typeof(e);
     var out = Identifiers.safeName(type);
     trace(out);

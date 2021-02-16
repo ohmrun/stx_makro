@@ -5,7 +5,7 @@ import Metah.entype;
 import utest.Assert.*;
 import stx.Compare.*;
 
-import ah.Exprs;
+import ah.HExprs;
 import haxe.macro.Expr;
 
 class EntypeTest{

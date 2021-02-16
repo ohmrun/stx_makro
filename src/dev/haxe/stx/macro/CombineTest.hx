@@ -1,11 +1,11 @@
 package stx.macro;
 
-//import stx.macro.Exprs.type;
+//import stx.macro.HExprs.type;
 
 #if macro
   import tink.macro.Bouncer;
   import tink.macro.Types;
-  import tink.macro.Exprs;
+  import tink.macro.HExprs;
   import haxe.macro.Type;
   import haxe.macro.Expr;
   import haxe.macro.Context;

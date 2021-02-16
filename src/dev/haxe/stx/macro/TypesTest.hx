@@ -4,7 +4,7 @@ import haxe.macro.Type;
 
 import utest.Assert.*;
 
-import stx.macro.Exprs;
+import stx.macro.HExprs;
 
 import stx.macro.type.*;
 
@@ -50,8 +50,8 @@ class TypesTest{
     getTypeTestWrapper(a);
     getTypeTestWrapper(Float);
   }
-  static macro function getTypeTestWrapper(e:Expr):Expr{
-    var a =  Exprs.getType(e);
+  static macro function getTypeTestWrapper(e:HExpr):HExpr{
+    var a =  HExprs.getType(e);
     return macro {
       pass();
     };
@@ -71,8 +71,8 @@ class TypesTest{
     isTrue(getIsTerminalWrapper(StringTypedef));
     isTrue(getIsTerminalWrapper((2:IntAbstract)));
   }
-  static macro function getIsTerminalWrapper(e:Expr){
-    var t     = Exprs.getType(e);
+  static macro function getIsTerminalWrapper(e:HExpr){
+    var t     = HExprs.getType(e);
     var isT   = stx.macro.Types.isTerminal(t);
     return macro $v{isT};
   }

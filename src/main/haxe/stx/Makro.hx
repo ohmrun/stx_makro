@@ -5,10 +5,6 @@ import stx.makro.alias.StdMetadataEntry;
 
 typedef MakroFailure            = stx.fail.MakroFailure;
 
-#if macro
-  typedef Expr                  = stx.makro.Expr;
-  typedef Type                  = stx.makro.Type;
-#end
 
 @:allow(stx.makro)class Makro{
   static public var anons(default,null) : AnonsMap = new AnonsMap();

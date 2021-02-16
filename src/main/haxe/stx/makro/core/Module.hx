@@ -23,6 +23,10 @@ package stx.makro.core;
     var thax = Identifier.fromIdentDef(that);
     return thix == thax && this.module.zip(that.module).map(__.decouple((l,r) -> l == r )).defv(true);
   }
+  public var module(get,never) : Option<haxe.io.Path>;
+  private function get_module(){
+    return __.option(this.module).flatten();
+  } 
 }
 class ModuleLift{
   static public function toString(id:Module){

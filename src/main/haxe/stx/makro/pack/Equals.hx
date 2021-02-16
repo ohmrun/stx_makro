@@ -20,7 +20,7 @@ class EqualsMonoids{
 }
 typedef EqualsDescriptor = {
   var name  : String;
-  var expr  : Expr;
+  var expr  : HExpr;
 }
 typedef EqualsValueT = Map<String,EqualsDescriptor>;
 
@@ -39,7 +39,7 @@ class EqualsData{
       Map.make(Comparables.string())
     );
   }
- /* public function get(type:Type):Expr{
+ /* public function get(type:Type):HExpr{
     var id = Equals.get_id(type);
     return if(id == null){
       Equals.express(type);
@@ -47,7 +47,7 @@ class EqualsData{
       var reference = this.rest.get(id).name;
       return 
     }
-    return Expr.UNIT;
+    return HExpr.UNIT;
   }*/
   public function batch(that:EqualsData){
     return make(
@@ -60,12 +60,12 @@ class Equals{
     return tink.macro.Types.getID(t);
   }
   /*
-  static function replace_head_ref(head:Expr,e:Expr){
+  static function replace_head_ref(head:HExpr,e:HExpr){
     return switch(head.expr){
       case ECall(e, [{ expr :}])://ARG1 ARG2
     }
   }
-  static public function express(type:Type,data:EqualsData):Outcome<Expr,stx.Error>{
+  static public function express(type:Type,data:EqualsData):Outcome<HExpr,stx.Error>{
     var id = get_id(type);
     return if(id == null){
       switch(type){

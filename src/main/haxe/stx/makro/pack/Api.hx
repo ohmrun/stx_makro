@@ -4,16 +4,16 @@ import haxe.macro.Context;
 import stx.makro.Package;
 import stx.makro.expr.Package;
 import stx.makro.expr.Constant;
-import stx.makro.expr.ExprDef;
+import stx.makro.expr.HExprDef;
 
 
 class Api{
   public function new(){}
   public function ref(name,pos){
-    return stx.makro.pack.Expr.ref(name,pos);
+    return stx.makro.pack.HExpr.ref(name,pos);
   }
   public function def(){
-    return new ApiExprDef();
+    return new ApiHExprDef();
   }
   public function const(){
     return new ApiConst();
@@ -22,24 +22,24 @@ class Api{
     return new ApiLiterals();
   }
 }
-class ApiExprDef{
+class ApiHExprDef{
   public function new(){}
-  public function econst(v):ExprDef{
+  public function econst(v):HExprDef{
     return EConst(v);
   }
-  public function ecall(self,with):ExprDef{
+  public function ecall(self,with):HExprDef{
     return ECall(self,with);
   }
-  public function eswitch(e,cases,def):ExprDef{
+  public function eswitch(e,cases,def):HExprDef{
     return ESwitch(e,cases,def);
   }
-  public function earraydecl(vals):ExprDef{
+  public function earraydecl(vals):HExprDef{
     return EArrayDecl(vals);
   }
-  public function ebinop(op,l,r):ExprDef{
+  public function ebinop(op,l,r):HExprDef{
     return EBinop(op,l,r);
   }
-  public function efield(e,f):ExprDef{
+  public function efield(e,f):HExprDef{
     return EField(e,f);
   }
 }
@@ -60,7 +60,7 @@ class ApiConst{
 }
 class ApiLiterals{
   public function new(){}
-  public function bool(b:Bool,pos):Expr{
+  public function bool(b:Bool,pos):HExpr{
     return new ApiConst().ident(b ? 'true' : 'false').expr(pos);
   }
 }

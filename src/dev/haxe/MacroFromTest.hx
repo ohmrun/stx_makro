@@ -6,7 +6,7 @@
   @:from static public function fromStrung(str:Dynamic){
     return new TestMacroFrom(str);
   }*/
-  @:from static public macro function fromStringExpr(str:haxe.macro.Expr):haxe.macro.Expr{
+  @:from static public macro function fromStringHExpr(str:haxe.macro.Expr):haxe.macro.Expr{
     return switch(str.expr){
       case EConst(CString(str)) : macro $v{str};
       default                   : haxe.macro.Context.error("oops",haxe.macro.Context.currentPos()); macro str;

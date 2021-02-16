@@ -16,7 +16,7 @@ import stx.makro.Package;
 import types.*;
 
 class Equals{
-  macro static public function apply(e:Expr){
+  macro static public function apply(e:HExpr){
     var type = Context.typeof(e);
     trace('type: $type');
     _apply(type);

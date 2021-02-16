@@ -4,10 +4,10 @@ package stx.makro.type;
   public function new(self){
     self;
   }
-  public function call(m:MethodCall,pos):Expr{
-    return ExprDef.ECall(
+  public function call(m:MethodCall,pos):HExpr{
+    return HExprDef.ECall(
       m.expr(pos),
-      ExprArray.unto((this.map(
+      HExprArray.unto((this.map(
         (param) -> param.getModule().toExpr()
       )))
     ).expr(pos);

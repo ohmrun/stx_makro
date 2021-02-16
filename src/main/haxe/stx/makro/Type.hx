@@ -40,8 +40,8 @@ class TypeLift{
       (bt) -> bt.meta.get()
     ).def(()->[]);
   }
-  static public function getType(e:Expr){
-    return Context.typeof(e);
+  static public function getType(e:HExpr){
+    return Context.typeof(e.toExpr());
   }
   static public function getTypeVars(type:Type):Array<{id:TypeParam,type:Type}>{
     var implementations    = getParamImplementations(type);

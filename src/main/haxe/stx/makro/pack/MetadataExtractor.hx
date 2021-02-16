@@ -14,7 +14,7 @@ class MetadataExtractor<C>{
     var registered  = apply(arr);
         target.makro().getBaseType().meta.add(
           target.getBaseType().getModule().toString(),
-          registered.map(Context.makeExpr.bind(_,pos())).prj(),
+          registered.map(Context.makeHExpr.bind(_,pos())).prj(),
           pos()
         );
   }

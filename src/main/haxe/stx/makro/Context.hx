@@ -5,7 +5,7 @@ class Context{
     return haxe.macro.Context.currentPos();
   }
     /*
-  static public macro function mtype(e:Expr):ExprOf<Type>{
+  static public macro function mtype(e:HExpr):HExprOf<Type>{
     var val = Context.typeof(e);
     var out = macro ${val};
     trace(out);

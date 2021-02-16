@@ -6,7 +6,7 @@ class ClassKinds{
       case KNormal:
       case KTypeParameter(constraints):
       case KExtension(cl, params):
-      case KExpr(expr):
+      case KHExpr(expr):
       case KGeneric:
       case KGenericInstance(cl, params):
       case KMacroType:

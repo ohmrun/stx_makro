@@ -1,10 +1,10 @@
 package stx.makro.expr.lift;
 
-class LiftModuleToExpr{
-  static public function toExpr(self:Module,pos){
+class LiftModuleToHExpr{
+  static public function toHExpr(self:Module,pos){
     var id      = self;
-    var efield  = ExprDef.EField;
-    var ident   = Constant.CIdent.fn().then(x->Expr._._.Constant.toExpr(x,pos));
+    var efield  = HExprDef.EField;
+    var ident   = Constant.CIdent.fn().then(x->HExpr._._.Constant.toHExpr(x,pos));
     var head    = id.name;
 
     function f(next,memo) return efield(memo,next).expr(pos);

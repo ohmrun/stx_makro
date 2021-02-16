@@ -28,7 +28,7 @@ class CallByMeta{
                     arr[0]          = arr[0].substr(1);
                 var arg             = call.params;
                 var show_args       = arg.ds().map(
-                      (x:Expr) -> {
+                      (x:HExpr) -> {
                         return switch(x.expr){
                           case EConst(CIdent("__")) :
                             var a = cb.target.module.split(".");
@@ -39,9 +39,9 @@ class CallByMeta{
                             if(c != a[a.length-1]){
                               path.push(c);
                             }
-                            var expr = MacroStringTools.toFieldExpr(path);
+                            var expr = MacroStringTools.toFieldHExpr(path);
 
-                            //trace(printer.printExpr(expr));
+                            //trace(printer.printHExpr(expr));
                             expr;
                           default : x;
                         };
@@ -55,7 +55,7 @@ class CallByMeta{
                 shows.push(
                   {
                     name : call.name,
-                    args : show_args.map(printer.printExpr)
+                    args : show_args.map(printer.printHExpr)
                   }
                 );
                 var expr    = { pos : Context.currentPos(), expr : ECall(macro $p{arr},$p{show_args}) };

@@ -2,6 +2,6 @@ package stx.macro;
 
 
 
-class ExprsTest extends TestCase{
+class HExprsTest extends TestCase{
   public function testImport(){}
 }
