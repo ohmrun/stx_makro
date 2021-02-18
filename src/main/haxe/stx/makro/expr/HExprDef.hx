@@ -35,10 +35,15 @@ abstract HExprDef(StdExprDef) from StdExprDef to StdExprDef{
   }
   public function new(self) this = self;
   public function toHExpr(pos:Pos):HExpr{
-    return new HExpr({
-      pos : pos,
-      expr : this
-    });
+    return HExpr.lift(
+      { 
+        tl : 
+          {
+            pos   : pos,
+            expr  : this
+          }
+      }
+    );
   }
   public function expr(pos){
     return toHExpr(pos);

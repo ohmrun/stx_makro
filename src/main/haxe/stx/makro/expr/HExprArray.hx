@@ -6,7 +6,7 @@ typedef HExprArrayDef = Array<HExpr>;
   public function new(self) this = self;
   static public function lift(self:HExprArrayDef):HExprArray return new HExprArray(self);
   static public function unto(self:Array<StdExpr>):HExprArray{
-    return lift(self.map(HExpr.lift));
+    return lift(self.map(HExpr.fromExpr));
   }
 
   public function toExprArray():Array<haxe.macro.Expr>{

@@ -109,7 +109,7 @@ class EnumTypeLift{
         return expr.map(
           function(case_expr):Case{
             return {
-              values : [call.prj()],
+              values : [call.toExpr()],
               expr   : case_expr.toExpr()
             }
           }

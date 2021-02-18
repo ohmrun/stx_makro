@@ -25,12 +25,12 @@ class Cases{
   static public function foldKeys<T>(m:Monoid<T>,c:Case):Continuation<T,HExpr>{
     return function(constructor:HExpr->T):T{
       var values = c.values.fold(
-        (next:stx.makro.alias.StdExpr,memo) -> m.plus(constructor(HExpr.lift(next)),memo),
+        (next:stx.makro.alias.StdExpr,memo) -> m.plus(constructor(HExpr.fromExpr(next)),memo),
         m.unit()
       );
-      var guard  = c.guard == null ? m.unit() : constructor(HExpr.lift(c.guard));
+      var guard  = c.guard == null ? m.unit() : constructor(HExpr.fromExpr(c.guard));
 
-      var expr   = c.expr == null ? m.unit() : constructor(HExpr.lift(c.expr));
+      var expr   = c.expr == null ? m.unit() : constructor(HExpr.fromExpr(c.expr));
 
       return m.plus(m.plus(values,guard),expr);
     } 
@@ -49,7 +49,7 @@ class LiftEnumType{
 
 class LiftEBlock {
   static public function toEBlock(arr:Array<haxe.macro.Expr>):HExpr{
-    return HExpr.lift({
+    return HExpr.fromExpr({
       expr  : StdExprDef.EBlock(arr.prj()),
       pos   : Context.currentPos()
     });
