@@ -1,6 +1,8 @@
 package stx.makro;
 
 typedef HExpr              = stx.makro.expr.HExpr;
+typedef LiftHExpr          = stx.makro.expr.HExpr.LiftHExpr;
+
 typedef HExprArray         = stx.makro.expr.HExprArray;
 typedef HExprArrayDef      = stx.makro.expr.HExprArray.HExprArrayDef;
 typedef MethodCall         = stx.makro.expr.MethodCall; 

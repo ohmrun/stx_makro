@@ -38,8 +38,8 @@ using stx.Log;
 
   using tink.MacroApi;
 
-  using stx.makro.Core;
-  using stx.Makro;
-  using stx.makro.Type;
-  using stx.makro.Expr;
+  import stx.makro.Core;
+  import stx.Makro;
+  import stx.makro.Type;
+  import stx.makro.Expr;
 #end

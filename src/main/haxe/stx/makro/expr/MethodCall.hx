@@ -23,7 +23,7 @@ abstract MethodCall(MethodCallDef) from MethodCallDef{
   }
   public function expr(pos):HExpr{
     return HExprDef.ECall(
-      HExpr._._.MethodRef.toHExpr(this.data,pos),
+      LiftHExpr.MethodRef.toHExpr(this.data,pos),
       this.args
     ).expr(pos);
   }

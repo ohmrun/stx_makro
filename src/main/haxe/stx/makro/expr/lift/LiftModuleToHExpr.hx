@@ -4,7 +4,7 @@ class LiftModuleToHExpr{
   static public function toHExpr(self:Module,pos){
     var id      = self;
     var efield  = HExprDef.EField;
-    var ident   = Constant.CIdent.fn().then(x->HExpr._._.Constant.toHExpr(x,pos));
+    var ident   = Constant.CIdent.fn().then(x->LiftHExpr.Constant.toHExpr(x,pos));
     var head    = id.name;
 
     function f(next,memo) return efield(memo,next).expr(pos);

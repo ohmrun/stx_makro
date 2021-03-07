@@ -1,6 +1,6 @@
 package stx.makro.expr;
 
-@:using(stx.makro.expr.Constant.ConstantLift)
+//@:using(stx.makro.expr.Constant.ConstantLift)
 abstract Constant(StdConstant) from StdConstant to StdConstant{
   static public var _(default,never) = ConstantLift;
   public function new(self) this = self;

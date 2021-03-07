@@ -7,8 +7,8 @@ typedef TFunParamDef = { t : StdType, opt : Bool, name : String };
     return 
       this.name == that.name && 
       this.opt == that.opt && 
-      this.t.makro().getIdentity().equals(
-        that.t.makro().getIdentity()
+      Type._.makro(this.t).getIdentity().equals(
+        Type._.makro(that.t).getIdentity()
       );
   }
   public function getModule(){

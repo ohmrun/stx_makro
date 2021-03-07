@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 typedef HExprArrayDef = Array<HExpr>;
 
-@:forward abstract HExprArray(HExprArrayDef) from HExprArrayDef to HExprArrayDef{
+@:forward abstract HExprArray(HExprArrayDef) from HExprArrayDef{
   public function new(self) this = self;
   static public function lift(self:HExprArrayDef):HExprArray return new HExprArray(self);
   static public function unto(self:Array<StdExpr>):HExprArray{

@@ -48,7 +48,7 @@ class Plugin{
   }
   static function method(arr:Array<StdType>){
     for(t in arr){
-      var type    = t.makro();
+      var type    = Type._.makro(t);
       var base    = __.option(type.getBaseType()).force();
       var entries = base.meta.get().filter(
           (mde) -> mde.name.startsWith(":stx.")

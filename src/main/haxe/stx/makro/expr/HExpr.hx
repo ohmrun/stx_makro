@@ -6,7 +6,7 @@ package stx.makro.expr;
   public function new(tl){
     this.tl = tl;
   }
-  static public var _(default,never)             = HExprLift;
+  //static public var _(default,never)             = HExprLift;
   static public var ZERO(default,never) : HExpr  = lift({ tl : { expr : EBlock([]), pos : null } });
   @:noUsing static public function lift(self:{ tl : haxe.macro.Expr }):HExpr{
     return new HExpr(self.tl);
@@ -131,13 +131,13 @@ class LiftHExpr extends Clazz{
     return HExpr.lift(e);
   }
   
-  public var Constant = {
+  static public var Constant = {
     toHExpr : (self:Constant,?p:Pos) -> LiftConstantToHExpr.toHExpr(self,p)
   }
-  public var MethodRef = {
+  static public var MethodRef = {
     toHExpr : (self:MethodRef,?p:Pos) -> LiftMethodRefToHExpr.toHExpr(self,p)
   }
-  public var Module = {
+  static public var Module = {
     toHExpr : (self:Module,?p:Pos) -> LiftModuleToHExpr.toHExpr(self,p)
   }
 }

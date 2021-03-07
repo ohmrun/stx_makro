@@ -16,7 +16,7 @@ typedef ClassType               = stx.makro.type.ClassType;
 
 typedef ClassAndParam           = stx.makro.type.ClassAndParam;
 
-@:using(stx.makro.Type.TypeLift)
+//@:using(stx.makro.Type.TypeLift)
 @:forward abstract Type(StdType) from StdType to StdType{
   static public var _(default,never) = TypeLift;
   public function new(self) this = self;
@@ -32,9 +32,17 @@ typedef ClassAndParam           = stx.makro.type.ClassAndParam;
   public function getIdentity(){
     return Identity._.getTypeIdentity(this);
   }
-  
+  public function getModule(){
+    return _.getModule(this);
+  }
+  public function getBaseType(){
+    return _.getBaseType(this);
+  }
 }
 class TypeLift{
+  static public function makro(t:StdType):Type{
+    return new stx.makro.Type(t);
+  }
   static public function getMeta(t:Type){
     return (getBaseType(t):stx.pico.Option<BaseType>).map(
       (bt) -> bt.meta.get()
@@ -158,10 +166,5 @@ class TypeLift{
 class LiftClassType{
   static public function makro(ct:StdClassType):stx.makro.type.ClassType{
     return ct;
-  }
-}
-class LiftType{
-  static public function makro(t:StdType):Type{
-    return new stx.makro.Type(t);
   }
 }

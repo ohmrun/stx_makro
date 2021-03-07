@@ -4,7 +4,7 @@ class LiftMethodRefToHExpr{
   static public function toHExpr(self:MethodRef,pos){ 
     var ref     = self;
     var efield  = HExprDef.EField;
-    var ident   = Constant.CIdent.fn().then(c -> HExpr._._.Constant.toHExpr(c,pos));
+    var ident   = Constant.CIdent.fn().then(c -> LiftHExpr.Constant.toHExpr(c,pos));
     var head    = ref.call;
     function f(next,memo) return efield(memo,next).expr(pos);
 

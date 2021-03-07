@@ -15,19 +15,19 @@ class EnumTypeLift{
       e0,e1,
       function(lc:EnumValueConstructor,rc:EnumValueConstructor){
         var lhs = HExprDef.ECall(
-          lc.ref.toHExpr(pos),
+          LiftMethodRefToHExpr.toHExpr(lc.ref,pos),
           lc.args
           .map(prep.bind("l"))
           .map(
-            (tfa) -> Constant.CIdent(tfa.name).toHExpr(pos)
+            (tfa) -> LiftConstantToHExpr.toHExpr(Constant.CIdent(tfa.name))
           )
         ).expr(pos);
         var rhs = HExprDef.ECall(
-          HExpr._._.MethodRef.toHExpr(rc.ref,pos),
+          LiftHExpr.MethodRef.toHExpr(rc.ref,pos),
           rc.args
           .map(prep.bind("r"))
           .map(
-            (tfa) -> Constant.CIdent(tfa.name).toHExpr(pos)
+            (tfa) -> LiftConstantToHExpr.toHExpr(Constant.CIdent(tfa.name))
           )
         ).expr(pos);
 
@@ -94,12 +94,12 @@ class EnumTypeLift{
       function(cons){
         var args = HExprArray.lift(cons.args.map(
           (tfp) -> {
-            return Constant.CIdent(tfp.name).toHExpr(pos);
+            return LiftConstantToHExpr.toHExpr(Constant.CIdent(tfp.name));
           }
         ));
         trace(cons.ref);
         var call = HExprDef.ECall(
-          HExpr._._.MethodRef.toHExpr(cons.ref,pos),
+          LiftHExpr.MethodRef.toHExpr(cons.ref,pos),
           args
         ).expr(pos);
         trace(call.show());
@@ -136,9 +136,9 @@ class EnumTypeLift{
     for(key => val in each){
       var case_call_source = val.snd();
       var case_call : HExprArray = case_call_source.map(
-        (v:TFunParam) -> v.name.toModule().map(x -> x.toHExpr(pos)).force()
+        (v:TFunParam) -> LiftMakro.toModule(v.name).map(x -> LiftModuleToHExpr.toHExpr(x,pos)).force()
       );
-      var head  = key.toModule().force().toHExpr(pos);
+      var head  = LiftModuleToHExpr.toHExpr(LiftMakro.toModule(key).force(),pos);
       var value = !case_call.is_defined() ? head : HExprDef.ECall(head,case_call).expr(pos);
       var case_ : Case = {
         expr    : val.fst().toExpr(),
