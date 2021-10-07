@@ -39,11 +39,11 @@ class EnumTypeLift{
     );
   }
   @:noUsing static public function getModule(e:EnumType):Module{
-    return {
+    return Module.lift({
       name    : e.name,
-      pack    : e.pack,
+      pack    : Way.lift(e.pack),
       module  : new haxe.io.Path(e.module)
-    };
+    });
   }
   @:noUsing static public function getBinaryCases(e0,e1,gen:EnumValueConstructor->EnumValueConstructor->Array<Case>,pos){
     var lparams = getConstructors(e0);

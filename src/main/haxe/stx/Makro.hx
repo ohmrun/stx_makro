@@ -31,7 +31,7 @@ class LiftMakro{
     var name : String   = arr.pop();
     return Some(new stx.makro.core.Module({
       name : name,
-      pack : arr,
+      pack : Way.lift(arr),
       module : None
     }));
   }

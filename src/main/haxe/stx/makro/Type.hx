@@ -134,11 +134,11 @@ class TypeLift{
       None;
     }else{
       var base = getBaseType(t);
-      Some(({
-        name : base.name,
-        pack : base.pack,
-        module : None
-      }:Module));
+      Some(Module.lift({
+        name    : base.name,
+        pack    : Way.lift(base.pack),
+        module  : None
+      }));
     } 
   }
   static public function is_anonymous(t:Type):Bool{

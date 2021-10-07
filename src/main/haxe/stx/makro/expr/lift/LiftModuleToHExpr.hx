@@ -12,7 +12,7 @@ class LiftModuleToHExpr{
     return switch([id.module,id.pack]){
       case [None,[]]      : ident(head);
       case [None,arr]     : 
-        var arr = __.option(arr).defv([]).snoc(head);
+        var arr = __.option(arr).def(Way.unit).snoc(head);
         arr.tail().lfold(f,ident(arr.head().def(()->"")));
       case [Some(dir),_]  : 
         var arr = dir.into(head).toArray();

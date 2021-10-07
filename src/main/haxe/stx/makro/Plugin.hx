@@ -1,5 +1,6 @@
 package stx.makro;
 
+using stx.Sys;
 using StringTools;
 
 
@@ -20,19 +21,18 @@ import haxe.macro.Type as StdType;
   
 **/
 class Plugin{
-
   static public macro function use(){
     //#if (test||debug)
     trace('stx.makro.Plugin.use');
     //#end
-    var args          = Sys.args();
-    var gen_location  = Sys.getCwd() + 'src/gen/haxe';
+    var args          = __.sys().args();
+    var gen_location  = Way.fromString(__.sys().cwd().get()).concat(['src','gen','haxe']);
     
-    Compiler.addClassPath(gen_location);
+    Compiler.addClassPath(gen_location.toOsString());
     Context.onAfterTyping(module);
     return macro {};
   }
-  static function module(arr:Array<ModuleType>){
+  static function module(arr:Cluster<ModuleType>){
     //__.log().trace('onAfterTyping');
     // #if make
       method(arr.map_filter(
@@ -46,7 +46,7 @@ class Plugin{
       ));
     // #end
   }
-  static function method(arr:Array<StdType>){
+  static function method(arr:Cluster<StdType>){
     for(t in arr){
       var type    = Type._.makro(t);
       var base    = __.option(type.getBaseType()).force();

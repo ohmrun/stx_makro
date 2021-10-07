@@ -3,24 +3,27 @@ package stx.makro.core;
 @:using(stx.makro.core.Module.ModuleLift)
 @:forward abstract Module(ModuleDef) from ModuleDef{
   static public var _(default,never) = ModuleLift;
-  public function new(self){
+  static public function lift(self:ModuleDef):Module{
+    return new Module(self);
+  }
+  public function new(self:ModuleDef){
     this = self;
   }
   public function cons(str:String):Module{
-    return switch([this.module,this.pack]){
-      case [None,[]]        : { module : None, pack : [str], name : this.name};
-      case [Some(md),[]]    : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : [] , name : this.name };
-      case [None,arr]       : { module : None, pack : [str].concat(arr).prj(), name : this.name};
-      case [Some(md),arr]   : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : [str].concat(arr).prj() , name : this.name } ;
-    }
+    return Module.lift(switch([this.module,this.pack]){
+      case [None,[]]        : { module : None, pack : Way.lift([str]), name : this.name};
+      case [Some(md),[]]    : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.unit() , name : this.name };
+      case [None,arr]       : { module : None, pack : Way.lift([str]).concat(arr), name : this.name};
+      case [Some(md),arr]   : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.lift([str]).concat(arr) , name : this.name } ;
+    });
   }
   public function call(str):MethodRef{
     return MethodRef.fromModule(this,str);
   }
   
   public function equals(that:ModuleDef){
-    var thix = Identifier.fromIdentDef(this);
-    var thax = Identifier.fromIdentDef(that);
+    var thix = Ident.lift(this).toIdentifier();
+    var thax = Ident.lift(that).toIdentifier();
     return thix == thax && this.module.zip(that.module).map(__.decouple((l,r) -> l == r )).defv(true);
   }
   public var module(get,never) : Option<haxe.io.Path>;

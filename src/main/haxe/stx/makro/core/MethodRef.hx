@@ -12,7 +12,7 @@ typedef MethodRefDef = {
   static public function fromModule(ident:Module,call:String):MethodRef{
     return {
       name    : ident.name,
-      pack    : __.option(ident.pack).defv([]),
+      pack    : __.option(ident.pack).def(Way.unit),
       module  : ident.module,
       call    : call
     }
