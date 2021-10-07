@@ -72,7 +72,7 @@ class Plugin{
           #end
         }
         for (clazz in __.option(clazz)){
-          var value = stx.StdType.createInstance(clazz,[]);
+          var value       = stx.StdType.createInstance(clazz,[]);
           var method_ref  = Reflect.field(value,method);
           Reflect.callMethod(value,method_ref,params);
         }
