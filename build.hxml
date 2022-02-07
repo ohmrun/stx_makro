@@ -23,6 +23,6 @@
   -main Main.hx
   --interp
   --macro Main.boot()
---next
+--next>
   -main Main.hx
   --interp
