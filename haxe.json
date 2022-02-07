@@ -1,8 +1,13 @@
 {
-  "-cp" : "src/main/haxe",
-  "-lib" : ["tink_core","tink_macro","stx_pico","stx_nano","stx_fn","stx_fp","stx_ds","stx_bake","stx_makro"],
-  "-D"   : [],
   "build" : {
-    
+    "-D"   : ["test=stx_makro"],
+    "-cp" : "src/main/haxe",
+    "-lib" : ["tink_core","tink_macro","stx_pico","stx_nano","stx_fn","stx_fp","stx_ds","stx_bake","stx_makro"],
+    "unit" : {
+      "-main" : "Unit",
+      "interp" : {
+        "--interp" : true
+      }
+    }
   }
 }

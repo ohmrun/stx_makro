@@ -10,12 +10,6 @@ import haxe.macro.ExprTools;
 import haxe.macro.MacroStringTools;
 
 import haxe.macro.Type as StdType;
-//import stx.makro.type.Package;
-
-//using stx.core.Lift;
-//using stx.log.Lift;
-
-//using stx.makro.Lift;
 
 /**
   
@@ -53,6 +47,8 @@ class Plugin{
       var entries = base.meta.get().filter(
           (mde) -> mde.name.startsWith(":stx.")
       );
+      //trace(entries);
+      __.log().trace(_ -> _.pure(entries));
       for(entry in entries){
         var body      = entry.name.split(".");
             body[0]   = body[0].substr(1);
@@ -63,7 +59,7 @@ class Plugin{
         
         //trace(body.join("."));
         var clazz     = stx.StdType.resolveClass(path);
-        //trace(clazz);
+        __.log().trace(_ -> _.pure(clazz));
         if(clazz == null){
           #if (test || debug)
             #if (!stfu)
@@ -73,7 +69,9 @@ class Plugin{
         }
         for (clazz in __.option(clazz)){
           var value       = stx.StdType.createInstance(clazz,[]);
+          //trace(value);
           var method_ref  = Reflect.field(value,method);
+          //trace(method_ref);
           Reflect.callMethod(value,method_ref,params);
         }
       }

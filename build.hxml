@@ -4,6 +4,7 @@
 #-D no-macro-cache
 #-D eval-stack
 -D test=stx_makro
+--macro include('stx.makro.test.TestCall',false)
 
 -lib tink_core
 -lib tink_macro
@@ -23,6 +24,6 @@
   -main Main.hx
   --interp
   --macro Main.boot()
---next>
+--next
   -main Main.hx
   --interp

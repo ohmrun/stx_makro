@@ -1,9 +1,10 @@
 package stx.makro.test;
 
-
+@:keep
 class TestCall{
-  static public function ok(b:Bool,self:Class<Dynamic>){
+  public function new(){}
+  public function ok(b:Bool,self:Class<Dynamic>){
     trace("TESTCALL");
-    __.log().trace(self);
+    __.log().trace(_ -> _.pure(self));
   }
 }
