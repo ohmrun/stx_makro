@@ -132,7 +132,7 @@ class IdentityLift{
 					args
 					.map(
 						function (arg):Field<Identity>{
-							return Field.create(arg.name,f(arg.t));
+							return Field.make(arg.name,f(arg.t));
 						}
 					);
 				TLambda(
