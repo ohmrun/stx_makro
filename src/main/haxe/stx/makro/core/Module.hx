@@ -11,10 +11,10 @@ package stx.makro.core;
   }
   public function cons(str:String):Module{
     return Module.lift(switch([this.module,this.pack]){
-      case [None,[]]        : { module : None, pack : Way.lift([str]), name : this.name};
-      case [Some(md),[]]    : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.unit() , name : this.name };
-      case [None,arr]       : { module : None, pack : Way.lift([str]).concat(arr), name : this.name};
-      case [Some(md),arr]   : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.lift([str]).concat(arr) , name : this.name } ;
+      case [None,p] if(p.length == 0)         : { module : None, pack : Way.lift([str]), name : this.name};
+      case [Some(md),p] if(p.length == 0)     : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.unit() , name : this.name };
+      case [None,arr]                         : { module : None, pack : Way.lift([str]).concat(arr), name : this.name};
+      case [Some(md),arr]                     : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.lift([str]).concat(arr) , name : this.name } ;
     });
   }
   public function call(str):MethodRef{
@@ -40,16 +40,16 @@ package stx.makro.core;
 class ModuleLift{
   static public function toString(id:Module){
     return switch([id.module,id.pack]){
-      case [None,[]]        : id.name;
-      case [None,arr]       : '${arr.join(".")}.${id.name}';
-      case [Some(module),_] : '${module}.${id.name}';
+      case [None,pack] if (pack.length == 0)        : id.name;
+      case [None,arr]                               : '${arr.join(".")}.${id.name}';
+      case [Some(module),_]                         : '${module}.${id.name}';
     }
   }
   static public function toName(id:Module){
     return switch([id.module,id.pack]){
-      case [None,[]]  : id.name;
-      case [None,arr] : '${arr.join("_")}_${id.name}';
-      case [Some(module),_] : '${StringTools.replace(module.toString(),__.sep(),"_")}_${id.name}';
+      case [None,arr] if(arr.length == 0)  : id.name;
+      case [None,arr]                      : '${arr.join("_")}_${id.name}';
+      case [Some(module),_]                : '${StringTools.replace(module.toString(),__.sep(),"_")}_${id.name}';
     }
   }
 }

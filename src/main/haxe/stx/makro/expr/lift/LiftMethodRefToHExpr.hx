@@ -9,8 +9,8 @@ class LiftMethodRefToHExpr{
     function f(next,memo) return efield(memo,next).expr(pos);
 
     return switch([ref.module,ref.pack,ref.name]){
-      case [null,[],null]     : ident(head);
-      case [null,[],name]     : f(name,ident(head));
+      case [null,pack,null] if (pack.length == 0)     : ident(head);
+      case [null,pack,name] if (pack.length == 0)     : f(name,ident(head));
       case [null,arr,name]    : 
         var arr0 = arr.snoc(name).snoc(head);
         arr0.tail().lfold(f,ident(arr0.head().def(()->"")));
