@@ -26,6 +26,12 @@ using stx.Fp;
 using stx.Ds;
 using stx.Log;
 
+import stx.makro.alias.*;
+import stx.makro.Core;
+import stx.Makro;
+import stx.makro.Type;
+import stx.makro.Expr;
+
 #if macro
   import tink.macro.Member;
   
@@ -38,8 +44,4 @@ using stx.Log;
 
   using tink.MacroApi;
 
-  import stx.makro.Core;
-  import stx.Makro;
-  import stx.makro.Type;
-  import stx.makro.Expr;
 #end

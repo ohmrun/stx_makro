@@ -1,6 +1,6 @@
 {
   "build" : {
-    "-D"   : ["test=stx_makro"],
+    "-D"   : ["test=stx_makro","no-deprecation-warnings"],
     "-cp" : "src/main/haxe",
     "-lib" : ["tink_core","tink_macro","stx_pico","stx_nano","stx_fn","stx_fp","stx_ds","stx_bake","stx_makro"],
     "unit" : {
@@ -8,6 +8,12 @@
       "interp" : {
         "--interp" : true
       }
+    },
+    "boot" : {
+      "--macro" : ["Main.boot()"],
+      "-D" : ["make"],
+      "-main" :  "Main",
+      "--interp" : true
     }
   }
 }

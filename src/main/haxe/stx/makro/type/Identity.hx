@@ -94,10 +94,8 @@ class IdentityLift{
 					TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
 				).defv(TAwkward);
 			case TAbstract(t, []):
-				var sigl = Context.signature(type);
 				var abs = t.get();
-				var sigr = Context.signature(abs.type);
-				if (sigl == sigr) {
+				if (type == abs.type) {
 					type.getModule().map(TIdentity).defv(TAwkward);
 				} else {
 					type.getModule().map(
@@ -105,10 +103,8 @@ class IdentityLift{
 					).defv(TAwkward);
 				}
 			case TAbstract(t, arr):
-				var sigl = Context.signature(type);
 				var abs = t.get();
-				var sigr = Context.signature(abs.type);
-				if (sigl == sigr) {
+				if (type == abs.type) {
 					type.getModule().map(
 						TIdentity.fn().then(TParametrised.bind(_,arr.map(f))).prj()
 					).defv(TAwkward);
@@ -143,7 +139,7 @@ class IdentityLift{
 				var o = t.get();
 				TAnon(o.fields.map((cf) -> Field.fromCouple(__.couple(cf.name, f(cf.type))) ));
 			case TDynamic(null):
-				f(type.follow());
+				throw E_MacroType_TDynamicNull;
 			case TDynamic(v):
 				f(v);
 			case TLazy(fn):
@@ -151,14 +147,7 @@ class IdentityLift{
 			case TMono(t):
 				switch (t.get()) {
 					case null:
-						var next = type.follow();
-						var lsig = Context.signature(type);
-						var rsig = Context.signature(next);
-						if(lsig == rsig){
-							TAwkward;//TODO is this right?
-						}else{
-							f(next);
-						}
+						TAwkward;//TODO is this right?
 					case a: f(a);
 				}
 			case TType(t, []):

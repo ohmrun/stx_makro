@@ -1,19 +1,6 @@
 package stx.makro.pack;
-
-import haxe.ds.ObjectMap;
-
-import stx.makro.core.Package;
-
-import stx.fn.Package;
-import stx.fp.Package;
-
-import haxe.macro.*;
-import haxe.macro.Expr;
-import haxe.macro.Type;
-
 import stx.makro.Package;
 
-import types.*;
 
 class Equals{
   macro static public function apply(e:HExpr){

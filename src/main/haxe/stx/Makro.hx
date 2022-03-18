@@ -35,8 +35,10 @@ class LiftMakro{
       module : None
     }));
   }
+  #if macro
   static public function here(stx:Wildcard){
     return haxe.macro.Context.currentPos();
   }
+  #end
 }
 

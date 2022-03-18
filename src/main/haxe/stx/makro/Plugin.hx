@@ -3,7 +3,6 @@ package stx.makro;
 using stx.Sys;
 using StringTools;
 
-
 import haxe.macro.Compiler;
 import haxe.macro.Type;
 import haxe.macro.ExprTools;
@@ -11,9 +10,6 @@ import haxe.macro.MacroStringTools;
 
 import haxe.macro.Type as StdType;
 
-/**
-  
-**/
 class Plugin{
   static public macro function use(){
     //#if (test||debug)

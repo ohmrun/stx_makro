@@ -1,7 +1,7 @@
 package stx.makro.type;
 
 @:using(stx.makro.type.BaseType.BaseTypeLift)
-@:forward abstract BaseType(StdBaseType) from StdBaseType to StdBaseType{
+@:forward abstract BaseType(haxe.macro.Type.BaseType) from haxe.macro.Type.BaseType to haxe.macro.Type.BaseType{
   static public var _(default,never) = BaseTypeLift;
   public function new(self){
     this = self;

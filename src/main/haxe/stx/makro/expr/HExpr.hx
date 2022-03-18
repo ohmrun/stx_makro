@@ -20,8 +20,8 @@ package stx.makro.expr;
   @:noUsing static public function unit(pos:Pos):HExpr{
     return HExprDef.ZERO.expr(pos);
   }  
-  public function getType():stx.makro.Type{
-    return stx.makro.Type._.getType(this);
+  @:noUsing static public function getType(self:HExpr):stx.makro.Type{
+    return Context.typeof(self.toExpr());
   }
   static public function ref(str:String,pos):HExpr{
     return lift({

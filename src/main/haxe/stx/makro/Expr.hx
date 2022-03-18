@@ -1,5 +1,6 @@
 package stx.makro;
 
+#if macro
 typedef HExpr              = stx.makro.expr.HExpr;
 typedef LiftHExpr          = stx.makro.expr.HExpr.LiftHExpr;
 
@@ -50,10 +51,13 @@ class LiftEnumType{
 }
 
 class LiftEBlock {
+  #if macro
   static public function toEBlock(arr:Array<haxe.macro.Expr>):HExpr{
     return HExpr.fromExpr({
       expr  : StdExprDef.EBlock(arr.prj()),
       pos   : Context.currentPos()
     });
   }
+  #end
 }
+#end

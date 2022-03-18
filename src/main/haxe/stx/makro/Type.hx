@@ -1,5 +1,7 @@
 package stx.makro;
 
+typedef MacroTypeFailureSum     = stx.fail.MacroTypeFailure.MacroTypeFailureSum;
+typedef MacroTypeFailure        = stx.fail.MacroTypeFailure;
 typedef TFunParam               = stx.makro.type.TFunParam;
 typedef TFunParamArray          = stx.makro.type.TFunParamArray;
 typedef Identity                = stx.makro.type.Identity;
@@ -23,12 +25,14 @@ typedef ClassAndParam           = stx.makro.type.ClassAndParam;
 
   @:noUsing static public function lift(self:StdType):Type return new Type(self);
 
+  #if macro
   public function followWithAbstracts(){
     return Context.followWithAbstracts(this);
   }
   public function follow(){
     return Context.follow(this);
   }
+  #end
   public function getIdentity(){
     return Identity._.getTypeIdentity(this);
   }
@@ -48,13 +52,11 @@ class TypeLift{
       (bt) -> bt.meta.get()
     ).def(()->[]);
   }
-  static public function getType(e:HExpr){
-    return Context.typeof(e.toExpr());
-  }
+  
   static public function getTypeVars(type:Type):Array<{id:TypeParam,type:Type}>{
     var implementations    = getParamImplementations(type);
     var params             = getBaseType(type).params;
-    var fields             = getFields(type);
+    var fields             = get_fields(type);
     var out                = [];
     for (i in 0...params.length){
       var param = params[i];
@@ -63,13 +65,13 @@ class TypeLift{
       var impl = implementations[i];
       
       out.push({
-        id : p,
-        type : Context.follow(impl)
+        id  : p,
+        type : impl
       });
     }
     return out;
   }
-  static public function getFields(type:Type):Array<ClassField>{
+  static public function get_fields(type:Type):Array<ClassField>{
     return switch(type){
       case TAnonymous( a ) : a.get().fields;
       case TInst(v,_)      : v.get().fields.get();
@@ -164,7 +166,7 @@ class TypeLift{
   }
 }
 class LiftClassType{
-  static public function makro(ct:StdClassType):stx.makro.type.ClassType{
+  static public function makro(ct:haxe.macro.Type.ClassType):stx.makro.type.ClassType{
     return ct;
   }
 }

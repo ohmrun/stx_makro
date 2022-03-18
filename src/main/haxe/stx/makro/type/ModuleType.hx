@@ -1,7 +1,7 @@
 package stx.makro.type;
 
 @:using(stx.makro.type.ModuleType.ModuleTypeLift)
-abstract ModuleType(StdModuleType) from StdModuleType{
+@:forward abstract ModuleType(haxe.macro.Type.ModuleType) from haxe.macro.Type.ModuleType{
   static public var _(default,never) = ModuleTypeLift;
   public function new(self) this = self;
   
