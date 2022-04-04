@@ -14,6 +14,15 @@
       "-D" : ["make"],
       "-main" :  "Main",
       "--interp" : true
+    },
+    "test" : {
+      "-D" : ["stx.log.filter.show=false"],
+      "expr" : {
+        "-main" : "stx.makro.expr.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      }
     }
   }
 }

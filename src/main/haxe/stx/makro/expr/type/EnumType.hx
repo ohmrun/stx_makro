@@ -1,7 +1,7 @@
 package stx.makro.expr.type;
 
 class EnumType{
-  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:TFunParamArray->TFunParamArray->Option<HExpr>,pos){
+  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:HTFunArgCluster->HTFunArgCluster->Option<HExpr>,pos){
     function prep(str:String,p:TFunParam):TFunParam return  { name : '${str}${p.name}', opt : p.opt, t : p.t };
     
     return getBinaryCases(
@@ -31,17 +31,17 @@ class EnumType{
       pos 
     );
   }
-  @:noUsing static public function getBinaryCases(e0,e1,gen:EnumValueConstructor->EnumValueConstructor->Array<Case>,pos){
+  @:noUsing static public function getBinaryCases(e0,e1,gen:HEnumValueConstructor->HEnumValueConstructor->Array<Case>,pos){
     var lparams = getConstructors(e0);
     var rparams = getConstructors(e1);
     var e0id    = getModule(e0);
     var e1id    = getModule(e1);
 
     var consl = lparams.toIter().map(
-      (tp) -> EnumValueConstructor.make(e0,e0id.call(tp.fst()),tp.snd())
+      (tp) -> HEnumValueConstructor.make(e0,e0id.call(tp.fst()),tp.snd())
     );
     var consr = rparams.toIter().map(
-      (tp) -> EnumValueConstructor.make(e0,e1id.call(tp.fst()),tp.snd())
+      (tp) -> HEnumValueConstructor.make(e0,e1id.call(tp.fst()),tp.snd())
     );
 
     var next = consl.map(
@@ -78,7 +78,7 @@ class EnumType{
   @:noUsing static public function getSimpleSwitch(e:EnumType,gen:TFunParamArray->Option<HExpr>,pos):HExpr{
     return getSwitch(e,
       function(cons){
-        var args = HExprArray.lift(cons.args.map(
+        var args = HExprCluster.lift(cons.args.map(
           (tfp) -> {
             return LiftConstantToHExpr.toHExpr(Constant.CIdent(tfp.name));
           }
@@ -121,7 +121,7 @@ class EnumType{
     var next = [];
     for(key => val in each){
       var case_call_source = val.snd();
-      var case_call : HExprArray = case_call_source.map(
+      var case_call : HExprCluster = case_call_source.map(
         (v:TFunParam) -> LiftMakro.toModule(v.name).map(x -> LiftModuleToHExpr.toHExpr(x,pos)).force()
       );
       var head  = LiftModuleToHExpr.toHExpr(LiftMakro.toModule(key).force(),pos);

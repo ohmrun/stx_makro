@@ -8,7 +8,6 @@ abstract HExprDef(StdExprDef){
   static public function lift(self:StdExprDef):HExprDef{
     return new HExprDef(self);
   }
-
   static public function unit():HExprDef{
     return lift(StdExprDef.EConst(CIdent('null')));
   }
@@ -16,37 +15,39 @@ abstract HExprDef(StdExprDef){
     return lift(StdExprDef.EConst(CIdent('$')));
   }
   @:noUsing static public function EConst(v):HExprDef{
-    return HExprDef.lift(StdExprDef.EConst(v));
+    return lift(StdExprDef.EConst(v));
   }
-  @:noUsing static public function ESwitch(e:HExpr,cases:Array<Case>,def:HExpr):HExprDef{
-    return HExprDef.lift(StdExprDef.ESwitch(e.toExpr(),cases.prj(),def.toExpr()));
+  @:noUsing static public function ESwitch(e:HExpr,cases:Cluster<Case>,def:HExpr):HExprDef{
+    return lift(StdExprDef.ESwitch(e.toExpr(),cases.prj(),def.toExpr()));
   }
-  @:noUsing static public function EArrayDecl(vals:HExprArray):HExprDef{
-    return HExprDef.lift(StdExprDef.EArrayDecl(vals.toExprArray()));
+  @:noUsing static public function EArrayDecl(vals:HExprCluster):HExprDef{
+    return lift(StdExprDef.EArrayDecl(vals.toExprArray()));
   }
-  @:noUsing static public function ECall(self:HExpr,with:HExprArray):HExprDef{
-    return HExprDef.lift(StdExprDef.ECall(self.toExpr(),with.toExprArray()));
+  @:noUsing static public function ECall(self:HExpr,with:HExprCluster):HExprDef{
+    return lift(StdExprDef.ECall(self.toExpr(),with.toExprArray()));
   }
   @:noUsing static public function EField(e:HExpr,f:String):HExprDef{
-    return HExprDef.lift(StdExprDef.EField(e.toExpr(),f));
+    return lift(StdExprDef.EField(e.toExpr(),f));
   }
-  @:noUsing static public function EBlock(arr:HExprArray):HExprDef{
-    return HExprDef.lift(StdExprDef.EBlock(arr.toExprArray()));
+  @:noUsing static public function EBlock(arr:HExprCluster):HExprDef{
+    return lift(StdExprDef.EBlock(arr.toExprArray()));
   }
+  @:noUsing static public function EFunction(f:HFunction,?kind:FunctionKind){
+    return lift(StdExprDef.EFunction(kind, f.prj()));
+  }
+  @:noUsing static public function EReturn(?e:HExpr){
+    return lift(StdExprDef.EReturn(__.option(e).map(e -> e.prj()).defv(null)));
+  }
+
   public function new(self) this = self;
-  public function toHExpr(pos:Pos):HExpr{
-    return HExpr.lift(
-      { 
-        tl : 
-          {
-            pos   : pos,
-            expr  : this
-          }
-      }
-    );
+  public function toHExpr(pos:Position):HExpr{
+    return HExpr.make(lift(this),pos);
   }
   public function expr(pos){
     return toHExpr(pos);
+  }
+  public function prj(){
+    return this;
   }
 }
 class HExprDefLift{

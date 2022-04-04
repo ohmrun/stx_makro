@@ -41,4 +41,3 @@ class LiftMakro{
   }
   #end
 }
-

@@ -84,7 +84,7 @@ class IdentityLift{
 			case TComposed(fst,_)			: toRuntimeString(fst);
 		}
 	}
-	static public function getTypeIdentity(type:Type):Identity{
+	static public function getTypeIdentity(type:HType):Identity{
 		var f = getTypeIdentity;
 		return switch(type){
 			case TInst(t,[]):
@@ -139,7 +139,7 @@ class IdentityLift{
 				var o = t.get();
 				TAnon(o.fields.map((cf) -> Field.fromCouple(__.couple(cf.name, f(cf.type))) ));
 			case TDynamic(null):
-				throw E_MacroType_TDynamicNull;
+				throw E_MakroType_TDynamicNull;
 			case TDynamic(v):
 				f(v);
 			case TLazy(fn):
@@ -258,6 +258,6 @@ class IdentityLift{
 
 
 	static public function getModuleIdentity(t:ModuleType):Identity{
-		return TIdentity(BaseType._.getModule(ModuleType._.getBaseType(t)));
+		return TIdentity(HBaseType._.getModule(HModuleType._.getBaseType(t)));
   }
 }

@@ -9,9 +9,12 @@ import stx.makro.test.TestCall;
 
 import stx.Testify;
 
+using stx.makro.Core;
+
 class Main{
   #if macro
-    static public function boot(){     
+    static public function boot(){
+      trace(PositionKind.unit());     
       #if !make
         __.log().trace('BOOT: ${__.bake()}');
         // __.test(

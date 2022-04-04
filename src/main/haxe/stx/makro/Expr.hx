@@ -1,21 +1,35 @@
 package stx.makro;
 
+typedef Printer             = haxe.macro.Printer;
 #if macro
-typedef HExpr              = stx.makro.expr.HExpr;
-typedef LiftHExpr          = stx.makro.expr.HExpr.LiftHExpr;
+typedef HExpr                 = stx.makro.expr.HExpr;
+typedef LiftHExpr             = stx.makro.expr.HExpr.LiftHExpr;
 
-typedef HExprArray         = stx.makro.expr.HExprArray;
-typedef HExprArrayDef      = stx.makro.expr.HExprArray.HExprArrayDef;
-typedef MethodCall         = stx.makro.expr.MethodCall; 
-typedef HExprDef           = stx.makro.expr.HExprDef;
+typedef HField                = stx.makro.expr.HField;
+typedef HFieldType            = stx.makro.expr.HFieldType;
 
-typedef Constant          = stx.makro.expr.Constant;
+typedef HAccess               = stx.makro.expr.HAccess;
 
-typedef TypeDefKind       = stx.makro.expr.TypeDefKind;
-typedef ClassTypeDefKind  = stx.makro.expr.ClassTypeDefKind;
-typedef TypeDefinition    = stx.makro.expr.TypeDefinition;
+typedef HTypePath             = stx.makro.expr.HTypePath;
+typedef HTypeParam            = stx.makro.expr.HTypeParam;
+typedef HComplexType          = stx.makro.expr.HComplexType;
 
-typedef MetadataEntry     = stx.makro.expr.MetadataEntry;
+typedef HExprCluster          = stx.makro.expr.HExprCluster;
+typedef HExprClusterDef       = stx.makro.expr.HExprCluster.HExprClusterDef;
+
+typedef HMethodCallDef        = stx.makro.expr.HMethodCall.HMethodCallDef; 
+typedef HMethodCall           = stx.makro.expr.HMethodCall; 
+typedef HExprDef              = stx.makro.expr.HExprDef;
+typedef HFunction             = stx.makro.expr.HFunction;
+typedef HFunctionArg          = stx.makro.expr.HFunctionArg;
+
+typedef HConstant             = stx.makro.expr.HConstant;
+
+typedef HTypeDefKind          = stx.makro.expr.HTypeDefKind;
+typedef HClassTypeDefKind     = stx.makro.expr.HClassTypeDefKind;
+typedef HTypeDefinition       = stx.makro.expr.HTypeDefinition;
+
+typedef HMetadataEntry        = stx.makro.expr.HMetadataEntry;
 
 
 
@@ -44,12 +58,6 @@ class LiftMetadataEntry{
     return md;
   }
 }
-class LiftEnumType{
-  static public function makro(e:StdEnumType):EnumType{
-    return new EnumType(e);
-  }
-}
-
 class LiftEBlock {
   #if macro
   static public function toEBlock(arr:Array<haxe.macro.Expr>):HExpr{

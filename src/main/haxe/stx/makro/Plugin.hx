@@ -1,5 +1,6 @@
 package stx.makro;
 
+using stx.makro.Logging;
 using stx.Sys;
 using StringTools;
 
@@ -16,7 +17,7 @@ class Plugin{
     trace('stx.makro.Plugin.use');
     //#end
     var args          = __.sys().args();
-    var gen_location  = Way.fromString(__.sys().cwd().get()).concat(['src','gen','haxe']);
+    var gen_location  = Way.fromPath(new haxe.io.Path(__.sys().cwd().get())).concat(['src','gen','haxe']);
     
     Compiler.addClassPath(gen_location.toOsString());
     Context.onAfterTyping(module);
@@ -38,13 +39,12 @@ class Plugin{
   }
   static function method(arr:Cluster<StdType>){
     for(t in arr){
-      var type    = Type._.makro(t);
+      var type    = HType._.makro(t);
       var base    = __.option(type.getBaseType()).force();
       var entries = base.meta.get().filter(
-          (mde) -> mde.name.startsWith(":stx.")
+          (mde) -> mde.name.startsWith(":stx.")//TODO -> too general
       );
-      //trace(entries);
-      __.log().trace(_ -> _.pure(entries));
+      //__.log().trace(_ -> _.pure(entries));
       for(entry in entries){
         var body      = entry.name.split(".");
             body[0]   = body[0].substr(1);
@@ -55,7 +55,7 @@ class Plugin{
         
         //trace(body.join("."));
         var clazz     = stx.StdType.resolveClass(path);
-        __.log().trace(_ -> _.pure(clazz));
+        //__.log().trace(_ -> _.pure(clazz));
         if(clazz == null){
           #if (test || debug)
             #if (!stfu)
@@ -73,7 +73,7 @@ class Plugin{
       }
     }
   }
-  static function parameter(type:Type,e:Expr):Dynamic{
+  static function parameter(type:HType,e:Expr):Dynamic{
     return switch(e.expr){
       case EConst(CIdent("__")) : type;
       default                   : ExprTools.getValue(e);

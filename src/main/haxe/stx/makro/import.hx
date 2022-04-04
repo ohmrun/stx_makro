@@ -11,9 +11,6 @@ import haxe.macro.Expr;
 
 using tink.CoreApi;
 
-import stx.makro.Core;
-
-
 using stx.Pico;
 using stx.Nano;
 
@@ -27,14 +24,16 @@ using stx.Ds;
 using stx.Log;
 
 import stx.makro.alias.*;
-import stx.makro.Core;
+
+using stx.makro.Core;
 import stx.Makro;
 import stx.makro.Type;
-import stx.makro.Expr;
 
 #if macro
   import tink.macro.Member;
   
+  import stx.makro.Expr;
+
   import stx.makro.alias.*;
 
   import haxe.macro.Context; 

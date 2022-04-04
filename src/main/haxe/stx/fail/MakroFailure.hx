@@ -1,6 +1,6 @@
 package stx.fail;
 
 enum MakroFailure{
-  UnexpectedMacroCondition;
-  ImplementationNotFound(type:String,where:String);
+  E_Makro_UnexpectedMacroCondition;//TODO make comprehensible
+  E_Makro_ExprIsNotFunction;
 }
