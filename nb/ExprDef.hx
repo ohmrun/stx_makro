@@ -1,0 +1,31 @@
+enum ExprDef {
+	EConst(c:Constant);
+	EArray(e1:Expr, e2:Expr);
+	EBinop(op:Binop, e1:Expr, e2:Expr);
+	EField(e:Expr, field:String, ?kind:EFieldKind);
+	EParenthesis(e:Expr);
+	EObjectDecl(fields:Array<ObjectField>);
+	EArrayDecl(values:Array<Expr>);
+	ECall(e:Expr, params:Array<Expr>);
+	ENew(t:TypePath, params:Array<Expr>);
+	EUnop(op:Unop, postFix:Bool, e:Expr);
+	EVars(vars:Array<Var>);
+	EFunction(kind:Null<FunctionKind>, f:Function);
+	EBlock(exprs:Array<Expr>);
+	EFor(it:Expr, expr:Expr);
+	EIf(econd:Expr, eif:Expr, eelse:Null<Expr>);
+	EWhile(econd:Expr, e:Expr, normalWhile:Bool);
+	ESwitch(e:Expr, cases:Array<Case>, edef:Null<Expr>);
+	ETry(e:Expr, catches:Array<Catch>);
+	EReturn(?e:Expr);
+	EBreak;
+	EContinue;
+	EUntyped(e:Expr);
+	EThrow(e:Expr);
+	ECast(e:Expr, t:Null<ComplexType>);
+	EDisplay(e:Expr, displayKind:DisplayKind);
+	ETernary(econd:Expr, eif:Expr, eelse:Expr);
+	ECheckType(e:Expr, t:ComplexType);
+	EMeta(s:MetadataEntry, e:Expr);
+	EIs(e:Expr, t:ComplexType);
+}
