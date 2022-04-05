@@ -26,8 +26,26 @@ class Test{
     __.test(
       [
         //new WhatDoesReifiedFunctionDeclarationProduce(),
-        new ShimTest()
+        //new ShimTest(),
+        new WhatIsFinalLookLikeTest(),
       ],[]);
+  }
+}
+class WhatIsFinalLookLikeTest extends TestCase{
+  public function test(){
+    makro(new HasFinal());
+  }
+  private static macro function makro(e:Expr){
+    var type    : HType = Context.typeof(e);
+    trace(type.fields);
+    return macro {};
+  }
+}
+private class HasFinal extends Clazz{
+  public final a : String;
+  public function new(){
+    super();
+    this.a = "ok";
   }
 }
 class ShimTest extends TestCase{
@@ -49,7 +67,8 @@ class ShimTest extends TestCase{
     //   default : null;
     // }
     final pos     = Context.currentPos();
-    final fields  = HExpr._.shim(type,pos); 
+    final fields  = HExpr._.shim(type,pos);
+    //trace(fields); 
     return macro {};
   }
 }

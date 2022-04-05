@@ -1,4 +1,4 @@
-package stx.makro.expr;
+package stx.makro.def;
 
 @:forward abstract HTypeDefKind(StdTypeDefKind) from StdTypeDefKind to StdTypeDefKind{
   public function new(self) this = self;

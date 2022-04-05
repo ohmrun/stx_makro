@@ -1,10 +1,10 @@
-package stx.makro.expr;
+package stx.makro.def;
 
 @:forward abstract HTypeDefinition(StdTypeDefinition) from StdTypeDefinition to StdTypeDefinition{
   public function new(self){
     this = __.option(self).force();
   }
-  static public function make(path:IdentDef,?fields:Cluster<tink.macro.Member>,?kind:TypeDefKind,?pos:haxe.macro.Expr.Position):HTypeDefinition{
+  static public function make(path:IdentDef,?fields:Cluster<HField>,?kind:TypeDefKind,?pos:haxe.macro.Expr.Position):HTypeDefinition{
     var out : StdTypeDefinition = {
       name    : path.name,
       pack    : (cast path.pack:StdArray<String>),

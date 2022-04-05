@@ -31,5 +31,5 @@ class LiftClassType{
 class LiftEnumType{
   static public function makro(e:StdEnumType):HEnumType{
     return new HEnumType(e);
-  }
+}
 }

@@ -39,6 +39,9 @@ package stx.makro.expr;
   @:noUsing static public function TIntersection(tl:Cluster<HComplexType>){
     return lift(StdComplexType.TIntersection(tl.prj()));
   }
+  public function toTypeParam(){
+    return HTypeParam.fromStdComplexType(this);
+  }
 }
 class HComplexTypeLift{
 

@@ -1,6 +1,6 @@
-package stx.makro.expr;
+package stx.makro.def;
 
-@:using(stx.makro.expr.HClassTypeDefKind.HClassTypeDefKindLift)
+@:using(stx.makro.def.HClassTypeDefKind.HClassTypeDefKindLift)
 @:forward abstract HClassTypeDefKind(TypeDefKind) from TypeDefKind to TypeDefKind{
   static public function lift(self:TypeDefKind){
     return new HClassTypeDefKind(self);

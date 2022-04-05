@@ -5,8 +5,6 @@ typedef Printer             = haxe.macro.Printer;
 typedef HExpr                 = stx.makro.expr.HExpr;
 typedef LiftHExpr             = stx.makro.expr.HExpr.LiftHExpr;
 
-typedef HField                = stx.makro.expr.HField;
-typedef HFieldType            = stx.makro.expr.HFieldType;
 
 typedef HAccess               = stx.makro.expr.HAccess;
 
@@ -25,9 +23,7 @@ typedef HFunctionArg          = stx.makro.expr.HFunctionArg;
 
 typedef HConstant             = stx.makro.expr.HConstant;
 
-typedef HTypeDefKind          = stx.makro.expr.HTypeDefKind;
-typedef HClassTypeDefKind     = stx.makro.expr.HClassTypeDefKind;
-typedef HTypeDefinition       = stx.makro.expr.HTypeDefinition;
+
 
 typedef HMetadataEntry        = stx.makro.expr.HMetadataEntry;
 

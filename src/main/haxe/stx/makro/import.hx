@@ -32,8 +32,9 @@ import stx.makro.Type;
 #if macro
   import tink.macro.Member;
   
-  import stx.makro.Expr;
-
+  using stx.makro.Expr;
+  using stx.makro.Def;
+  
   import stx.makro.alias.*;
 
   import haxe.macro.Context; 

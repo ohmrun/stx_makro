@@ -16,4 +16,10 @@ package stx.makro.expr;
       sub     : sub
     });
   }
+  public function toComplexType(){
+    return HComplexType.fromHTypePath(self);
+  }
+  public function toTypeParam(){
+    return HTypeParam.fromHTypePath(this);
+  }
 }

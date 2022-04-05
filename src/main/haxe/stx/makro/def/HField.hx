@@ -1,6 +1,6 @@
-package stx.makro.expr;
+package stx.makro.def;
 
-@:using(stx.makro.expr.HField.HFieldLift)
+@:using(stx.makro.def.HField.HFieldLift)
 @:forward abstract HField(StdField) from StdField to StdField{
   static public var _(default,never) = HFieldLift;
   public inline function new(self:StdField) this = self;

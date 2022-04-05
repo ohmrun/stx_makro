@@ -68,7 +68,7 @@ class HExprLift{
     Creates getter only properties of the underlying type for Abstracts.
   **/
   static public function shim(self:Type,pos:Position):Res<Cluster<StdField>,MakroTypeFailure>{
-    switch(self){
+    return switch(self){
       case TMono(t)               : __.reject(__.fault().of(E_MakroType_UnexpectedMono));
       case TEnum(t,params)        : __.reject(__.fault().of(E_MakroType_UnexpectedEnum));
       case TType(t,params)        : __.reject(__.fault().of(E_MakroType_UnexpectedTDef(t.get())));
@@ -106,15 +106,16 @@ class HExprLift{
             () -> None
           )
       );
-      final p = new Printer();
-      for(x in result){
-        trace(p.printField(x.prj()));
-      }
+      //final p = new Printer();
+      // for(x in result){
+      //   trace(p.printField(x.prj()));
+      // }
+      __.accept(result);
       case TFun(args, ret)        : __.reject(__.fault().of(E_MakroType_UnexpectedTFun));
       case TDynamic(t)            : __.reject(__.fault().of(E_MakroType_DynamicUnsupported));
       case TLazy(f)               : __.reject(__.fault().of(E_MakroType_UnexpectedLazy));
     }
-    return throw UNIMPLEMENTED; 
+    //return throw UNIMPLEMENTED; 
   }
 }
 class LiftHExpr extends Clazz{
