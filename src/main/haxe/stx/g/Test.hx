@@ -6,7 +6,7 @@ using stx.Test;
 
 class Test{
   static public function main(){
-    __.test([],[]);
+    __.test([new GBuildTest()],[]);
   }
 }
 class GBuildTest extends TestCase{
