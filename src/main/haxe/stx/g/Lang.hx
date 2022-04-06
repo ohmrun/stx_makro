@@ -2,7 +2,7 @@ package stx.g;
 
 class Lang{
   static public function g(wildcard:Wildcard){
-    return GExpr.__;  
+    return new stx.g.lang.Module();  
   }
 }
 

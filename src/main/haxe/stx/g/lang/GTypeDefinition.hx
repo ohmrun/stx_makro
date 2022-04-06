@@ -33,6 +33,7 @@ typedef GTypeDefinitionDef = {
   final ?doc      : Null<String>;
 }
 abstract GTypeDefinition(GTypeDefinitionDef) from GTypeDefinitionDef to GTypeDefinitionDef{
+  static public var __(default,never) = new GTypeDefinitionCtr();
   public function new(self) this = self;
   static public function lift(self:GTypeDefinitionDef):GTypeDefinition return new GTypeDefinition(self);
   static public function make(name,pack,kind,fields,?params,?meta,?isExtern,?doc){
