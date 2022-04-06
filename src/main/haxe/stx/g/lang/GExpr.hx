@@ -40,6 +40,15 @@ class GExprCtr extends Clazz{
   public function Const(c:GConstantCtr->GConstant){
     return lift(GEConst(c(GConstant.__)));
   } 
+  public function Path(name:String,pack:Cluster<String>){
+    return pack.rfold(
+      (next:String,memo:GExpr) -> this.Field(
+        _ -> memo,
+        next        
+      ),
+      this.Const(_ -> _.Ident(name))
+    );
+  }
   public function Array(lhs,rhs){
     return lift(GEArray(lhs(this),rhs(this)));
   }

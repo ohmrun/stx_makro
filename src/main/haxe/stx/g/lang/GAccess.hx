@@ -37,4 +37,10 @@ abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
   public function prj():GAccessSum return this;
   private var self(get,never):GAccess;
   private function get_self():GAccess return lift(this);
+
+	#if macro 
+	// public function toHaxe(){
+	// 	return 
+	// }
+	#end
 }

@@ -68,6 +68,14 @@ typedef GQuoteStatus        = stx.g.lang.GQuoteStatus;
 
 typedef GStringLiteralKind  = stx.g.lang.GStringLiteralKind;
 
+typedef GTypeDefinition     = stx.g.lang.GTypeDefinition;
+typedef GTypeDefinitionDef  = stx.g.lang.GTypeDefinition.GTypeDefinitionDef;
+typedef GTypeDefinitionCtr  = stx.g.lang.GTypeDefinition.GTypeDefinitionCtr;
+
+typedef GTypeDefKind        = stx.g.lang.GTypeDefKind;
+typedef GTypeDefKindSum     = stx.g.lang.GTypeDefKind.GTypeDefKindSum;
+typedef GTypeDefKindCtr     = stx.g.lang.GTypeDefKind.GTypeDefKindCtr;
+
 typedef GTypeParam          = stx.g.lang.GTypeParam;
 typedef GTypeParamSum       = stx.g.lang.GTypeParam.GTypeParamSum;
 typedef GTypeParamCtr       = stx.g.lang.GTypeParam.GTypeParamCtr;

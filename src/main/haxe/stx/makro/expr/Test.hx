@@ -2,6 +2,7 @@ package stx.makro.expr;
 
 using stx.makro.Expr;
 
+using stx.Show;
 using stx.Test;
 
 class Test{
@@ -27,8 +28,17 @@ class Test{
       [
         //new WhatDoesReifiedFunctionDeclarationProduce(),
         //new ShimTest(),
-        new WhatIsFinalLookLikeTest(),
+        new WhatPackageExprLookLikeTest(),
       ],[]);
+  }
+}
+class WhatPackageExprLookLikeTest extends TestCase{
+  public function test(){
+    makro(stx.makro.expr.Test);
+  }
+  static macro function makro(e:Expr){
+    trace(__.show(e));
+    return macro {};
   }
 }
 class WhatIsFinalLookLikeTest extends TestCase{
@@ -37,7 +47,7 @@ class WhatIsFinalLookLikeTest extends TestCase{
   }
   private static macro function makro(e:Expr){
     var type    : HType = Context.typeof(e);
-    trace(type.fields);
+    //trace(type.fields);
     return macro {};
   }
 }

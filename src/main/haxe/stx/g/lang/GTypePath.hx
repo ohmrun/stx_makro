@@ -11,22 +11,27 @@ class GTypePathCtr extends Clazz{
     return GTypePath.make(
       name,
       __.option(pack).defv([].imm()),
-      __.option(params).map(f -> f(GTypeParamCtr.unit())).defv(null),
-      sub
+      sub,
+      __.option(params).map(f -> f(GTypeParamCtr.unit())).defv(null)
     );
+  }
+  public function string(str:String){
+    var arr   = str.split(".");
+    var name  = arr.pop();
+    return Make(name,arr);
   }
 }
 typedef GTypePathDef = {
   final name      : String;
 	final pack      : Cluster<String>;
-  final ?params   : Cluster<GTypeParam>;
 	final ?sub      : Null<String>;
+  final ?params   : Cluster<GTypeParam>;
 }
 @:forward abstract GTypePath(GTypePathDef) from GTypePathDef to GTypePathDef{
   static public var __(default,never) = new GTypePathCtr();
   public function new(self) this = self;
   static public function lift(self:GTypePathDef):GTypePath return new GTypePath(self);
-  @:noUsing static public function make(name,?pack,?params,?sub){
+  @:noUsing static public function make(name,?pack,?sub,?params){
     return lift({
       name      : name,
       pack      : pack,
