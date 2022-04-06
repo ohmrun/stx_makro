@@ -1,5 +1,14 @@
 package stx.makro.def;
 
+/**
+  enum TypeDefKind {
+    TDEnum;
+    TDStructure;
+    TDClass( ?superClass : TypePath, ?interfaces : Array<TypePath>, ?isInterface : Bool, ?isFinal : Bool );
+    TDAlias( t : ComplexType ); // ignore TypeDefinition.fields
+    TDAbstract( tthis : Null<ComplexType>, ?from : Array<ComplexType>, ?to: Array<ComplexType> );
+  }
+**/
 @:forward abstract HTypeDefKind(StdTypeDefKind) from StdTypeDefKind to StdTypeDefKind{
   public function new(self) this = self;
   static public function lift(self:StdTypeDefKind):TypeDefKind return new HTypeDefKind(self);

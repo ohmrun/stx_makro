@@ -38,6 +38,9 @@ abstract HExprDef(StdExprDef){
   @:noUsing static public function EReturn(?e:HExpr){
     return lift(StdExprDef.EReturn(__.option(e).map(e -> e.prj()).defv(null)));
   }
+  // @:noUsing static public function ENew(t:HTypePath,?params:Cluster<Expr>){
+  //   return lift(StdExprDef.ENew(t.prj(),__.option(params).map(x -> x.prj()).def([]));)
+  // }
 
   public function new(self) this = self;
   public function toHExpr(pos:Position):HExpr{

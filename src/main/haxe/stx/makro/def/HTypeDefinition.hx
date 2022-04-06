@@ -1,5 +1,18 @@
 package stx.makro.def;
 
+/**
+  typedef TypeDefinition = {
+    var pack : Array<String>;
+    var name : String;
+    @:optional var doc : Null<String>;
+    var pos : Position;
+    @:optional var meta : Metadata;
+    @:optional var params : Array<TypeParamDecl>;
+    @:optional var isExtern : Bool;
+    var kind : TypeDefKind;
+  	var fields : Array<Field>;
+  }
+**/
 @:forward abstract HTypeDefinition(StdTypeDefinition) from StdTypeDefinition to StdTypeDefinition{
   public function new(self){
     this = __.option(self).force();

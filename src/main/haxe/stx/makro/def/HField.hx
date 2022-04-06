@@ -19,6 +19,10 @@ package stx.makro.def;
   public function prj():StdField return this;
   private var self(get,never):HField;
   private function get_self():HField return lift(this);
+
+  @:from static public function fromMember(self:Member){
+    return lift(self);
+  }
 }
 class HFieldLift{
   static public inline function lift(self:StdField):HField{

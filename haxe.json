@@ -22,6 +22,10 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "g" : {
+       "-main" : "stx.g.Test",
+       "--interp" : true
       }
     }
   }

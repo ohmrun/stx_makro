@@ -83,8 +83,8 @@ class HExprLift{
                   Some(HField.make(
                     f.name,
                     HFieldType.FProp(
-                      'get',
-                      'never',
+                      PAccFn,
+                      PAccNever,
                       HComplexType.lift(haxe.macro.TypeTools.toComplexType(f.type)),
                       HExprDef.EFunction(
                         HFunction.make([],null,
