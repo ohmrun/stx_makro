@@ -25,6 +25,7 @@ typedef GFunctionArgDef = {
 	final ?meta   : GMetadata;
 }
 @:forward abstract GFunctionArg(GFunctionArgDef) from GFunctionArgDef to GFunctionArgDef{
+  static public var __(default,never) = new GFunctionArgCtr();
   public function new(self) this = self;
   static public function lift(self:GFunctionArgDef):GFunctionArg return new GFunctionArg(self);
   static public function make(name:String,type:GComplexType,?opt:Bool,?value:GExpr,?meta:GMetadata){

@@ -7,8 +7,8 @@ class GComplexTypeCtr extends Clazz{
 	private function lift(self:GComplexTypeSum){
 		return GComplexType.lift(self);
 	}
-	public function Path(p:GTypePath):GComplexType{
-		return lift(GTPath(p));
+	public function Path(p:GTypePathCtr->GTypePath):GComplexType{
+		return lift(GTPath(p(GTypePath.__)));
 	}
 	public function Function(args:GComplexTypeCtr -> Cluster<GComplexType>, ret : GComplexTypeCtr -> GComplexType){
 		return lift(GTFunction(args(unit()),ret(unit()))); 

@@ -179,7 +179,7 @@
      inline function orderAccess(access: Cluster<GAccess>) {
        // final should always be printed last
        // (does not modify input array)
-       return access.has(GAFinal).is_defined() ? access.filter(a -> switch(a){ case GAFinal : true; default : false; }).concat([GAFinal]) : access;
+       return access.has(GAFinal).is_defined() ? access.filter(a -> switch(a){ case GAFinal : false; default : true; }).concat([GAFinal]) : access;
      }
      return (field.doc != null
        && field.doc != "" ? "/**\n"
