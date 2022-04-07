@@ -16,6 +16,8 @@ class GAccessCtr extends Clazz{
 	public function Macro() return lift(GAMacro);
 	public function Final() return lift(GAFinal);
 	public function Extern() return lift(GAExtern);
+	public function Abstract() return lift(GAAbstract);
+	public function Overload() return lift(GAOverload);
 }
 enum GAccessSum {
 	GAPublic;
@@ -27,6 +29,8 @@ enum GAccessSum {
 	GAMacro;
 	GAFinal;
 	GAExtern;
+	GAAbstract;
+	GAOverload;
 }
 
 abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
@@ -38,6 +42,9 @@ abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
   private var self(get,never):GAccess;
   private function get_self():GAccess return lift(this);
 
+	public function toSource():GSource{
+		return Printer.ZERO.printAccess(this);
+	}
 	#if macro 
 	// public function toHaxe(){
 	// 	return 

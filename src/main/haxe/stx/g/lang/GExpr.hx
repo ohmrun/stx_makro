@@ -134,7 +134,7 @@ class GExprCtr extends Clazz{
     return lift(GEIs(e(this),t(GComplexType.__)));
   }
 }
-abstract GExpr(GExprSum) {
+@:forward abstract GExpr(GExprSum) from GExprSum to GExprSum{
   static public var __(default,never) = new GExprCtr();
   public function new(self) this = self;
   static public function lift(self:GExprSum):GExpr return new GExpr(self);
@@ -142,5 +142,9 @@ abstract GExpr(GExprSum) {
   public function prj():GExprSum return this;
   private var self(get,never):GExpr;
   private function get_self():GExpr return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printExpr(self);
+	}
 }
 

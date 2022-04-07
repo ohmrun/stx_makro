@@ -39,4 +39,8 @@ typedef GFunctionArgDef = {
   public function prj():GFunctionArgDef return this;
   private var self(get,never):GFunctionArg;
   private function get_self():GFunctionArg return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printFunctionArg(this);
+	}
 }

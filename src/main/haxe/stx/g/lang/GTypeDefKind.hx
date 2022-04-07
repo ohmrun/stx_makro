@@ -13,12 +13,13 @@ class GTypeDefKindCtr extends Clazz{
   public function Structure(){
     return lift(GTDStructure);
   }
-  public function Class(?superClass : GTypePathCtr -> GTypePath, ?interfaces : GTypePathCtr -> Cluster<GTypePath>, ?isInterface, ?isFinal){
+  public function Class(?superClass : GTypePathCtr -> GTypePath, ?interfaces : GTypePathCtr -> Cluster<GTypePath>, ?isInterface, ?isFinal, ?isAbstract ){
     return lift(GTDClass(
       __.option(superClass).map(f -> f(GTypePath.__)).defv(null),
       __.option(interfaces).map(f -> f(GTypePath.__)).defv(null),
       isInterface,
-      isFinal
+      isFinal,
+      isAbstract
     ));
   }
   public function Alias(t){
@@ -31,13 +32,20 @@ class GTypeDefKindCtr extends Clazz{
       __.option(to).map(f -> f(GComplexType.__)).defv(null)
     ));
   }
+  public function Field(kind,access){
+    return lift(GTDField(
+      kind(GFieldType.__),
+      access(GAccess.__)
+    ));
+  }
 }
 enum GTypeDefKindSum {
 	GTDEnum;
 	GTDStructure;
-	GTDClass( ?superClass : GTypePath, ?interfaces : Cluster<GTypePath>, ?isInterface : Bool, ?isFinal : Bool );
+	GTDClass( ?superClass : GTypePath, ?interfaces : Cluster<GTypePath>, ?isInterface : Bool, ?isFinal : Bool, ?isAbstract:Bool );
 	GTDAlias( t : GComplexType ); // ignore TypeDefinition.fields
 	GTDAbstract( tthis : Null<GComplexType>, ?from : Cluster<GComplexType>, ?to: Cluster<GComplexType> );
+  GTDField(kind:GFieldType, ?access:Cluster<GAccess>);
 }
 abstract GTypeDefKind(GTypeDefKindSum) from GTypeDefKindSum to GTypeDefKindSum{
   static public var __(default,never) = new GTypeDefKindCtr();
@@ -47,4 +55,8 @@ abstract GTypeDefKind(GTypeDefKindSum) from GTypeDefKindSum to GTypeDefKindSum{
   public function prj():GTypeDefKindSum return this;
   private var self(get,never):GTypeDefKind;
   private function get_self():GTypeDefKind return lift(this);
+  
+  // public function toSource():GSource{
+	// 	return Printer.ZERO.printTypeDefKind(this);
+	// }
 }

@@ -33,5 +33,9 @@ typedef GCatchDef = {
   public function prj():GCatchDef return this;
   private var self(get,never):GCatch;
   private function get_self():GCatch return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printCatch(this);
+	}
 }
 

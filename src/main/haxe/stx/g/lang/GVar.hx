@@ -44,4 +44,8 @@ typedef GVarDef = {
   public function prj():GVarDef return this;
   private var self(get,never):GVar;
   private function get_self():GVar return lift(this);
+
+	public function toSource():GSource{
+		return Printer.ZERO.printVar(this);
+	}
 }

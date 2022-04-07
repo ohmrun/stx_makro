@@ -53,4 +53,8 @@ abstract GComplexType(GComplexTypeSum) from GComplexTypeSum to GComplexTypeSum{
   public function prj():GComplexTypeSum return this;
   private var self(get,never):GComplexType;
   private function get_self():GComplexType return lift(this);
+
+	public function toSource():GSource{
+		return Printer.ZERO.printComplexType(this);
+	}
 }

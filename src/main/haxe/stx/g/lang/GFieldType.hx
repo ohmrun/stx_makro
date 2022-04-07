@@ -38,4 +38,8 @@ abstract GFieldType(GFieldTypeSum) from GFieldTypeSum to GFieldTypeSum{
   public function prj():GFieldTypeSum return this;
   private var self(get,never):GFieldType;
   private function get_self():GFieldType return lift(this);
+
+  // public function toSource():GSource{
+	// 	return Printer.ZERO.printFieldType(this);
+	// }
 }

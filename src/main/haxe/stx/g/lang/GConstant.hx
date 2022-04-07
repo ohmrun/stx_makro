@@ -38,4 +38,9 @@ abstract GConstant(GConstantSum) from GConstantSum to GConstantSum{
   public function prj():GConstantSum return this;
   private var self(get,never):GConstant;
   private function get_self():GConstant return lift(this);
+
+
+  public function toSource():GSource{
+		return Printer.ZERO.printConstant(this);
+	}
 }

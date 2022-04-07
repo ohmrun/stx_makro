@@ -25,4 +25,8 @@ typedef GMetadataEntryDef = {
   public function prj():GMetadataEntryDef return this;
   private var self(get,never):GMetadataEntry;
   private function get_self():GMetadataEntry return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printMetadata(this);
+	}
 }

@@ -66,6 +66,8 @@ typedef GPropAccess         = stx.g.lang.GPropAccess;
 
 typedef GQuoteStatus        = stx.g.lang.GQuoteStatus;
 
+typedef GSource             = stx.g.lang.GSource;
+
 typedef GStringLiteralKind  = stx.g.lang.GStringLiteralKind;
 
 typedef GTypeDefinition     = stx.g.lang.GTypeDefinition;

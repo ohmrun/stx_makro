@@ -42,4 +42,8 @@ typedef GTypePathDef = {
   public function prj():GTypePathDef return this;
   private var self(get,never):GTypePath;
   private function get_self():GTypePath return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printTypePath(this);
+	}
 }

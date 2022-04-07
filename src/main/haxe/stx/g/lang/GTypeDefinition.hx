@@ -32,7 +32,7 @@ typedef GTypeDefinitionDef = {
 	final ?isExtern : Bool;
   final ?doc      : Null<String>;
 }
-abstract GTypeDefinition(GTypeDefinitionDef) from GTypeDefinitionDef to GTypeDefinitionDef{
+@:forward abstract GTypeDefinition(GTypeDefinitionDef) from GTypeDefinitionDef to GTypeDefinitionDef{
   static public var __(default,never) = new GTypeDefinitionCtr();
   public function new(self) this = self;
   static public function lift(self:GTypeDefinitionDef):GTypeDefinition return new GTypeDefinition(self);
@@ -51,4 +51,8 @@ abstract GTypeDefinition(GTypeDefinitionDef) from GTypeDefinitionDef to GTypeDef
   public function prj():GTypeDefinitionDef return this;
   private var self(get,never):GTypeDefinition;
   private function get_self():GTypeDefinition return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printTypeDefinition(this);
+	}
 }

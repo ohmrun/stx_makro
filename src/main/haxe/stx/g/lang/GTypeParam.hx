@@ -28,4 +28,8 @@ abstract GTypeParam(GTypeParamSum) from GTypeParamSum to GTypeParamSum{
   public function prj():GTypeParamSum return this;
   private var self(get,never):GTypeParam;
   private function get_self():GTypeParam return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printTypeParam(this);
+	}
 }

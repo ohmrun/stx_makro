@@ -34,4 +34,8 @@ enum GBinopSum{
    public function prj():GBinopSum return this;
    private var self(get,never):GBinop;
    private function get_self():GBinop return lift(this);
+
+   public function toSource():GSource{
+		return Printer.ZERO.printBinop(this);
+	}
  }

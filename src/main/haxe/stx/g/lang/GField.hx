@@ -40,4 +40,8 @@ typedef GFieldDef = {
   public function prj():GFieldDef return this;
   private var self(get,never):GField;
   private function get_self():GField return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printField(this);
+	}
 }

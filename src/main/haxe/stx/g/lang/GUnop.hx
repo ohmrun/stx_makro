@@ -15,4 +15,8 @@ abstract GUnop(GUnopSum) from GUnopSum to GUnopSum{
   public function prj():GUnopSum return this;
   private var self(get,never):GUnop;
   private function get_self():GUnop return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printUnop(this);
+	}
 }

@@ -35,4 +35,8 @@ typedef GCaseDef = {
   public function prj():GCaseDef return this;
   private var self(get,never):GCase;
   private function get_self():GCase return lift(this);
+
+  // public function toSource():GSource{
+	// 	return Printer.ZERO.printCase(this);
+	// }
 }

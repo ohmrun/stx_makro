@@ -37,4 +37,8 @@ typedef GFunctionDef = {
   public function prj():GFunctionDef return this;
   private var self(get,never):GFunction;
   private function get_self():GFunction return lift(this);
+  
+  public function toSource():GSource{
+		return Printer.ZERO.printFunction(this);
+	}
 }

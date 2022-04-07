@@ -31,4 +31,8 @@ typedef GObjectFieldDef = {
   public function prj():GObjectFieldDef return this;
   private var self(get,never):GObjectField;
   private function get_self():GObjectField return lift(this);
+
+  public function toSource():GSource{
+		return Printer.ZERO.printObjectField(this);
+	}
 }
