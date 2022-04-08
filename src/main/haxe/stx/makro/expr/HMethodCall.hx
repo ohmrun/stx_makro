@@ -4,7 +4,7 @@ typedef HMethodCallDef = {
   var data : MethodRef;
   var args : HExprCluster;
 }
-
+@:using(stx.makro.expr.HMethodCall.HMethodCallLift)
 abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
   public function new(self){
     this = self;
@@ -21,10 +21,13 @@ abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
   public function prj(){
     return this;
   }
-  public function expr(pos):HExpr{
+  public function to_macro_at(pos):HExpr{
     return HExprDef.ECall(
       LiftHExpr.MethodRef.toHExpr(this.data,pos),
       this.args
-    ).expr(pos);
+    ).to_macro_at(pos);
   }
+}
+class HMethodCallLift{
+  
 }

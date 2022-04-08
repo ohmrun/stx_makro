@@ -8,10 +8,10 @@ enum GEFieldKind {
 }
 class GEFieldKindLift{
 	#if macro
-	static public function to_macro_at(self:GEFieldKind):EFieldKind{
+	static public function to_macro_at(self:GEFieldKind,pos:Position):EFieldKind{
 		return switch(self){
 			case GNormal 	: Normal;
-			case GSafe 		:Safe;
+			case GSafe 		: Safe;
 		}
 	}
 	#end

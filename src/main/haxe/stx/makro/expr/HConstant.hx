@@ -12,7 +12,7 @@ abstract HConstant(StdConstant) from StdConstant to StdConstant{
   @:noUsing static public function CIdent(str:String):HConstant{
     return lift(StdConstant.CIdent(str));
   }
-  public function expr(pos:Pos):HExpr{
+  public function to_macro_at(pos:Pos):HExpr{
     return HExpr.make(HExprDef.lift(EConst(prj())),pos);
   }
   public function prj(){

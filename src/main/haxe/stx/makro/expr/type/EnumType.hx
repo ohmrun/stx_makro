@@ -14,7 +14,7 @@ class EnumType{
           .map(
             (tfa) -> LiftConstantToHExpr.toHExpr(Constant.CIdent(tfa.name))
           )
-        ).expr(pos);
+        ).to_macro_at(pos);
         var rhs = HExprDef.ECall(
           LiftHExpr.MethodRef.toHExpr(rc.ref,pos),
           rc.args
@@ -22,7 +22,7 @@ class EnumType{
           .map(
             (tfa) -> LiftConstantToHExpr.toHExpr(Constant.CIdent(tfa.name))
           )
-        ).expr(pos);
+        ).to_macro_at(pos);
 
         return uses(lc.args,rc.args).map(
           function (e):Case return { values : [lhs.toExpr(),rhs.toExpr()],  expr : e.toExpr() }
@@ -56,10 +56,10 @@ class EnumType{
       []
     );
     HExprDef.ESwitch(
-      HExprDef.EArrayDecl([HExpr.mark(pos),HExpr.mark(pos)]).expr(pos),
+      HExprDef.EArrayDecl([HExpr.mark(pos),HExpr.mark(pos)]).to_macro_at(pos),
       next.prj(),
       HExpr.unit(pos)
-    ).expr(pos);
+    ).to_macro_at(pos);
   }
   @:noUsing static public function getSwitch(e:EnumType,gen:Unary<EnumValueConstructor,Array<Case>>,pos):HExpr{
     var cons  = getConstructors(e);    
@@ -73,7 +73,7 @@ class EnumType{
       HExpr.mark(pos),
       cases,
       HExpr.unit(pos)
-    ).expr(pos);
+    ).to_macro_at(pos);
   }
   @:noUsing static public function getSimpleSwitch(e:EnumType,gen:TFunParamArray->Option<HExpr>,pos):HExpr{
     return getSwitch(e,
@@ -87,7 +87,7 @@ class EnumType{
         var call = HExprDef.ECall(
           LiftHExpr.MethodRef.toHExpr(cons.ref,pos),
           args
-        ).expr(pos);
+        ).to_macro_at(pos);
         trace(call.show());
 
         var expr = gen(cons.args);
@@ -125,7 +125,7 @@ class EnumType{
         (v:TFunParam) -> LiftMakro.toModule(v.name).map(x -> LiftModuleToHExpr.toHExpr(x,pos)).force()
       );
       var head  = LiftModuleToHExpr.toHExpr(LiftMakro.toModule(key).force(),pos);
-      var value = !case_call.is_defined() ? head : HExprDef.ECall(head,case_call).expr(pos);
+      var value = !case_call.is_defined() ? head : HExprDef.ECall(head,case_call).to_macro_at(pos);
       var case_ : Case = {
         expr    : val.fst().toExpr(),
         values  : [value.toExpr()]
@@ -134,6 +134,6 @@ class EnumType{
     }
     return (ref) -> HExprDef.ESwitch(
         ref,next,def
-      ).expr(pos);
+      ).to_macro_at(pos);
   }
 }

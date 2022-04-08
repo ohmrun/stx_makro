@@ -61,6 +61,6 @@ class ApiConst{
 class ApiLiterals{
   public function new(){}
   public function bool(b:Bool,pos):HExpr{
-    return new ApiConst().ident(b ? 'true' : 'false').expr(pos);
+    return new ApiConst().ident(b ? 'true' : 'false').to_macro_at(pos);
   }
 }

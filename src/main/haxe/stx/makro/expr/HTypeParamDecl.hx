@@ -14,4 +14,5 @@ class HTypeParamDeclLift{
   static public function lift(self:StdTypeParamDecl){
     return TypeParamDecl.lift(self);
   }
+
 }

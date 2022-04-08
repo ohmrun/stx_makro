@@ -20,6 +20,7 @@ typedef GCatchDef = {
   var expr:GExpr;
 	var ?type:GComplexType;
 }
+@:using(stx.g.lang.GCatch.GCatchLift)
 @:forward abstract GCatch(GCatchDef) from GCatchDef to GCatchDef{
   public function new(self) this = self;
   static public function lift(self:GCatchDef):GCatch return new GCatch(self);
@@ -38,4 +39,14 @@ typedef GCatchDef = {
 		return Printer.ZERO.printCatch(this);
 	}
 }
-
+class GCatchLift{
+  #if macro
+  static public function to_macro_at(self:GCatch,pos:Position){
+    return {
+      name  : self.name,
+      expr  : self.expr.to_macro_at(pos),
+      type  : __.option(self.type).map(x -> x.to_macro_at(pos)).defv(null)
+    };
+  }
+  #end
+}

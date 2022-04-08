@@ -15,7 +15,7 @@ class GTypePathCtr extends Clazz{
       __.option(params).map(f -> f(GTypeParamCtr.unit())).defv(null)
     );
   }
-  public function string(str:String){
+  public function fromString(str:String){
     var arr   = str.split(".");
     var name  = arr.pop();
     return Make(name,arr);
@@ -27,6 +27,7 @@ typedef GTypePathDef = {
 	final ?sub      : Null<String>;
   final ?params   : Cluster<GTypeParam>;
 }
+@:using(stx.g.lang.GTypePath.GTypePathLift)
 @:forward abstract GTypePath(GTypePathDef) from GTypePathDef to GTypePathDef{
   static public var __(default,never) = new GTypePathCtr();
   public function new(self) this = self;
@@ -43,7 +44,22 @@ typedef GTypePathDef = {
   private var self(get,never):GTypePath;
   private function get_self():GTypePath return lift(this);
 
+  @:from static public function fromString(self){
+    return GTypePath.__.fromString(self);
+  }
   public function toSource():GSource{
 		return Printer.ZERO.printTypePath(this);
 	}
+}
+class GTypePathLift{
+  #if macro
+  static public function to_macro_at(self:GTypePath,pos:Position):TypePath{
+    return {
+      name    : self.name,
+      pack    : __.option(self.pack).map(x -> x.prj()).defv([]),
+      params  : __.option(self.params).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      sub     : self.sub
+    }
+  } 
+  #end
 }

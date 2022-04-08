@@ -24,6 +24,7 @@ typedef GFieldDef = {
 	final ?meta    : GMetadata;
   final ?doc     : Null<String>;
 }
+@:using(stx.g.lang.GField.GFieldLift)
 @:forward abstract GField(GFieldDef) from GFieldDef to GFieldDef{
   static public var __(default,never) = new GFieldCtr();
   public function new(self) this = self;
@@ -44,4 +45,18 @@ typedef GFieldDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printField(this);
 	}
+}
+class GFieldLift{
+  #if macro
+  static public function to_macro_at(self:GField,pos:Position):Field{
+    return {
+      name      : self.name,
+      kind      : self.kind.to_macro_at(pos),
+      access    : __.option(self.access).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      meta      : __.option(self.meta).map(x -> x.to_macro_at(pos)).defv(null),
+      doc       : self.doc,
+      pos       : pos
+    }
+  }
+  #end
 }

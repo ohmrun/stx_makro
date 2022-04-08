@@ -21,6 +21,7 @@ typedef GTypeParamDeclDef = {
 	final ?meta : GMetadata;
   var   ?defaultType:Null<GComplexType>;
 }
+@:using(stx.g.lang.GTypeParamDecl.GTypeParamDeclLift)
 @:forward abstract GTypeParamDecl(GTypeParamDeclDef) from GTypeParamDeclDef to GTypeParamDeclDef{
   static public var __(default,never) = new GTypeParamDeclCtr();
   public function new(self) this = self;
@@ -41,4 +42,17 @@ typedef GTypeParamDeclDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printTypeParamDecl(this);
 	}
+}
+class GTypeParamDeclLift{
+  #if macro
+  static public function to_macro_at(self:GTypeParamDecl,pos:Position):TypeParamDecl{
+    return {
+      name        : self.name,
+      constraints : __.option(self.constraints).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      params      : __.option(self.params).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      meta        : __.option(self.meta).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      defaultType : __.option(self.defaultType).map(x -> x.to_macro_at(pos)).defv(null)
+    };
+  }
+  #end
 }

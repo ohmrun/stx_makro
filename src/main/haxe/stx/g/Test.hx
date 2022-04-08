@@ -6,13 +6,20 @@ using stx.Test;
 
 class Test{
   static public function main(){
+    #if boot
+      boot();
+    #else
     __.test([new GBuildTest()],[]);
+    #end
+  }
+  static public macro function boot(){
+    return macro {};
   }
 }
 class GBuildTest extends TestCase{
   function bool_ct(){
     return __.g().complex_type().Path(
-      ct -> ct.string('std.Bool')
+      ct -> ct.fromString('std.Bool')
     );
   }
   function arg0(){
@@ -31,7 +38,7 @@ class GBuildTest extends TestCase{
             arg0()
           ],
           ret -> ret.Path(
-            path -> path.string('Void')
+            _ -> 'Void'
           ) 
         )       
       ),

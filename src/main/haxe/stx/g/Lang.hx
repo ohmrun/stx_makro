@@ -38,7 +38,7 @@ typedef GFieldDef           = stx.g.lang.GField.GFieldDef;
 typedef GFieldCtr           = stx.g.lang.GField.GFieldCtr;
 
 
-typedef GFieldKind          = stx.g.lang.GFieldKind;
+typedef GEFieldKind          = stx.g.lang.GEFieldKind;
 
 typedef GFieldType          = stx.g.lang.GFieldType;
 typedef GFieldTypeSum       = stx.g.lang.GFieldType.GFieldTypeSum;

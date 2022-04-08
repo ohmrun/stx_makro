@@ -24,6 +24,7 @@ typedef GFunctionArgDef = {
 	final ?value  : Null<GExpr>;
 	final ?meta   : GMetadata;
 }
+@:using(stx.g.lang.GFunctionArg.GFunctionArgLift)
 @:forward abstract GFunctionArg(GFunctionArgDef) from GFunctionArgDef to GFunctionArgDef{
   static public var __(default,never) = new GFunctionArgCtr();
   public function new(self) this = self;
@@ -44,4 +45,17 @@ typedef GFunctionArgDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printFunctionArg(this);
 	}
+}
+class GFunctionArgLift{
+  #if macro
+  static public function to_macro_at(self:GFunctionArg,pos:Position):FunctionArg{
+    return {
+      name    : self.name,
+      type    : __.option(self.type).map(e -> e.to_macro_at(pos)).defv(null),
+      opt     : self.opt,
+      value   : __.option(self.value).map(e -> e.to_macro_at(pos)).defv(null),
+      meta    : __.option(self.meta).map(x -> x.to_macro_at(pos)).defv(null)
+    }
+  }
+  #end
 }

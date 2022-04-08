@@ -6,7 +6,7 @@ class LiftMethodRefToHExpr{
     var efield  = HExprDef.EField;
     var ident   = Constant.CIdent.fn().then(c -> LiftHExpr.Constant.toHExpr(c,pos));
     var head    = ref.call;
-    function f(next,memo) return efield(memo,next).expr(pos);
+    function f(next,memo) return efield(memo,next).to_macro_at(pos);
 
     return switch([ref.module,ref.pack,ref.name]){
       case [null,pack,null] if (pack.length == 0)     : ident(head);

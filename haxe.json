@@ -25,7 +25,10 @@
       },
       "g" : {
        "-main" : "stx.g.Test",
-       "--interp" : true
+       "--interp" : true,
+       "macro" :  {
+         "-D" : "boot"
+       }
       }
     }
   }

@@ -21,7 +21,7 @@ typedef HClassType              = stx.makro.type.HClassType;
 
 typedef HClassAndParam          = stx.makro.type.HClassAndParam;
 typedef HClassAndParamDef       = stx.makro.type.HClassAndParam.HClassAndParamDef;
-
+typedef HClassKind              = stx.makro.type.HClassKind;
 
 class LiftClassType{
   static public function makro(ct:haxe.macro.Type.ClassType):HClassType{

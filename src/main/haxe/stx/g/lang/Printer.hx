@@ -107,7 +107,7 @@
  
    public function printConstant(c:GConstant)
      return switch (c) {
-       case GCString(s, SingleQuotes): printFormatString(s);
+       case GCString(s, GSingleQuotes): printFormatString(s);
        case GCString(s, _): printString(s);
        case GCIdent(s), GCInt(s, null), GCFloat(s, null):
          s;
@@ -238,8 +238,8 @@
  
    public function printObjectFieldKey(of:GObjectField) {
      return switch (of.quotes) {
-       case null | Unquoted: of.field;
-       case Quoted: '"${of.field}"'; // TODO: Have to escape that?
+       case null | GUnquoted: of.field;
+       case GQuoted: '"${of.field}"'; // TODO: Have to escape that?
      }
    }
  

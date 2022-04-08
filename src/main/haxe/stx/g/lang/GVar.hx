@@ -27,7 +27,9 @@ typedef GVarDef = {
 	final ?isFinal:Bool;
 	final ?isStatic:Bool;
 }
+@:using(stx.g.lang.GVar.GVarLift)
 @:forward abstract GVar(GVarDef) from GVarDef to GVarDef{
+	static public var _(default,never) = GVarLift;
 	static public var __(default,never) = new GVarCtr();
   public function new(self) this = self;
   static public function lift(self:GVarDef):GVar return new GVar(self);
@@ -48,4 +50,18 @@ typedef GVarDef = {
 	public function toSource():GSource{
 		return Printer.ZERO.printVar(this);
 	}
+}
+class GVarLift{
+	#if macro
+	static public function to_macro_at(self:GVar,pos:Position){
+		return {
+			name 				: self.name,
+			type 				: __.option(self.type).map(x -> x.to_macro_at(pos)).defv(null),
+			expr 				: __.option(self.expr).map(x -> x.to_macro_at(pos)).defv(null),
+			isFinal 		: self.isFinal,
+			isStatic 		: self.isStatic,
+			meta 				: __.option(self.meta).map(x -> x.to_macro_at(pos)).defv(null)
+		}		
+	}
+	#end
 }

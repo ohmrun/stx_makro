@@ -30,6 +30,7 @@ enum GConstantSum{
 	GCIdent(s:String);
 	GCRegexp(r:String, opt:String);
 }
+@:using(stx.g.lang.GConstant.GConstantLift)
 abstract GConstant(GConstantSum) from GConstantSum to GConstantSum{
   static public var __(default,never) = new GConstantCtr();
   public function new(self) this = self;
@@ -43,4 +44,17 @@ abstract GConstant(GConstantSum) from GConstantSum to GConstantSum{
   public function toSource():GSource{
 		return Printer.ZERO.printConstant(this);
 	}
+}
+class GConstantLift{
+  #if macro
+  static public function to_macro_at(self:GConstant,pos:Position){
+    return switch(self){
+      case GCInt(v, s)       : CInt(v, s);       
+      case GCFloat(f, s)     : CFloat(f, s);     
+      case GCString(s, kind) : CString(s, __.option(kind).map(x -> x.to_macro_at(pos)).defv(null)); 
+      case GCIdent(s)        : CIdent(s);        
+      case GCRegexp(r, opt)  : CRegexp(r, opt);  
+    }
+  }
+  #end
 }

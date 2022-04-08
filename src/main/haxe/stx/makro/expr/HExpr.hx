@@ -23,10 +23,10 @@ package stx.makro.expr;
     return self;
   }
   @:noUsing static public function mark(pos:Pos):HExpr{
-    return HExprDef.MARK.expr(pos);
+    return HExprDef.MARK.to_macro_at(pos);
   }
   @:noUsing static public function unit(pos:Pos):HExpr{
-    return HExprDef.ZERO.expr(pos);
+    return HExprDef.ZERO.to_macro_at(pos);
   }  
   #if macro
   @:noUsing static public function getType(self:HExpr):HType{
@@ -47,8 +47,8 @@ package stx.makro.expr;
     var printer = new haxe.macro.Printer();
     return printer.printExpr(this);
   }
-  public var expr(get,never):HExprDef;
-  public function get_expr():HExprDef{
+  public var to_macro_at(get,never):HExprDef;
+  public function get_to_macro_at():HExprDef{
     return HExprDef.lift(this.expr);
   }
 }
@@ -90,12 +90,12 @@ class HExprLift{
                         HFunction.make([],null,
                           HExprDef.EReturn(
                               HExprDef.EField(
-                                HConstant.CIdent('this').expr(pos).prj(),
+                                HConstant.CIdent('this').to_macro_at(pos).prj(),
                                 f.name
-                              ).expr(pos)
-                          ).expr(pos)
+                              ).to_macro_at(pos)
+                          ).to_macro_at(pos)
                         ).prj()
-                      ).expr(pos)
+                      ).to_macro_at(pos)
                     ),
                     pos,
                     [HAccess.Public()]

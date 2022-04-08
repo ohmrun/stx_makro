@@ -26,10 +26,11 @@ class GFieldTypeCtr extends Clazz{
   }
 }
 enum GFieldTypeSum {
-	GFVar( t : Null<GComplexType>, ?e : Null<GExpr> );
+	GFVar( t  : Null<GComplexType>, ?e : Null<GExpr> );
 	GFFun( f : GFunction );
 	GFProp( get : GPropAccess, set : GPropAccess, ?t : Null<GComplexType>, ?e : Null<GExpr> );
 }
+@:using(stx.g.lang.GFieldType.GFieldTypeLift)
 abstract GFieldType(GFieldTypeSum) from GFieldTypeSum to GFieldTypeSum{
   static public var __(default,never) = new GFieldTypeCtr();
   public function new(self) this = self;
@@ -42,4 +43,20 @@ abstract GFieldType(GFieldTypeSum) from GFieldTypeSum to GFieldTypeSum{
   // public function toSource():GSource{
 	// 	return Printer.ZERO.printFieldType(this);
 	// }
+}
+class GFieldTypeLift{
+  #if macro
+  static public function to_macro_at(self:GFieldType,pos:Position){
+    return switch(self){
+      case GFVar( t  , e)            :  FVar(__.option(t).map(ct -> ct.to_macro_at(pos)).defv(null)  , __.option(e).map(e -> e.to_macro_at(pos)).defv(null));
+      case GFFun( f  )               :  FFun( GFunction._.to_macro_at(f,pos)  );
+      case GFProp( get , set , t, e) :  FProp( 
+        get.getting() , 
+        set.setting() , 
+        __.option(t).map(x -> x.to_macro_at(pos)).defv(null) , 
+        __.option(e).map(x -> x.to_macro_at(pos)).defv(null)
+      );
+    } 
+  }
+  #end
 }

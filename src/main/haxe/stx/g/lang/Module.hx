@@ -1,7 +1,7 @@
 package stx.g.lang;
 
 class Module extends Clazz{
-  public function expr(){
+  public function to_macro_at(){
     return GExpr.__;
   }  
   public function type(){

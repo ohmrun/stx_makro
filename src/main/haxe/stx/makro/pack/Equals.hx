@@ -65,7 +65,7 @@ class Equals{
       case ECall(e, [{ expr :}])://ARG1 ARG2
     }
   }
-  static public function express(type:Type,data:EqualsData):Outcome<HExpr,stx.Error>{
+  static public function to_macro_atess(type:Type,data:EqualsData):Outcome<HExpr,stx.Error>{
     var id = get_id(type);
     return if(id == null){
       switch(type){

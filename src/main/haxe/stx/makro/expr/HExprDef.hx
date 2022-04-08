@@ -46,7 +46,7 @@ abstract HExprDef(StdExprDef){
   public function toHExpr(pos:Position):HExpr{
     return HExpr.make(lift(this),pos);
   }
-  public function expr(pos){
+  public function to_macro_at(pos){
     return toHExpr(pos);
   }
   public function prj(){

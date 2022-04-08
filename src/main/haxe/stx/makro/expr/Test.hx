@@ -28,8 +28,37 @@ class Test{
       [
         //new WhatDoesReifiedFunctionDeclarationProduce(),
         //new ShimTest(),
-        new WhatPackageExprLookLikeTest(),
+        //new WhatPackageExprLookLikeTest(),
+        new WhatEnumAbstractLookLikeTest(),
       ],[]);
+  }
+}
+enum abstract Blum(String){
+  var Hello;
+}
+class WhatEnumAbstractLookLikeTest extends TestCase{
+  public function test(){
+    var a : Blum = Hello;
+    makro(a);
+  }
+  static macro function makro(e:Expr){
+    final type = Context.typeof(e);
+    switch(type){
+      case TAbstract(ref,params) :
+        final t = ref.get();
+        trace(untyped t.__t);
+        trace(t.impl.get());
+        final impl = t.impl.get();
+        trace(impl.statics.get());
+        // switch(__.option(t.impl).map(x -> x.get().kind).defv(null)){
+        //   case KAbstractImpl(ref) :
+        //     final t = ref.get();
+        //     trace(t.name);
+        //   default : 
+        // }
+      default : 
+    }
+    return macro {};
   }
 }
 class WhatPackageExprLookLikeTest extends TestCase{

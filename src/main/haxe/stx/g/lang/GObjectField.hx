@@ -20,8 +20,10 @@ typedef GObjectFieldDef = {
 	var expr:GExpr;
 	var ?quotes:GQuoteStatus;
 }
+@:using(stx.g.lang.GObjectField.GObjectFieldLift)
 @:forward abstract GObjectField(GObjectFieldDef) from GObjectFieldDef to GObjectFieldDef{
   static public var __(default,never) = new GObjectFieldCtr();
+  static public var _(default,never) = GObjectFieldLift;
   public function new(self) this = self;
   static public function lift(self:GObjectFieldDef):GObjectField return new GObjectField(self);
 
@@ -35,4 +37,15 @@ typedef GObjectFieldDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printObjectField(this);
 	}
+}
+class GObjectFieldLift{
+  #if macro
+  static public function to_macro_at(self:GObjectField,pos:Position){
+    return {
+      field  : self.field,
+      expr   : self.expr.to_macro_at(pos),
+      quotes : __.option(self.quotes).map(x -> x.to_macro_at(pos)).defv(null)
+    }
+  }
+  #end
 }

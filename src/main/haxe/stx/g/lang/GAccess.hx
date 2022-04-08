@@ -32,7 +32,7 @@ enum GAccessSum {
 	GAAbstract;
 	GAOverload;
 }
-
+@:using(stx.g.lang.GAccess.GAccessLift)
 abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
 	static public var __(default,never) = new GAccessCtr();
   public function new(self) this = self;
@@ -45,9 +45,23 @@ abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
 	public function toSource():GSource{
 		return Printer.ZERO.printAccess(this);
 	}
+}
+class GAccessLift{
 	#if macro 
-	// public function toHaxe(){
-	// 	return 
-	// }
+	static public function to_macro_at(self:GAccess,pos:Position):Access{
+		return switch(self){
+			case GAPrivate 			: APrivate;
+			case GAPublic 			: APrivate;
+			case GAStatic  			: AStatic;
+			case GAOverride			: AOverride;
+			case GADynamic 			: ADynamic;
+			case GAInline  			: AInline;
+			case GAMacro   			: AMacro;
+			case GAFinal   			: AFinal;
+			case GAExtern  			: AExtern;
+			case GAAbstract			: AAbstract;
+			case GAOverload			: AOverload;
+		}
+	}
 	#end
 }

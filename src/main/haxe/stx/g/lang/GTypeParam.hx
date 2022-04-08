@@ -21,6 +21,7 @@ enum GTypeParamSum {
 	GTPType( t : GComplexType );
 	GTPExpr( e : GExpr );
 }
+@:using(stx.g.lang.GTypeParam.GTypeParamLift)
 abstract GTypeParam(GTypeParamSum) from GTypeParamSum to GTypeParamSum{
   public function new(self) this = self;
   static public function lift(self:GTypeParamSum):GTypeParam return new GTypeParam(self);
@@ -32,4 +33,14 @@ abstract GTypeParam(GTypeParamSum) from GTypeParamSum to GTypeParamSum{
   public function toSource():GSource{
 		return Printer.ZERO.printTypeParam(this);
 	}
+}
+class GTypeParamLift{
+  #if macro
+  static public function to_macro_at(self:GTypeParam,pos:Position):TypeParam{
+    return switch(self){
+      case GTPType( t ) : TPType(t.to_macro_at(pos));
+	    case GTPExpr( e ) : TPExpr(e.to_macro_at(pos));
+    }
+  }
+  #end
 }

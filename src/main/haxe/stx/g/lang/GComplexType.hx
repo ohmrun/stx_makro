@@ -45,6 +45,7 @@ enum GComplexTypeSum{
 	GTNamed( n : String, t : GComplexType );
 	GTIntersection(tl:Cluster<GComplexType>);
 }
+@:using(stx.g.lang.GComplexType.GComplexTypeLift)
 abstract GComplexType(GComplexTypeSum) from GComplexTypeSum to GComplexTypeSum{
 	static public var __(default,never) = new GComplexTypeCtr();
   public function new(self) this = self;
@@ -57,4 +58,20 @@ abstract GComplexType(GComplexTypeSum) from GComplexTypeSum to GComplexTypeSum{
 	public function toSource():GSource{
 		return Printer.ZERO.printComplexType(this);
 	}
+}
+class GComplexTypeLift{
+	#if macro
+	static public function to_macro_at(self:GComplexType,pos:Position){
+		return switch(self){
+			case GTPath( p )             : TPath( p.to_macro_at(pos) );
+			case GTFunction( args , ret ): TFunction( args.map(arg -> to_macro_at(arg,pos)).prj() , to_macro_at(ret,pos) );
+			case GTAnonymous( fields  )  : TAnonymous( fields.map(x -> x.to_macro_at(pos)).prj()  );
+			case GTParent( t )           : TParent( t.to_macro_at(pos) );
+			case GTExtend( p , fields  ) : TExtend( p.map(x -> x.to_macro_at(pos)).prj() , fields.map(x -> x.to_macro_at(pos)).prj()  );
+			case GTOptional( t )         : TOptional( t.to_macro_at(pos) );
+			case GTNamed( n , t )        : TNamed( n , t.to_macro_at(pos) );
+			case GTIntersection(tl)      : TIntersection(tl.map(x -> x.to_macro_at(pos)).prj());
+		}		
+	}
+	#end
 }

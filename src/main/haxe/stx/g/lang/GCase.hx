@@ -21,6 +21,7 @@ typedef GCaseDef = {
 	final ?guard:GExpr;
 	final ?expr:GExpr;
 }
+@:using(stx.g.lang.GCase.GCaseLift)
 @:forward abstract GCase(GCaseDef) from GCaseDef to GCaseDef{
   static public var __(default,never) = new GCaseCtr();
   public function new(self) this = self;
@@ -39,4 +40,15 @@ typedef GCaseDef = {
   // public function toSource():GSource{
 	// 	return Printer.ZERO.printCase(this);
 	// }
+}
+class GCaseLift{
+  #if macro
+  static public function to_macro_at(self:GCase,pos:Position){
+    return {
+      values  : __.option(self.values).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      guard   : __.option(self.guard).map(x -> x.to_macro_at(pos)).defv(null),
+      expr    : __.option(self.expr).map(x -> x.to_macro_at(pos)).defv(null) 
+    }
+  }
+  #end
 }

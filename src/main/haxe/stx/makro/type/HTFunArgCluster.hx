@@ -9,11 +9,11 @@ package stx.makro.type;
   #if macro
   public function call(m:HMethodCall,pos):HExpr{
     return HExprDef.ECall(
-      m.expr(pos),
+      m.to_macro_at(pos),
       HExprCluster.unto((this.map(
         (param) -> param.getModule().toExpr()
       )))
-    ).expr(pos);
+    ).to_macro_at(pos);
   }
   #end
   @:from static public function fromArray(self:Array<HTFunArg>){

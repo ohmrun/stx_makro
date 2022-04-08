@@ -22,8 +22,10 @@ typedef GFunctionDef = {
 	final expr    : Null<GExpr>;
 	final ?params : Cluster<GTypeParamDecl>;
 }
+@:using(stx.g.lang.GFunction.GFunctionLift)
 @:forward abstract GFunction(GFunctionDef) from GFunctionDef to GFunctionDef{
   static public var __(default,never) = new GFunctionCtr();
+  static public var _(default,never) = GFunctionLift;
   public function new(self) this = self;
   static public function lift(self:GFunctionDef):GFunction return new GFunction(self);
   static public function make(args:Cluster<GFunctionArg>,?ret:GComplexType,?expr:GExpr,?params:Cluster<GTypeParamDecl>){
@@ -41,4 +43,16 @@ typedef GFunctionDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printFunction(this);
 	}
+}
+class GFunctionLift{
+  #if macro
+  static public function to_macro_at(self:GFunction,pos:Position):Function{
+    return {
+      args    : self.args.map(arg -> arg.to_macro_at(pos)).prj(),
+      ret     : __.option(self.ret).map(ret -> ret.to_macro_at(pos)).defv(null),
+      expr    : __.option(self.expr).map(x -> x.to_macro_at(pos)).defv(null),
+      params  : __.option(self.params).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([])
+    }
+  }
+  #end 
 }

@@ -7,7 +7,7 @@ class LiftModuleToHExpr{
     var ident   = Constant.CIdent.fn().then(x->LiftHExpr.Constant.toHExpr(x,pos));
     var head    = id.name;
 
-    function f(next,memo) return efield(memo,next).expr(pos);
+    function f(next,memo) return efield(memo,next).to_macro_at(pos);
 
     return switch([id.module,id.pack]){
       case [None,pack] if(pack.length == 0)       : ident(head);
