@@ -41,12 +41,17 @@ class GExprCtr extends Clazz{
     return lift(GEConst(c(GConstant.__)));
   } 
   public function FieldPath(name:String,pack:Cluster<String>){
-    return pack.rfold(
-      (next:String,memo:GExpr) -> this.Field(
-        _ -> memo,
-        next        
+    final head = pack.head().defv(name);
+
+    return pack.is_defined().if_else(
+      () -> pack.tail().snoc(name).lfold(
+        (next:String,memo:GExpr) -> this.Field(
+          _ -> memo,
+          next        
+        ),
+        this.Const(_ -> _.Ident(head))
       ),
-      this.Const(_ -> _.Ident(name))
+      () -> this.Const(_ -> _.Ident(head))
     );
   }
   public function Array(lhs,rhs){

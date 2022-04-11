@@ -10,7 +10,7 @@ class GObjectFieldCtr extends Clazz{
   public function Make(field,?expr,?quotes){
     return GObjectField.make(
       field,
-      expr(GExpr.__),
+      __.option(expr).map(f -> f(GExpr.__)).defv(null),
       quotes
     );
   }
