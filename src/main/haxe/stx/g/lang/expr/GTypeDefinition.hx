@@ -7,7 +7,7 @@ class GTypeDefinitionCtr extends Clazz{
   private function lift(self:GTypeDefinitionDef):GTypeDefinition{
     return GTypeDefinition.lift(self);
   }
-  public function Make(name,pack,kind,fields,?params,?meta:GMetadataEntryCtr->GMetadata,?isExtern,?doc:Null<String>){
+  public function Make(name,pack,kind:CTR<GTypeDefKindCtr,GTypeDefKind>,fields:CTR<GFieldCtr,Cluster<GField>>,?params:CTR<GTypeParamDeclCtr,Cluster<GTypeParamDecl>>,?meta:CTR<GMetadataEntryCtr,GMetadata>,?isExtern,?doc:Null<String>){
     return GTypeDefinition.make(
       name,
       pack,

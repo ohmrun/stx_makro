@@ -7,7 +7,7 @@ class GCaseCtr extends Clazz{
   private function lift(self:GCaseDef):GCase{
     return GCase.lift(self);
   }
-  public function Make(values:GExprCtr->Cluster<GExpr>,?guard:GExprCtr->GExpr,?expr:GExprCtr->GExpr){
+  public function Make(values:CTR<GExprCtr,Cluster<GExpr>>,?guard:CTR<GExprCtr,GExpr>,?expr:CTR<GExprCtr,GExpr>){
     final ctr = GExprCtr.unit();
     return GCase.make(
       values(ctr),

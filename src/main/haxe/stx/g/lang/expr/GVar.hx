@@ -8,7 +8,7 @@ class GVarCtr extends Clazz{
 	private function lift(self:GVarDef):GVar{
 		return GVar.lift(self);
 	}
-	public function Make(name:String,?type:GComplexTypeCtr->GComplexType,?expr:GExprCtr->GExpr,?meta:GMetadataEntryCtr->GMetadata,?isFinal,?isStatic){
+	public function Make(name:String,?type:CTR<GComplexTypeCtr,GComplexType>,?expr:CTR<GExprCtr,GExpr>,?meta:CTR<GMetadataEntryCtr,GMetadata>,?isFinal,?isStatic){
 		return GVar.make(
 			name,
 			__.option(type).map(f -> f(GComplexType.__)).defv(null),

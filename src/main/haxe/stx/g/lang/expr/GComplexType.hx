@@ -7,31 +7,31 @@ class GComplexTypeCtr extends Clazz{
 	private function lift(self:GComplexTypeSum){
 		return GComplexType.lift(self);
 	}
-	public function Path(p:GTypePathCtr->GTypePath):GComplexType{
+	public function Path(p:CTR<GTypePathCtr,GTypePath>):GComplexType{
 		return lift(GTPath(p(GTypePath.__)));
 	}
-	public function Function(args:GComplexTypeCtr -> Cluster<GComplexType>, ret : GComplexTypeCtr -> GComplexType){
+	public function Function(args:CTR<GComplexTypeCtr,Cluster<GComplexType>>, ret : CTR<GComplexTypeCtr,GComplexType>){
 		return lift(GTFunction(args(unit()),ret(unit()))); 
 	}
-	public function Anonymous(fields:GFieldCtr->Cluster<GField>){
+	public function Anonymous(fields:CTR<GFieldCtr,Cluster<GField>>){
 		return lift(GTAnonymous(fields(GField.__)));
 	}
-	public function Parent(t:GComplexTypeCtr->GComplexType){
+	public function Parent(t:CTR<GComplexTypeCtr,GComplexType>){
 		return lift(GTParent(t(this)));
 	}
-	public function Extend(p:GTypePathCtr->Cluster<GTypePath>,fields:GFieldCtr->Cluster<GField>){
+	public function Extend(p:CTR<GTypePathCtr,Cluster<GTypePath>>,fields:CTR<GFieldCtr,Cluster<GField>>){
 		return lift(GTExtend(
 			p(GTypePath.__),
 			fields(GField.__)
 		));
 	}
-	public function Optional(t:GComplexTypeCtr->GComplexType){
+	public function Optional(t:CTR<GComplexTypeCtr,GComplexType>){
 		return lift(GTOptional(t(this)));
 	}
-	public function Named(n:String,t:GComplexTypeCtr->GComplexType){
+	public function Named(n:String,t:CTR<GComplexTypeCtr,GComplexType>){
 		return lift(GTNamed(n,t(this)));
 	}
-	public function Intersection(t:GComplexTypeCtr->Cluster<GComplexType>){
+	public function Intersection(t:CTR<GComplexTypeCtr,Cluster<GComplexType>>){
 		return lift(GTIntersection(t(this)));
 	}
 	public function string(string:String){

@@ -7,7 +7,7 @@ class GFunctionCtr extends Clazz{
   private function lift(self:GFunctionDef):GFunction{
     return GFunction.lift(self);
   }
-  public function Make(args:GFunctionArgCtr->Cluster<GFunctionArg>,?ret,?expr,?params){
+  public function Make(args:CTR<GFunctionArgCtr,Cluster<GFunctionArg>>,?ret:CTR<GComplexTypeCtr,GComplexType>,?expr:CTR<GExprCtr,GExpr>,?params:CTR<GTypeParamDeclCtr,Cluster<GTypeParamDecl>>){
     return GFunction.make(
       args(GFunctionArgCtr.unit()),
       __.option(ret).map(f -> f(GComplexTypeCtr.unit())).defv(null),

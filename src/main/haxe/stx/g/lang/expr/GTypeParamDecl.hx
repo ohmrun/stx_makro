@@ -4,7 +4,7 @@ class GTypeParamDeclCtr extends Clazz{
   static public function unit(){
     return new GTypeParamDeclCtr();
   }
-  public function Make(name:String,?constraints:GComplexTypeCtr -> Cluster<GComplexType>,?params:GTypeParamDeclCtr -> Cluster<GTypeParamDecl>,meta:GMetadataEntryCtr -> GMetadata,?defaultType){
+  public function Make(name:String,?constraints:CTR<GComplexTypeCtr,Cluster<GComplexType>>,?params:CTR<GTypeParamDeclCtr,Cluster<GTypeParamDecl>>,meta:CTR<GMetadataEntryCtr,GMetadata>,?defaultType:CTR<GComplexTypeCtr,GComplexType>){
     return GTypeParamDecl.make(
       name,
       __.option(constraints).map(f -> f(GComplexType.__)).defv(null),

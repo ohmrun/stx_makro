@@ -7,7 +7,7 @@ class GObjectFieldCtr extends Clazz{
   private function lift(self:GObjectFieldDef):GObjectField{
     return GObjectField.lift(self);
   }
-  public function Make(field,?expr,?quotes){
+  public function Make(field:String,?expr:CTR<GExprCtr,GExpr>,?quotes){
     return GObjectField.make(
       field,
       __.option(expr).map(f -> f(GExpr.__)).defv(null),

@@ -7,7 +7,7 @@ class GFunctionArgCtr extends Clazz{
   private function lift(self:GFunctionArgDef):GFunctionArg{
     return GFunctionArg.lift(self);
   }
-  public function Make(name:String,type:GComplexTypeCtr->GComplexType,?opt:Bool,?value:GExprCtr->GExpr,?meta:GMetadataEntryCtr->GMetadata){
+  public function Make(name:String,type:CTR<GComplexTypeCtr,GComplexType>,?opt:Bool,?value:CTR<GExprCtr,GExpr>,?meta:CTR<GMetadataEntryCtr,GMetadata>){
     return lift({
       name  : name,
       type  : type(GComplexType.__),

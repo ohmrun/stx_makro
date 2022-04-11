@@ -7,7 +7,7 @@ class GFieldCtr extends Clazz{
   private function lift(self:GFieldDef):GField{
     return GField.lift(self);
   }
-  public function Make(name:String,kind:GFieldTypeCtr->GFieldType,?access:GAccessCtr->Cluster<GAccess>,?meta:GMetadataEntryCtr->GMetadata,?doc){
+  public function Make(name:String,kind:CTR<GFieldTypeCtr,GFieldType>,?access:CTR<GAccessCtr,Cluster<GAccess>>,?meta:CTR<GMetadataEntryCtr,GMetadata>,?doc){
     return GField.make(
       name,
       kind(GFieldType.__),

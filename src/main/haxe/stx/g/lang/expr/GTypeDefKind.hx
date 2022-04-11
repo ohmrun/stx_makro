@@ -13,7 +13,7 @@ class GTypeDefKindCtr extends Clazz{
   public function Structure(){
     return lift(GTDStructure);
   }
-  public function Class(?superClass : GTypePathCtr -> GTypePath, ?interfaces : GTypePathCtr -> Cluster<GTypePath>, ?isInterface, ?isFinal, ?isAbstract ){
+  public function Class(?superClass : CTR<GTypePathCtr,GTypePath>, ?interfaces : CTR<GTypePathCtr,Cluster<GTypePath>>, ?isInterface, ?isFinal, ?isAbstract ){
     return lift(GTDClass(
       __.option(superClass).map(f -> f(GTypePath.__)).defv(null),
       __.option(interfaces).map(f -> f(GTypePath.__)).defv(null),
@@ -22,17 +22,17 @@ class GTypeDefKindCtr extends Clazz{
       isAbstract
     ));
   }
-  public function Alias(t){
+  public function Alias(t:CTR<GComplexTypeCtr,GComplexType>){
     return lift(GTDAlias(t(GComplexType.__)));
   }
-  public function Abstract(tthis,?from,?to){
+  public function Abstract(tthis:CTR<GComplexTypeCtr,GComplexType>,?from:CTR<GComplexTypeCtr,Cluster<GComplexType>>,?to:CTR<GComplexTypeCtr,Cluster<GComplexType>>){
     return lift(GTDAbstract(
       __.option(tthis).map(f -> f(GComplexType.__)).defv(null),
       __.option(from).map(f -> f(GComplexType.__)).defv(null),
       __.option(to).map(f -> f(GComplexType.__)).defv(null)
     ));
   }
-  public function Field(kind,access){
+  public function Field(kind:CTR<GFieldTypeCtr,GFieldType>,access:CTR<GAccessCtr,Cluster<GAccess>>){
     return lift(GTDField(
       kind(GFieldType.__),
       access(GAccess.__)

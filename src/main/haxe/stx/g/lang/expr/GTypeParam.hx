@@ -7,14 +7,14 @@ class GTypeParamCtr extends Clazz{
   private function lift(self:GTypeParamSum){
     return GTypeParam.lift(self);
   }
-  public function CType(type:GComplexType){
-    return lift(GTPType(type));
+  public function CType(type:CTR<GComplexTypeCtr,GComplexType>){
+    return lift(GTPType(type(GComplexType.__)));
   }
-  public function ComplexType(type:GComplexType){
-    return lift(GTPType(type));
+  public function ComplexType(type:CTR<GComplexTypeCtr,GComplexType>){
+    return lift(GTPType(type(GComplexType.__)));
   }
-  public function Expr(expr:GExpr){
-    return lift(GTPExpr(expr));
+  public function Expr(expr:CTR<GExprCtr,GExpr>){
+    return lift(GTPExpr(expr(GExpr.__)));
   }
 }
 enum GTypeParamSum {

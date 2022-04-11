@@ -7,7 +7,7 @@ class GCatchCtr extends Clazz{
   private function lift(self:GCatchDef):GCatch{
     return GCatch.lift(self);
   }
-  public function Make(name:String,expr:GExprCtr->GExpr,type:GComplexTypeCtr->GComplexType){
+  public function Make(name:String,expr:CTR<GExprCtr,GExpr>,type:CTR<GComplexTypeCtr,GComplexType>){
     return GCatch.make(
       name,
       expr(GExpr.__),
@@ -22,6 +22,8 @@ typedef GCatchDef = {
 }
 @:using(stx.g.lang.expr.GCatch.GCatchLift)
 @:forward abstract GCatch(GCatchDef) from GCatchDef to GCatchDef{
+  static public var _(default,never) = GCatchLift;
+  static public var __(default,never) = new GCatchCtr();
   public function new(self) this = self;
   static public function lift(self:GCatchDef):GCatch return new GCatch(self);
   static public function make(name:String,expr:GExpr,?type:GComplexType){

@@ -7,7 +7,7 @@ class GTypePathCtr extends Clazz{
   private function lift(self:GTypePathDef):GTypePath{
     return GTypePath.lift(self);
   }
-  public function Make(name:String,?pack,?sub:String,?params:GTypeParamCtr->Cluster<GTypeParam>){
+  public function Make(name:String,?pack,?sub:String,?params:CTR<GTypeParamCtr,Cluster<GTypeParam>>){
     return GTypePath.make(
       name,
       __.option(pack).defv([].imm()),
