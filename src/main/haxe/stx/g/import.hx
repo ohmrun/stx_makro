@@ -1,7 +1,6 @@
 package stx.g;
 
+using stx.Log;
 using stx.g.Lang;
 
-#if macro
 import haxe.macro.Expr;
-#end

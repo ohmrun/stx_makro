@@ -1,0 +1,68 @@
+{
+  module: stx.makro.expr.Test, 
+  impl: stx.makro.expr._Test.Blum_Impl_, 
+  name: Blum, 
+  isPrivate: false, 
+  from: [], 
+  unops: [], 
+  binops: [], 
+  doc: null, 
+  params: [], 
+  array: [], 
+  pos: #pos(/mnt/dat/prj/haxe/stx/stx_makro/src/main/haxe/stx/makro/expr/Test.hx:36: lines 36-38), 
+  pack: [stx,makro,expr], 
+  resolveWrite: null, 
+  resolve: null, 
+  meta: {get: #fun, remove: #fun, has: #fun, extract: #fun, add: #fun}, 
+  to: [], 
+  type: TInst(String,[]), 
+  __t: haxe.macro.TypeDecl
+}
+{
+  module: stx.makro.expr.Test, 
+  name: Blum_Impl_, 
+  isPrivate: true, 
+  isFinal: true, 
+  init: null, 
+  constructor: null, 
+  isAbstract: false, 
+  doc: null, 
+  params: [], 
+  pos: #pos(/mnt/dat/prj/haxe/stx/stx_makro/src/main/haxe/stx/makro/expr/Test.hx:36: lines 36-38), 
+  fields: class fields, 
+  overrides: [], 
+  pack: [stx,makro,expr,_Test], 
+  kind: KAbstractImpl(stx.makro.expr.Blum), 
+  meta: {get: #fun, remove: #fun, has: #fun, extract: #fun, add: #fun}, 
+  superClass: null, 
+  interfaces: [], 
+  statics: class fields, 
+  isExtern: false, 
+  exclude: #fun, __t: haxe.macro.TypeDecl, 
+  isInterface: false
+}
+{
+  name: Hello, 
+  isFinal: false, 
+  namePos: #pos(/mnt/dat/prj/haxe/stx/stx_makro/src/main/haxe/stx/makro/expr/Test.hx:37: characters 7-12), 
+  isPublic: true, 
+  isAbstract: false, 
+  doc: null, 
+  params: [], 
+  pos: #pos(/mnt/dat/prj/haxe/stx/stx_makro/src/main/haxe/stx/makro/expr/Test.hx:37: characters 3-13), 
+  kind: FVar(AccInline,AccNever), 
+  meta: {get: #fun, remove: #fun, has: #fun, extract: #fun, add: #fun}, 
+  overloads: overloads, 
+  isExtern: false, 
+  type: TAbstract(stx.makro.expr.Blum,[]), 
+  expr: #fun
+}
+
+{
+  t: TAbstract(stx.makro.expr.Blum,[]), 
+  pos: #pos((unknown)), 
+  expr: TCast({t: TInst(String,[]), 
+  pos: #pos((unknown)), 
+  expr: TConst(TString(Hello))},null)
+}
+///mnt/dat/prj/haxe/stx/stx_makro/src/main/haxe/stx/makro/expr/Test.hx:74: {pos:haxe.macro.Position,expr:EField({pos:haxe.macro.Position,expr:EField({pos:haxe.macro.Position,expr:EField({pos:haxe.macro.Position,expr:EConst(CIdent(stx))}, makro, Normal)}, expr, Normal)}, Test, Normal)}

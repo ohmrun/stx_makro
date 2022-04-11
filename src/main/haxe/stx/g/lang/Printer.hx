@@ -22,6 +22,7 @@
 
  package stx.g.lang;
 
+ using stx.g.Lang;
  using StringTools;
  using stx.g.lang.Printer;
 
@@ -129,7 +130,7 @@
        + (tp.params == null ? "" : tp.params.length > 0 ? "<" + tp.params.map(printTypeParam).join(", ") + ">" : "");
  
    // TODO: check if this can cause loops
-   public function printComplexType(ct:GComplexType)
+   public function printComplexType(ct:GComplexType):String
      return switch (ct) {
        case GTPath(tp): printTypePath(tp);
        case GTFunction(args, ret):

@@ -1,3 +1,4 @@
+
 typedef MetadataEntry = {
 	var name:String;
 	var ?params:Array<Expr>;

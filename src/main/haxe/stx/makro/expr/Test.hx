@@ -46,10 +46,19 @@ class WhatEnumAbstractLookLikeTest extends TestCase{
     switch(type){
       case TAbstract(ref,params) :
         final t = ref.get();
-        trace(untyped t.__t);
+        trace(t);
+        trace("______________________________________");
+        trace(t.meta.get());
+        trace("______________________________________");
+        // trace(untyped t.__t);
         trace(t.impl.get());
+        trace("______________________________________");
         final impl = t.impl.get();
-        trace(impl.statics.get());
+        final fields = impl.statics.get();
+        for(field in fields){
+          trace(field);
+          trace(field.expr());
+        }
         // switch(__.option(t.impl).map(x -> x.get().kind).defv(null)){
         //   case KAbstractImpl(ref) :
         //     final t = ref.get();
@@ -66,7 +75,7 @@ class WhatPackageExprLookLikeTest extends TestCase{
     makro(stx.makro.expr.Test);
   }
   static macro function makro(e:Expr){
-    trace(__.show(e));
+    //trace(__.show(e));
     return macro {};
   }
 }

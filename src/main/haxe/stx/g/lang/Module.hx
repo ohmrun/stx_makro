@@ -19,4 +19,13 @@ class Module extends Clazz{
   public function complex_type(){
     return GComplexType.__;
   }
+  public function ctype(){
+    return GComplexType.__;
+  }
+  public function expr(){
+    return GExpr.__;
+  }
+  public function const(){
+    return GConstant.__;
+  }
 }

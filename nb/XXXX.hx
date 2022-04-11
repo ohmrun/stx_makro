@@ -3,18 +3,10 @@ enum GComplexTypeSum{                                               enum GTypeDe
 	GTFunction(args:Cluster<GComplexType>,ret:GComplexType);            GTDStructure;
 	GTAnonymous(fields:Cluster<GField>);                                GTDClass(?superClass:GTypePath,?interfaces:Cluster<GTypePath>,?isInterface,?isFinal:Bool,?isAbstract:Bool);
 	GTParent(t:GComplexType);                                           GTDAlias(t:GComplexType); // ignore TypeDefinition.fields
-	GTExtend(p:Cluster<GTypePath>,fields:Cluster<GField>);              GTDAbstract(tthis:`ull<GComplexType>,?from:Cluster<GComplexType>,?to: Cluster<GComplexType>);
+	GTExtend(p:Cluster<GTypePath>,fields:Cluster<GField>);              GTDAbstract(tthis:Null<GComplexType>,?from:Cluster<GComplexType>,?to: Cluster<GComplexType>);
 	GTOptional(t:GComplexType);                                         GTDField(kind:GFieldType,?access:Cluster<GAccess>);
 	GTNamed(n:String,t:GComplexType);                                 }
 	GTIntersection(tl:Cluster<GComplexType>);                                               
-}
-enum GTypeDefKindSum {
-	GTDEnum;
-	GTDStructure;
-	GTDClass(?superClass:GTypePath,?interfaces:Cluster<GTypePath>,?isInterface:Bool,?isFinal:Bool,?isAbstract:Bool);
-	GTDAlias(t:GComplexType); // ignore TypeDefinition.fields
-	GTDAbstract(tthis:Null<GComplexType>,?from:Cluster<GComplexType>,?to:Cluster<GComplexType>);
-  GTDField(kind:GFieldType,?access:Cluster<GAccess>);
 }
 enum GFieldTypeSum {                                                                              GFunctionArgDef = name ?type:GCT,?opt ?value:GExpr ?meta
 	GFVar(t:Null<GComplexType>,?e:Null<GExpr>);                                                     GTypePathDef = name pack ?sub ?params
