@@ -5,7 +5,7 @@ package stx.makro.expr;
   static public var ZERO(default,never) : HExpr  = lift( {expr : EBlock([]), pos : null } );
   static public var _(default,never) = HExprLift;
   public function new(self) this = self;
-  static public function lift(self:StdExpr):HExpr return new HExpr(self);
+  @:noUsing static public function lift(self:StdExpr):HExpr return new HExpr(self);
   @:noUsing static public function make(expr:HExprDef,pos:Position){
     return lift({
       expr  : expr.prj(),
@@ -22,10 +22,10 @@ package stx.makro.expr;
   @:noUsing static public function fromExpr(self:haxe.macro.Expr):HExpr{
     return self;
   }
-  @:noUsing static public function mark(pos:Pos):HExpr{
+  @:noUsing static public function mark(pos:Position):HExpr{
     return HExprDef.MARK.to_macro_at(pos);
   }
-  @:noUsing static public function unit(pos:Pos):HExpr{
+  @:noUsing static public function unit(pos:Position):HExpr{
     return HExprDef.ZERO.to_macro_at(pos);
   }  
   #if macro
@@ -33,7 +33,7 @@ package stx.makro.expr;
     return Context.typeof(self.toExpr());
   }
   #end
-  static public function ref(str:String,pos:Pos):HExpr{
+  static public function ref(str:String,pos:Position):HExpr{
     return lift(
       {
         pos : pos,
@@ -123,12 +123,12 @@ class LiftHExpr extends Clazz{
     return HExpr.lift(e);
   }
   static public var Constant = {
-    toHExpr : (self:Constant,?p:Pos) -> LiftConstantToHExpr.toHExpr(self,p)
+    toHExpr : (self:Constant,?p:Position) -> stx.makro.expr.lift.LiftConstantToHExpr.toHExpr(self,p)
   }
   static public var MethodRef = {
-    toHExpr : (self:MethodRef,?p:Pos) -> LiftMethodRefToHExpr.toHExpr(self,p)
+    toHExpr : (self:MethodRef,?p:Position) -> stx.makro.expr.lift.LiftMethodRefToHExpr.toHExpr(self,p)
   }
   static public var Module = {
-    toHExpr : (self:Module,?p:Pos) -> LiftModuleToHExpr.toHExpr(self,p)
+    toHExpr : (self:Module,?p:Position) -> stx.makro.expr.lift.LiftModuleToHExpr.toHExpr(self,p)
   }
 }

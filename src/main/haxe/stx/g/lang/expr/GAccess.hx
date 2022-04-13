@@ -36,7 +36,7 @@ enum GAccessSum {
 abstract GAccess(GAccessSum) from GAccessSum to GAccessSum{
 	static public var __(default,never) = new GAccessCtr();
   public function new(self) this = self;
-  static public function lift(self:GAccessSum):GAccess return new GAccess(self);
+  @:noUsing static public function lift(self:GAccessSum):GAccess return new GAccess(self);
 
   public function prj():GAccessSum return this;
   private var self(get,never):GAccess;

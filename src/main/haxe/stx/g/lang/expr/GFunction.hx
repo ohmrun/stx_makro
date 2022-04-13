@@ -10,7 +10,7 @@ class GFunctionCtr extends Clazz{
   public function Make(args:CTR<GFunctionArgCtr,Cluster<GFunctionArg>>,?ret:CTR<GComplexTypeCtr,GComplexType>,?expr:CTR<GExprCtr,GExpr>,?params:CTR<GTypeParamDeclCtr,Cluster<GTypeParamDecl>>){
     return GFunction.make(
       args(GFunctionArgCtr.unit()),
-      __.option(ret).map(f -> f(GComplexTypeCtr.unit())).defv(null),
+    __.option(ret).map(f -> f(GComplexTypeCtr.unit())).defv(null),
       __.option(expr).map(f -> f(GExprCtr.unit())).defv(null),
       __.option(params).map(f -> f(GTypeParamDeclCtr.unit())).defv(null)
     );
@@ -32,8 +32,8 @@ typedef GFunctionDef = {
   static public var __(default,never) = new GFunctionCtr();
   static public var _(default,never) = GFunctionLift;
   public function new(self) this = self;
-  static public function lift(self:GFunctionDef):GFunction return new GFunction(self);
-  static public function make(args:Cluster<GFunctionArg>,?ret:GComplexType,?expr:GExpr,?params:Cluster<GTypeParamDecl>){
+  @:noUsing static public function lift(self:GFunctionDef):GFunction return new GFunction(self);
+  @:noUsing static public function make(args:Cluster<GFunctionArg>,?ret:GComplexType,?expr:GExpr,?params:Cluster<GTypeParamDecl>){
     return lift({
       args    : args,
       ret     : ret,

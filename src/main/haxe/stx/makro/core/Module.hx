@@ -3,7 +3,7 @@ package stx.makro.core;
 @:using(stx.makro.core.Module.ModuleLift)
 @:forward abstract Module(ModuleDef) from ModuleDef{
   static public var _(default,never) = ModuleLift;
-  static public function lift(self:ModuleDef):Module{
+  @:noUsing static public function lift(self:ModuleDef):Module{
     return new Module(self);
   }
   public function new(self:ModuleDef){

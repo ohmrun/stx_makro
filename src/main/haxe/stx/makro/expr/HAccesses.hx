@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 abstract HAccessess(Cluster<HAccess>) from Cluster<HAccess> to Cluster<HAccess>{
   public function new(self) this = self;
-  static public function lift(self:Cluster<HAccess>):HAccessess return new HAccessess(self);
+  @:noUsing static public function lift(self:Cluster<HAccess>):HAccessess return new HAccessess(self);
 
   static public function unit(){
     return lift(Cluster.lift(HAccess.Public()));

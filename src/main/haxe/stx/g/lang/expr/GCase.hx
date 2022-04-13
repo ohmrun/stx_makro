@@ -25,8 +25,8 @@ typedef GCaseDef = {
 @:forward abstract GCase(GCaseDef) from GCaseDef to GCaseDef{
   static public var __(default,never) = new GCaseCtr();
   public function new(self) this = self;
-  static public function lift(self:GCaseDef):GCase return new GCase(self);
-  static public function make(values:Cluster<GExpr>,?guard:GExpr,?expr:GExpr){
+  @:noUsing static public function lift(self:GCaseDef):GCase return new GCase(self);
+  @:noUsing static public function make(values:Cluster<GExpr>,?guard:GExpr,?expr:GExpr){
     return lift({
       values  : values,
       guard   : guard,

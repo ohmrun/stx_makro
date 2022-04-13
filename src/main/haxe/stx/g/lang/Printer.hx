@@ -231,7 +231,7 @@
       return v == null ? "" : (prefix + f(v));
   
      var s = v.name + opt(v.type, printComplexType, ":") + opt(v.expr, printExpr, " = ");
-     return switch v.meta {
+     return switch (__.option(v.meta).map(x -> x.prj()).defv(null)) {
        case null|[]: s;
        case meta: meta.map(printMetadata).join(" ") + " " + s;
      }

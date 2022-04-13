@@ -32,8 +32,8 @@ typedef GVarDef = {
 	static public var _(default,never) = GVarLift;
 	static public var __(default,never) = new GVarCtr();
   public function new(self) this = self;
-  static public function lift(self:GVarDef):GVar return new GVar(self);
-	static public function make(name:String,?type:GComplexType,?expr,?meta:GMetadata,?isFinal = false,?isStatic = true){
+  @:noUsing static public function lift(self:GVarDef):GVar return new GVar(self);
+	@:noUsing static public function make(name:String,?type:GComplexType,?expr,?meta:GMetadata,?isFinal = false,?isStatic = true){
 		return lift({
 			name 				: name,
 			type 				: type,

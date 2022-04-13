@@ -40,6 +40,16 @@ class GExprCtr extends Clazz{
   public function Const(c:CTR<GConstantCtr,GConstant>){
     return lift(GEConst(c(GConstant.__)));
   } 
+  public function Path(string:String){
+    final parts = string.split(".");
+    return parts.tail().lfold(
+        (next:String,memo:GExpr) -> this.Field(
+          _ -> memo,
+          next        
+        ),
+        this.Const(_ -> _.Ident(parts.head().fudge()))
+      );
+  }
   public function FieldPath(name:String,pack:Cluster<String>){
     final head = pack.head().defv(name);
 
@@ -143,7 +153,7 @@ class GExprCtr extends Clazz{
 @:forward abstract GExpr(GExprSum) from GExprSum to GExprSum{
   static public var __(default,never) = new GExprCtr();
   public function new(self) this = self;
-  static public function lift(self:GExprSum):GExpr return new GExpr(self);
+  @:noUsing static public function lift(self:GExprSum):GExpr return new GExpr(self);
 
   public function prj():GExprSum return this;
   private var self(get,never):GExpr;

@@ -2,7 +2,7 @@ enum GComplexTypeSum{                                               enum GTypeDe
 	GTPath(p:GTypePath);                                                GTDEnum;
 	GTFunction(args:Cluster<GComplexType>,ret:GComplexType);            GTDStructure;
 	GTAnonymous(fields:Cluster<GField>);                                GTDClass(?superClass:GTypePath,?interfaces:Cluster<GTypePath>,?isInterface,?isFinal:Bool,?isAbstract:Bool);
-	GTParent(t:GComplexType);                                           GTDAlias(t:GComplexType); // ignore TypeDefinition.fields
+	GTParent(t:GComplexType);                                           GTDAlias(t:ComplexType); // ignore TypeDefinition.fields
 	GTExtend(p:Cluster<GTypePath>,fields:Cluster<GField>);              GTDAbstract(tthis:Null<GComplexType>,?from:Cluster<GComplexType>,?to: Cluster<GComplexType>);
 	GTOptional(t:GComplexType);                                         GTDField(kind:GFieldType,?access:Cluster<GAccess>);
 	GTNamed(n:String,t:GComplexType);                                 }

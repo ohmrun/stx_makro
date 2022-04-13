@@ -36,11 +36,11 @@ typedef GTypeDefinitionDef = {
   static public var __(default,never) = new GTypeDefinitionCtr();
   static public var _(default,never) = GTypeDefinitionLift;
   public function new(self) this = self;
-  static public function lift(self:GTypeDefinitionDef):GTypeDefinition return new GTypeDefinition(self);
-  static public function make(name,pack,kind,fields,?params,?meta,?isExtern,?doc){
+  @:noUsing static public function lift(self:GTypeDefinitionDef):GTypeDefinition return new GTypeDefinition(self);
+  @:noUsing static public function make(name,pack,kind,fields,?params,?meta,?isExtern,?doc){
     return lift({
       name        : name,
-      pack        : pack,
+      pack        : Wildcard.__.option(pack).defv([].imm()),
       kind        : kind,
       fields      : fields,
       params      : params,

@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 abstract HAccess(StdAccess) from StdAccess to StdAccess{
   public function new(self) this = self;
-  static public function lift(self:StdAccess):HAccess return new HAccess(self);
+  @:noUsing static public function lift(self:StdAccess):HAccess return new HAccess(self);
 
   public function prj():StdAccess return this;
   private var self(get,never):HAccess;

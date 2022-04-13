@@ -6,7 +6,7 @@ typedef RefDef<T> = {
 }
 @:forward abstract Ref<T>(RefDef<T>) from RefDef<T> to RefDef<T>{
   public function new(self) this = self;
-  static public function lift<T>(self:RefDef<T>):Ref<T> return new Ref(self);
+  @:noUsing static public function lift<T>(self:RefDef<T>):Ref<T> return new Ref(self);
   
 
   

@@ -9,10 +9,10 @@ abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
   public function new(self){
     this = self;
   }
-  static public function pure(def:HMethodCallDef){
+  @:noUsing static public function pure(def:HMethodCallDef){
     return new HMethodCall(def);
   }
-  static public function make(ref:MethodRef,args:HExprCluster):HMethodCall{
+  @:noUsing static public function make(ref:MethodRef,args:HExprCluster):HMethodCall{
     return pure({
       data : ref,
       args : args

@@ -64,9 +64,9 @@ class Plugin{
           #end
         }
         for (clazz in __.option(clazz)){
-          var value       = stx.StdType.createInstance(clazz,[]);
+          var value       = std.Type.createInstance(clazz,[]);
           //trace(value);
-          var method_ref  = Reflect.field(value,method);
+          var method_ref  = std.Reflect.field(value,method);
           //trace(method_ref);
           Reflect.callMethod(value,method_ref,params);
         }

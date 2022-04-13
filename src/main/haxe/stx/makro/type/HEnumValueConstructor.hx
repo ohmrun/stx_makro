@@ -9,7 +9,7 @@ typedef HEnumValueConstructorDef = {
   public function new(self:HEnumValueConstructorDef){
     this = self;
   }
-  static public function make(e:HEnumType,ref:MethodRef,args:HTFunArgCluster):HEnumValueConstructor{
+  @:noUsing static public function make(e:HEnumType,ref:MethodRef,args:HTFunArgCluster):HEnumValueConstructor{
     return new HEnumValueConstructor({
       type  : e.prj(),
       ref   : ref,

@@ -37,6 +37,9 @@ class GComplexTypeCtr extends Clazz{
 	public function string(string:String){
 		return Path( p -> p.fromString(string));
 	} 
+	public function fromString(string:String){
+		return Path( p -> p.fromString(string));
+	} 
 }
 enum GComplexTypeSum{
 	GTPath( p : GTypePath );
@@ -52,7 +55,7 @@ enum GComplexTypeSum{
 abstract GComplexType(GComplexTypeSum) from GComplexTypeSum to GComplexTypeSum{
 	static public var __(default,never) = new GComplexTypeCtr();
   public function new(self) this = self;
-  static public function lift(self:GComplexTypeSum):GComplexType return new GComplexType(self);
+  @:noUsing static public function lift(self:GComplexTypeSum):GComplexType return new GComplexType(self);
 
   public function prj():GComplexTypeSum return this;
   private var self(get,never):GComplexType;
@@ -60,6 +63,9 @@ abstract GComplexType(GComplexTypeSum) from GComplexTypeSum to GComplexTypeSum{
 
 	public function toSource():GSource{
 		return Printer.ZERO.printComplexType(this);
+	}
+	public function toTypeParam(){
+		return GTPType(this);
 	}
 }
 class GComplexTypeLift{

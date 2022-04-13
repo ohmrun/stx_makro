@@ -11,7 +11,7 @@ enum MakroTypeFailureSum{
 }
 abstract MakroTypeFailure(MakroTypeFailureSum) from MakroTypeFailureSum to MakroTypeFailureSum{
   public function new(self) this = self;
-  static public function lift(self:MakroTypeFailureSum):MakroTypeFailure return new MakroTypeFailure(self);
+  @:noUsing static public function lift(self:MakroTypeFailureSum):MakroTypeFailure return new MakroTypeFailure(self);
 
   public function prj():MakroTypeFailureSum return this;
   private var self(get,never):MakroTypeFailure;

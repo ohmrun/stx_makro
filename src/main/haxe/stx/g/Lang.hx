@@ -70,6 +70,8 @@ typedef GObjectFieldDef     = stx.g.lang.expr.GObjectField.GObjectFieldDef;
 typedef GObjectFieldCtr     = stx.g.lang.expr.GObjectField.GObjectFieldCtr;
 
 typedef GPropAccess         = stx.g.lang.expr.GPropAccess;
+typedef GPropAccessSum      = stx.g.lang.expr.GPropAccess.GPropAccessSum;
+typedef GPropAccessCtr      = stx.g.lang.expr.GPropAccess.GPropAccessCtr;
 
 typedef GQuoteStatus        = stx.g.lang.expr.GQuoteStatus;
 

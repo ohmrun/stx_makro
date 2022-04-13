@@ -28,7 +28,7 @@ typedef GFieldDef = {
 @:forward abstract GField(GFieldDef) from GFieldDef to GFieldDef{
   static public var __(default,never) = new GFieldCtr();
   public function new(self) this = self;
-  static public function lift(self:GFieldDef):GField return new GField(self);
+  @:noUsing static public function lift(self:GFieldDef):GField return new GField(self);
   @:noUsing static public function make(name:String,kind:GFieldType,?access,?meta,?doc){
     return lift({
       name    : name,

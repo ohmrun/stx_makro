@@ -25,8 +25,8 @@ typedef GTypeParamDeclDef = {
 @:forward abstract GTypeParamDecl(GTypeParamDeclDef) from GTypeParamDeclDef to GTypeParamDeclDef{
   static public var __(default,never) = new GTypeParamDeclCtr();
   public function new(self) this = self;
-  static public function lift(self:GTypeParamDeclDef):GTypeParamDecl return new GTypeParamDecl(self);
-  static public function make(name:String,?constraints:Cluster<GComplexType>,?params:Cluster<GTypeParamDecl>,?meta,defaultType){
+  @:noUsing static public function lift(self:GTypeParamDeclDef):GTypeParamDecl return new GTypeParamDecl(self);
+  @:noUsing static public function make(name:String,?constraints:Cluster<GComplexType>,?params:Cluster<GTypeParamDecl>,?meta,defaultType){
     return lift({
       name        : name,
       constraints : constraints,

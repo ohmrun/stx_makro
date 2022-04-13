@@ -12,7 +12,7 @@ package stx.makro.type;
   @:to public function toBaseType():BaseType{
     return this;
   }
-  public function interfaces(ancestors){ return _.interfaces(this,ancestors); }
+  public function interfaces(?ancestors:Bool):Array<HClassAndParam>{ return _.interfaces(this,ancestors); }
 
   public var fields(get,never):Cluster<HClassField>;
   public function get_fields():Cluster<HClassField>{

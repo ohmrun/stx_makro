@@ -17,13 +17,13 @@ package stx.makro.def;
   public function new(self){
     this = __.option(self).force();
   }
-  static public function make(path:IdentDef,?fields:Cluster<HField>,?kind:TypeDefKind,?pos:haxe.macro.Expr.Position):HTypeDefinition{
+  @:noUsing static public function make(path:IdentDef,?fields:Cluster<HField>,?kind:TypeDefKind,pos:haxe.macro.Expr.Position):HTypeDefinition{
     var out : StdTypeDefinition = {
       name    : path.name,
       pack    : (cast path.pack:StdArray<String>),
       fields  : __.option(fields).defv([]).prj(),
       kind    : __.option(kind).defv(TDStructure),
-      pos     : __.option(pos).def(haxe.macro.Context.currentPos)
+      pos     : pos
     }
     return new HTypeDefinition(out);
   }

@@ -10,14 +10,14 @@ abstract HFieldType(StdFieldType) from StdFieldType to StdFieldType{
   private var self(get,never):HFieldType;
   private function get_self():HFieldType return lift(this);
 
-  static public function FVar( t : Null<HComplexType>, ?e : Null<HExpr> ){
-    return lift(StdFieldType.FVar(__.option(t).map((t:HComplexType) -> t.prj()).defv(null),__.option(e).map(e -> e.prj()).defv(null)));
+  static public function FVar( t : Null<stx.makro.expr.HComplexType>, ?e : Null<stx.makro.expr.HExpr> ){
+    return lift(StdFieldType.FVar(__.option(t).map((t:stx.makro.expr.HComplexType) -> t.prj()).defv(null),__.option(e).map(e -> e.prj()).defv(null)));
 }
-	static public function FFun( f : HFunction ){
+	static public function FFun( f : stx.makro.expr.HFunction ){
     return lift(StdFieldType.FFun(f.prj()));
   }
-	static public function FProp( get : HPropAccess, set : HPropAccess, ?t : Null<HComplexType>, ?e : Null<HExpr> ){
-    return lift(StdFieldType.FProp(get.getting(),set.setting(),__.option(t).map((t:HComplexType) -> t.prj()).defv(null),__.option(e).map(e -> e.prj()).defv(null)));
+	static public function FProp( get : stx.makro.def.HPropAccess, set : stx.makro.def.HPropAccess, ?t : Null<stx.makro.expr.HComplexType>, ?e : Null<stx.makro.expr.HExpr> ){
+    return lift(StdFieldType.FProp(get.getting(),set.setting(),__.option(t).map((t:stx.makro.expr.HComplexType) -> t.prj()).defv(null),__.option(e).map(e -> e.prj()).defv(null)));
   }
 }
 class HFieldTypeLift{

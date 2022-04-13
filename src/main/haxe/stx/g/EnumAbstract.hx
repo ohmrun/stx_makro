@@ -7,7 +7,7 @@ typedef EnumAbstractArgsDef = {
   final type          : GComplexType; 
 }
 class EnumAbstract{
-  static public function make(self:EnumAbstractArgsDef){
+  @:noUsing static public function make(self:EnumAbstractArgsDef){
     final clazz_ident  = Ident.make(
       '${self.name}_Impl_',
        self.pack.snoc('_${self.name}') 

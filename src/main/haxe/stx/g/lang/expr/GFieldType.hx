@@ -18,8 +18,8 @@ class GFieldTypeCtr extends Clazz{
   public function Fun(f:CTR<GFunctionCtr,GFunction>){
     return lift(GFFun(f(GFunctionCtr.unit())));
   }
-  public function Prop(get:GPropAccess,set:GPropAccess,?t:CTR<GComplexTypeCtr,GComplexType>,?e:CTR<GExprCtr,GExpr>){
-    return lift(GFProp(get,set,
+  public function Prop(get:CTR<GPropAccessCtr,GPropAccess>,set:CTR<GPropAccessCtr,GPropAccess>,?t:CTR<GComplexTypeCtr,GComplexType>,?e:CTR<GExprCtr,GExpr>){
+    return lift(GFProp(get(GPropAccess.__),set(GPropAccess.__),
       __.option(t).map(f -> f(GComplexType.__)).defv(null),
       __.option(e).map(f -> f(GExpr.__)).defv(null)
     ));
@@ -34,7 +34,7 @@ enum GFieldTypeSum {
 abstract GFieldType(GFieldTypeSum) from GFieldTypeSum to GFieldTypeSum{
   static public var __(default,never) = new GFieldTypeCtr();
   public function new(self) this = self;
-  static public function lift(self:GFieldTypeSum):GFieldType return new GFieldType(self);
+  @:noUsing static public function lift(self:GFieldTypeSum):GFieldType return new GFieldType(self);
 
   public function prj():GFieldTypeSum return this;
   private var self(get,never):GFieldType;

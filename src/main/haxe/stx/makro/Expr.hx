@@ -8,7 +8,7 @@ typedef LiftHExpr             = stx.makro.expr.HExpr.LiftHExpr;
 
 typedef HAccess               = stx.makro.expr.HAccess;
 
-typedef HTypePath             = stx.makro.expr.HTypePath;
+//typedef HTypePath             = stx.makro.expr.HTypePath;
 typedef HTypeParam            = stx.makro.expr.HTypeParam;
 typedef HComplexType          = stx.makro.expr.HComplexType;
 

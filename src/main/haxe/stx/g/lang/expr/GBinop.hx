@@ -30,7 +30,7 @@ enum GBinopSum{
  @:using(stx.g.lang.expr.GBinop.GBinopLift)
  abstract GBinop(GBinopSum) from GBinopSum to GBinopSum{
    public function new(self) this = self;
-   static public function lift(self:GBinopSum):GBinop return new GBinop(self);
+   @:noUsing static public function lift(self:GBinopSum):GBinop return new GBinop(self);
  
    public function prj():GBinopSum return this;
    private var self(get,never):GBinop;

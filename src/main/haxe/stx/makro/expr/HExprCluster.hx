@@ -4,7 +4,7 @@ typedef HExprClusterDef = Cluster<HExpr>;
 
 @:forward abstract HExprCluster(HExprClusterDef) from HExprClusterDef{
   public function new(self) this = self;
-  static public function lift(self:HExprClusterDef):HExprCluster return new HExprCluster(self);
+  @:noUsing static public function lift(self:HExprClusterDef):HExprCluster return new HExprCluster(self);
   static public function unto(self:Cluster<StdExpr>):HExprCluster{
     return lift(self.map(HExpr.fromExpr));
   }

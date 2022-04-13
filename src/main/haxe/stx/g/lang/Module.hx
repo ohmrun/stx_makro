@@ -28,4 +28,10 @@ class Module extends Clazz{
   public function const(){
     return GConstant.__;
   }
+  public function type_path(){
+    return GTypePath.__;
+  }
+  public function method(){
+    return GFunction.__;
+  }
 }

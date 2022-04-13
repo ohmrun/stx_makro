@@ -25,9 +25,9 @@ typedef GObjectFieldDef = {
   static public var __(default,never) = new GObjectFieldCtr();
   static public var _(default,never) = GObjectFieldLift;
   public function new(self) this = self;
-  static public function lift(self:GObjectFieldDef):GObjectField return new GObjectField(self);
+  @:noUsing static public function lift(self:GObjectFieldDef):GObjectField return new GObjectField(self);
 
-  static public function make(field:String,expr:GExpr,?quotes:GQuoteStatus){
+  @:noUsing static public function make(field:String,expr:GExpr,?quotes:GQuoteStatus){
     return lift({field:field,expr:expr,quotes:quotes});
   }
   public function prj():GObjectFieldDef return this;

@@ -2,7 +2,7 @@ package stx.makro.type;
 
 @:using(stx.makro.type.HEnumType.HEnumTypeLift)
 @:forward abstract HEnumType(StdEnumType) from StdEnumType{
-  static public function lift(self:StdEnumType) return new HEnumType(self);
+  @:noUsing static public function lift(self:StdEnumType) return new HEnumType(self);
   static public var _(default,never) = HEnumTypeLift;
   public function new(self){
     this = self;

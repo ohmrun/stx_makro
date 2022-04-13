@@ -14,7 +14,7 @@ class GTypePathCtr extends Clazz{
       sub,
       __.option(params).map(f -> f(GTypeParamCtr.unit())).defv(null)
     );
-  }
+}
   public function fromIdent(ident:Ident){
     return Make(ident.name,ident.pack);
   }
@@ -34,11 +34,11 @@ typedef GTypePathDef = {
 @:forward abstract GTypePath(GTypePathDef) from GTypePathDef to GTypePathDef{
   static public var __(default,never) = new GTypePathCtr();
   public function new(self) this = self;
-  static public function lift(self:GTypePathDef):GTypePath return new GTypePath(self);
+  @:noUsing static public function lift(self:GTypePathDef):GTypePath return new GTypePath(self);
   @:noUsing static public function make(name,?pack,?sub,?params){
     return lift({
       name      : name,
-      pack      : pack,
+      pack      : Wildcard.__.option(pack).defv([].imm()),
       params    : params,
       sub       : sub
     });
@@ -53,6 +53,12 @@ typedef GTypePathDef = {
   public function toSource():GSource{
 		return Printer.ZERO.printTypePath(this);
 	}
+  @:to public function toComplexType(){
+    return Wildcard.__.g().ctype().Path(this);
+  }
+  @:to public function toTypeParam(){
+    return toComplexType().toTypeParam();
+  }
 }
 class GTypePathLift{
   static public function to_macro_at(self:GTypePath,pos:Position):TypePath{

@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 abstract HTypeParam(StdTypeParam) from StdTypeParam to StdTypeParam{
   public function new(self) this = self;
-  static public function lift(self:StdTypeParam):HTypeParam return new HTypeParam(self);
+  @:noUsing static public function lift(self:StdTypeParam):HTypeParam return new HTypeParam(self);
 
   public function prj():StdTypeParam return this;
   private var self(get,never):HTypeParam;

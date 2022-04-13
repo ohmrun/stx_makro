@@ -4,7 +4,7 @@ package stx.makro.type;
 abstract HAbstractType(AbstractType) from AbstractType to AbstractType{
   static public var _(default,never) = HAbstractTypeLift;
   public function new(self) this = self;
-  static public function lift(self:AbstractType):HAbstractType return new HAbstractType(self);
+  @:noUsing static public function lift(self:AbstractType):HAbstractType return new HAbstractType(self);
 
   public function prj():AbstractType return this;
   private var self(get,never):HAbstractType;

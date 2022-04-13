@@ -34,7 +34,7 @@ enum GConstantSum{
 abstract GConstant(GConstantSum) from GConstantSum to GConstantSum{
   static public var __(default,never) = new GConstantCtr();
   public function new(self) this = self;
-  static public function lift(self:GConstantSum):GConstant return new GConstant(self);
+  @:noUsing static public function lift(self:GConstantSum):GConstant return new GConstant(self);
 
   public function prj():GConstantSum return this;
   private var self(get,never):GConstant;

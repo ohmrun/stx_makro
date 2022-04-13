@@ -25,8 +25,8 @@ typedef GCatchDef = {
   static public var _(default,never) = GCatchLift;
   static public var __(default,never) = new GCatchCtr();
   public function new(self) this = self;
-  static public function lift(self:GCatchDef):GCatch return new GCatch(self);
-  static public function make(name:String,expr:GExpr,?type:GComplexType){
+  @:noUsing static public function lift(self:GCatchDef):GCatch return new GCatch(self);
+  @:noUsing static public function make(name:String,expr:GExpr,?type:GComplexType){
     return lift({
       name  : name,
       expr  : expr,

@@ -31,7 +31,7 @@ class EqualsData{
   public function new(rest){
     this.rest = rest;
   }
-  static public function make(rest){
+  @:noUsing static public function make(rest){
     return new EqualsData(rest);
   }
   public function prior(){

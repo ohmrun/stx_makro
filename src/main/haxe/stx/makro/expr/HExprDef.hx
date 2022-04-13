@@ -5,7 +5,7 @@ abstract HExprDef(StdExprDef){
   static public var MARK(default,null) = mark();
   static public var ZERO(default,null) = unit();
   
-  static public function lift(self:StdExprDef):HExprDef{
+  @:noUsing static public function lift(self:StdExprDef):HExprDef{
     return new HExprDef(self);
   }
   static public function unit():HExprDef{

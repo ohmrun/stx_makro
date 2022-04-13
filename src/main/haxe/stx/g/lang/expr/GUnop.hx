@@ -11,7 +11,7 @@ enum GUnopSum{
 @:using(stx.g.lang.expr.GUnop.GUnopLift)
 abstract GUnop(GUnopSum) from GUnopSum to GUnopSum{
   public function new(self) this = self;
-  static public function lift(self:GUnopSum):GUnop return new GUnop(self);
+  @:noUsing static public function lift(self:GUnopSum):GUnop return new GUnop(self);
 
   public function prj():GUnopSum return this;
   private var self(get,never):GUnop;

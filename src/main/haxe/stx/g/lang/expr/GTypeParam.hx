@@ -24,7 +24,7 @@ enum GTypeParamSum {
 @:using(stx.g.lang.expr.GTypeParam.GTypeParamLift)
 abstract GTypeParam(GTypeParamSum) from GTypeParamSum to GTypeParamSum{
   public function new(self) this = self;
-  static public function lift(self:GTypeParamSum):GTypeParam return new GTypeParam(self);
+  @:noUsing static public function lift(self:GTypeParamSum):GTypeParam return new GTypeParam(self);
 
   public function prj():GTypeParamSum return this;
   private var self(get,never):GTypeParam;
