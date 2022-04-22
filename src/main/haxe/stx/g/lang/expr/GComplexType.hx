@@ -82,3 +82,15 @@ class GComplexTypeLift{
 		}		
 	}
 }
+/**
+	return switch(self){
+			case GTPath(p) : 
+			case GTFunction(args,ret) : 
+			case GTAnonymous(fields) : 
+			case GTParent(t) : 
+			case GTExtend(p,fields) : 
+			case GTOptional(t) : 
+			case GTNamed(n,t) : 
+			case GTIntersection(tl) : 
+	}
+**/

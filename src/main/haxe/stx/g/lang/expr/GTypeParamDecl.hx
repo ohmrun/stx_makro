@@ -15,11 +15,11 @@ class GTypeParamDeclCtr extends Clazz{
   }
 }
 typedef GTypeParamDeclDef = {
-	final name : String;
-	final ?constraints : Cluster<GComplexType>;
-	final ?params : Cluster<GTypeParamDecl>;
-	final ?meta : GMetadata;
-  var   ?defaultType:Null<GComplexType>;
+	final name          : String;
+	final ?constraints  : Cluster<GComplexType>;
+	final ?params       : Cluster<GTypeParamDecl>;
+	final ?meta         : GMetadata;
+  var   ?defaultType  : Null<GComplexType>;
 }
 @:using(stx.g.lang.expr.GTypeParamDecl.GTypeParamDeclLift)
 @:forward abstract GTypeParamDecl(GTypeParamDeclDef) from GTypeParamDeclDef to GTypeParamDeclDef{

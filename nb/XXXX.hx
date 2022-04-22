@@ -14,6 +14,6 @@ enum GFieldTypeSum {                                                            
 	GFProp(get:GPropAccess,set:GPropAccess,?t:Null<GComplexType>,?e:Null<GExpr>);       
 }
 GTypeDefinitionDef = name pack kind:GTypeDefKind fields:Cluster<GField> ?params:Cluster<GTypeParamDecl> ?meta ?isExtern ?doc
-GTypeParamDeclDef = name ?constraints:Cluster<GComplexType> ?params:Cluster<GTypeParamDecl> ?meta ?defaultType:Null<GComplexType>;
+GTypeParamDeclDef = name ?constraints:Cluster<GComplexType> ?params:Cluster< > ?meta ?defaultType:Null<GComplexType>;
 GFieldKind { Normal; Safe; }
 GAccessSum =  GAPublic	GAPrivate	GAStatic	GAOverride	GADynamic	GAInline	GAMacro	GAFinal	GAExtern	GAAbstract	GAOverload
