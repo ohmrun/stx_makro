@@ -14,7 +14,10 @@ class GTypePathCtr extends Clazz{
       sub,
       __.option(params).map(f -> f(GTypeParamCtr.unit())).defv(null)
     );
-}
+  }
+  public function Ident(ident:Ident){
+    return Make(ident.name,ident.pack);
+  }
   public function fromIdent(ident:Ident){
     return Make(ident.name,ident.pack);
   }

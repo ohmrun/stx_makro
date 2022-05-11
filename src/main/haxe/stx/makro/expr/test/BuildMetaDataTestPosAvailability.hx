@@ -1,5 +1,5 @@
-package stx.makro.test;
+package stx.makro.expr.test;
 
-@:build(stx.makro.test.BuildMetaDataTestPosAvailabilityBuilder.use()) class BuildMetaDataTestPosAvailability{
+@:build(stx.makro.expr.test.BuildMetaDataTestPosAvailabilityBuilder.use()) class BuildMetaDataTestPosAvailability{
 
 }

@@ -1,10 +1,7 @@
 package stx.makro.pack;
 
 import haxe.macro.Context;
-import stx.makro.Package;
-import stx.makro.expr.Package;
-import stx.makro.expr.Constant;
-import stx.makro.expr.HExprDef;
+import stx.makro.Expr;
 
 
 class Api{
@@ -24,23 +21,26 @@ class Api{
 }
 class ApiHExprDef{
   public function new(){}
+  private function lift(self){
+    HExpr.lift(self);
+  }
   public function econst(v):HExprDef{
-    return EConst(v);
+    return lift(EConst(v));
   }
   public function ecall(self,with):HExprDef{
-    return ECall(self,with);
+    return lift(ECall(self,with));
   }
   public function eswitch(e,cases,def):HExprDef{
-    return ESwitch(e,cases,def);
+    return lift(ESwitch(e,cases,def));
   }
   public function earraydecl(vals):HExprDef{
-    return EArrayDecl(vals);
+    return lift(EArrayDecl(vals));
   }
   public function ebinop(op,l,r):HExprDef{
-    return EBinop(op,l,r);
+    return lift(EBinop(op,l,r));
   }
   public function efield(e,f):HExprDef{
-    return EField(e,f);
+    return lift(EField(e,f));
   }
 }
 class ApiBinop{

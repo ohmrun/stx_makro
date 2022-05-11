@@ -1,11 +1,9 @@
 package stx.makro;
 
 typedef Printer             = haxe.macro.Printer;
-#if macro
+
 typedef HExpr                 = stx.makro.expr.HExpr;
 typedef LiftHExpr             = stx.makro.expr.HExpr.LiftHExpr;
-
-
 typedef HAccess               = stx.makro.expr.HAccess;
 
 //typedef HTypePath             = stx.makro.expr.HTypePath;
@@ -63,5 +61,4 @@ class LiftEBlock {
     });
   }
   #end
-}
-#end
+}  

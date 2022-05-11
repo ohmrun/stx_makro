@@ -21,9 +21,10 @@ abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
   public function prj(){
     return this;
   }
+  
   public function to_macro_at(pos):HExpr{
     return HExprDef.ECall(
-      LiftHExpr.MethodRef.toHExpr(this.data,pos),
+      stx.makro.expr.lift.LiftMethodRefToHExpr.toHExpr(this.data,pos),
       this.args
     ).to_macro_at(pos);
   }

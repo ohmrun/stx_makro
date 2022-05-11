@@ -15,7 +15,7 @@ package stx.makro.def;
 **/
 @:forward abstract HTypeDefinition(StdTypeDefinition) from StdTypeDefinition to StdTypeDefinition{
   public function new(self){
-    this = __.option(self).force();
+    this = self;
   }
   @:noUsing static public function make(path:IdentDef,?fields:Cluster<HField>,?kind:TypeDefKind,pos:haxe.macro.Expr.Position):HTypeDefinition{
     var out : StdTypeDefinition = {

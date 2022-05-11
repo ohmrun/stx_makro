@@ -34,4 +34,4 @@ class Module extends Clazz{
   public function method(){
     return GFunction.__;
   }
-}
+  }

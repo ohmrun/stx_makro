@@ -1,4 +1,4 @@
-package stx.makro.expr.head.data;
+package stx.makro.head.data;
 
 enum MacroArgType{
   ArgVariable;

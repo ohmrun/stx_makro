@@ -9,7 +9,9 @@ import haxe.io.Path;
 import haxe.macro.Type;
 import haxe.macro.Expr;
 
+#if macro
 using tink.CoreApi;
+#end
 
 using stx.Pico;
 using stx.Nano;

@@ -6,7 +6,7 @@ class EnumType{
     
     return getBinaryCases(
       e0,e1,
-      function(lc:EnumValueConstructor,rc:EnumValueConstructor){
+      function(lc:HEnumValueConstructor,rc:HEnumValueConstructor){
         var lhs = HExprDef.ECall(
           LiftMethodRefToHExpr.toHExpr(lc.ref,pos),
           lc.args
@@ -61,7 +61,7 @@ class EnumType{
       HExpr.unit(pos)
     ).to_macro_at(pos);
   }
-  @:noUsing static public function getSwitch(e:EnumType,gen:Unary<EnumValueConstructor,Array<Case>>,pos):HExpr{
+  @:noUsing static public function getSwitch(e:EnumType,gen:Unary<HEnumValueConstructor,Array<Case>>,pos):HExpr{
     var cons  = getConstructors(e);    
     var cases = cons.toIter().map(Field.fromCouple).map(
           (c:Field<TFunParamArray>) -> EnumValueConstructor.make(e,getModule(e).call(c.key),c.val)
@@ -75,7 +75,7 @@ class EnumType{
       HExpr.unit(pos)
     ).to_macro_at(pos);
   }
-  @:noUsing static public function getSimpleSwitch(e:EnumType,gen:TFunParamArray->Option<HExpr>,pos):HExpr{
+  @:noUsing static public function getSimpleSwitch(e:EnumType,gen:HTFunArgCluster->Option<HExpr>,pos):HExpr{
     return getSwitch(e,
       function(cons){
         var args = HExprCluster.lift(cons.args.map(
@@ -114,7 +114,7 @@ class EnumType{
    * @param handler 
    * @return StringMap<U>
    */
-  @:noUsing static public function switcher<U>(e:EnumType,handler:Array<TFunParam>->HExpr,pos,def):HExpr->HExpr{
+  @:noUsing static public function switcher<U>(e:EnumType,handler:Array<HTFunArg>->HExpr,pos,def):HExpr->HExpr{
     var each = constructorHandler(e,
       handler.fn().split((x)->x)
     );
@@ -122,7 +122,7 @@ class EnumType{
     for(key => val in each){
       var case_call_source = val.snd();
       var case_call : HExprCluster = case_call_source.map(
-        (v:TFunParam) -> LiftMakro.toModule(v.name).map(x -> LiftModuleToHExpr.toHExpr(x,pos)).force()
+        (v:TFunArg) -> LiftMakro.toModule(v.name).map(x -> LiftModuleToHExpr.toHExpr(x,pos)).force()
       );
       var head  = LiftModuleToHExpr.toHExpr(LiftMakro.toModule(key).force(),pos);
       var value = !case_call.is_defined() ? head : HExprDef.ECall(head,case_call).to_macro_at(pos);
