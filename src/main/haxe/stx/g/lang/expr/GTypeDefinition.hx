@@ -62,6 +62,9 @@ typedef GTypeDefinitionDef = {
       this.pack
     );
   }
+  // public function get_enum_value_index(){
+  //   return EnumValue.lift(this).index;
+  // }
 }
 class GTypeDefinitionLift{
   static public function to_macro_at(self:GTypeDefinition,pos:Position):haxe.macro.Expr.TypeDefinition{

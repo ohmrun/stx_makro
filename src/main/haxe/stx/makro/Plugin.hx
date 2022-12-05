@@ -1,7 +1,7 @@
 package stx.makro;
 
 using stx.makro.Logging;
-using stx.Sys;
+using stx.System;
 using StringTools;
 
 import haxe.macro.Compiler;

@@ -22,12 +22,12 @@ abstract Identity(IdentitySum) from IdentitySum to IdentitySum{
   }
 }
 class IdentityLift{
-  static public function monoid():Monoid<Identity> {
-		return {
-			unit: function() return TAwkward,
-			plus: function(l, r) return TComposed(l, r)
-		}
-	}
+  // static public function monoid():Monoid<Identity> {
+	// 	return {
+	// 		unit: function() return TAwkward,
+	// 		plus: function(l, r) return TComposed(l, r)
+	// 	}
+	// }
 	static public function toUniquePath(v:Identity):String{
 		var f = toUniquePath;
 		return switch(v){

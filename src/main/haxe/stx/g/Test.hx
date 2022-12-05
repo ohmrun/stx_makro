@@ -12,7 +12,7 @@ class Test{
     #if boot
       boot();
     #else
-    __.test(
+    __.test().run(
       [
         //new GBuildTest(),
         new PublishEnumAbstractTest(),
@@ -21,7 +21,7 @@ class Test{
     #end
   }
   static public macro function boot(){
-    __.test(
+    __.test().run(
       [new EnumAbstractTest()],
       []
     );

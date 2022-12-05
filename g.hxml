@@ -1,0 +1,15 @@
+-main stx.g.Test
+-cp src/main/haxe
+-lib tink_core
+-lib tink_macro
+-lib stx_pico
+-lib stx_nano
+-lib stx_fn
+-lib stx_fp
+-lib stx_ds
+-lib stx_bake
+-lib stx_makro
+-D test=stx_makro
+-D no-deprecation-warnings
+-D stx.log.filter.show=false
+--interp

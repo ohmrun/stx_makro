@@ -20,11 +20,11 @@ class Test{
     final log         = __.log().global;
           log.includes.push("**/*");    
           log.level   = TRACE;
-    __.test([],[]);
+    __.test().run([],[]);
     return macro {};
   }
   static function call(){
-    __.test(
+    __.test().run(
       [
         //new WhatDoesReifiedFunctionDeclarationProduce(),
         //new ShimTest(),

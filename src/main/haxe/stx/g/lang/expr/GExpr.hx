@@ -202,36 +202,50 @@ class GExprLift{
       }
     }
   }
-  // static public function toGComplexType(self:Expr){
+  // static public function spell(self:GExpr){
+  //   final self = __.g().expr();
   //   return switch(self){
-  //     case GEConst(c)                     : c.toGComplexType(c);
-  //     case GEArray(e1, e2)                : toGComplex
-  //     case GEBinop(op, e1, e2)            :
-  //     case GEField(e, field, kind)        :
-  //     case GEParenthesis(e)               :
-  //     case GEObjectDecl(fields)           :
-  //     case GEArrayDecl(values)            :
-  //     case GECall(e, params)              :
-  //     case GENew(t, params)               :
-  //     case GEUnop(op, postFix, e)         :
-  //     case GEVars(vars)                   :
-  //     case GEFunction(kind, f)            :
-  //     case GEBlock(exprs)                 :
-  //     case GEFor(i, eexpr)                :
-  //     case GEIf(econd, eif, eelse)        :
-  //     case GEWhile(econd, e, normalWhile) :
-  //     case GESwitch(e, cases, edef)       :
-  //     case GETry(e, catches)              :
-  //     case GEReturn(e)                    :
-  //     case GEBreak                        :
-  //     case GEContinue                     :
-  //     case GEUntyped(e)                   :
-  //     case GEThrow(e)                     :
-  //     case GECast(e, t)                   :
-  //     case GETernary(econd, eif, eelse)   :
-  //     case GECheckType(e, t)              :
-  //     case GEMeta(s, e)                   :
-  //     case GEIs(e, t)                     :
+  //     case GEConst(c)                     : 
+  //       e.Call(
+  //         e.Path('stx.g.lang.expr.GExpr.GExprSum.GEConst'),
+  //         [
+  //           c.spell()
+  //         ]
+  //       );
+  //     case GEArray(e1, e2)                : 
+  //       e.Call(
+  //         e.Path('stx.g.lang.expr.GExpr.GExprSum.GEArray'),
+  //         [
+  //           e1.spell(),
+  //           e2.spell()
+  //         ]
+  //       );
+  //     case GEBinop(op, e1, e2)            : EBinop(op.to_macro_at(pos), f(e1), f(e2));
+  //     case GEField(e, field, kind)        : EField(f(e), field, __.option(kind).map(x -> x.to_macro_at(pos)).defv(null));
+  //     case GEParenthesis(e)               : EParenthesis(f(e));
+  //     case GEObjectDecl(fields)           : EObjectDecl(fields.map(e -> e.to_macro_at(pos)).prj());
+  //     case GEArrayDecl(values)            : EArrayDecl(values.map(e -> e.to_macro_at(pos)).prj());
+  //     case GECall(e, params)              : ECall(f(e), params.map(e -> e.to_macro_at(pos)).prj());
+  //     case GENew(t, params)               : ENew(t.to_macro_at(pos), params.map(e -> e.to_macro_at(pos)).prj());
+  //     case GEUnop(op, postFix, e)         : EUnop(op.to_macro_at(pos), postFix, e.to_macro_at(pos));
+  //     case GEVars(vars)                   : EVars(vars.map(e -> GVar._.to_macro_at(e,pos)).prj());
+  //     case GEFunction(kind, f)            : EFunction(__.option(kind).map(x -> x.to_macro_at(pos)).defv(null), f.to_macro_at(pos));
+  //     case GEBlock(exprs)                 : EBlock(exprs.map(e -> e.to_macro_at(pos)).prj());
+  //     case GEFor(i, eexpr)                : EFor(i.to_macro_at(pos), eexpr.to_macro_at(pos));
+  //     case GEIf(econd, eif, eelse)        : EIf(econd.to_macro_at(pos), eif.to_macro_at(pos), __.option(eelse).map(x -> x.to_macro_at(pos)).defv(null));
+  //     case GEWhile(econd, e, normalWhile) : EWhile(econd.to_macro_at(pos), e.to_macro_at(pos), normalWhile);
+  //     case GESwitch(e, cases, edef)       : ESwitch(e.to_macro_at(pos), cases.map(e -> e.to_macro_at(pos)).prj(), __.option(edef).map(x -> x.to_macro_at(pos)).defv(null));
+  //     case GETry(e, catches)              : ETry(e.to_macro_at(pos), catches.map(e -> e.to_macro_at(pos)).prj());
+  //     case GEReturn(e)                    : EReturn(__.option(e).map(x -> x.to_macro_at(pos)).defv(null));
+  //     case GEBreak                        : EBreak;
+  //     case GEContinue                     : EContinue;
+  //     case GEUntyped(e)                   : EUntyped(e.to_macro_at(pos));
+  //     case GEThrow(e)                     : EThrow(e.to_macro_at(pos));
+  //     case GECast(e, t)                   : ECast(e.to_macro_at(pos), __.option(t).map(x -> x.to_macro_at(pos)).defv(null));
+  //     case GETernary(econd, eif, eelse)   : ETernary(econd.to_macro_at(pos), eif.to_macro_at(pos), eelse.to_macro_at(pos));
+  //     case GECheckType(e, t)              : ECheckType(e.to_macro_at(pos), t.to_macro_at(pos));
+  //     case GEMeta(s, e)                   : EMeta(s.to_macro_at(pos), e.to_macro_at(pos));
+  //     case GEIs(e, t)                     : EIs(e.to_macro_at(pos), t.to_macro_at(pos));
   //   }
   // }
 }

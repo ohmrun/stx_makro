@@ -39,4 +39,14 @@ class GMetadataEntryLift{
       pos     : pos
     };
   }
+  // static public function denote(self:GMetadataEntry){
+  //   final e = __.g().expr();
+  //   return e.Call(
+  //     e.Path('stx.g.lang.expr.GMetadataEntry.GMetadataEntryCtr.Make'),
+  //     [
+  //       e.Constant(c -> c.String(self.name)),
+
+  //     ]
+  //   );
+  // }
 }

@@ -12,4 +12,13 @@ class GStringLiteralKindLift{
 			case GSingleQuotes: SingleQuotes;
 		}
 	}
+	// static public function spell(self:GStringLiteralKind){
+	// 	final e = __.g().expr();
+	// 	return e.Path(
+	// 		switch(self){
+	// 			case GDoubleQuotes : e.Path('stx.g.lang.expr.GStringLiteralKind.GDoubleQuotes');
+	// 			case GSingleQuotes : e.Path('stx.g.lang.expr.GStringLiteralKind.GSingleQuotes');
+	// 		}
+	// 	);
+	// }
 }

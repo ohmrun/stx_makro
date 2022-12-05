@@ -72,4 +72,43 @@ class GConstantLift{
       case GCRegexp(r, opt)  : c.string('std.EReg');
     }
   }
+  // static public function spell(self:GConstant){
+  //   final e = __.g().expr();
+  //   return switch(self){
+  //     case GCInt(v, s)       : e.Call(
+  //       e.Path('stx.g.lang.expr.GConstant.GConstantSum.GCInt'),[
+  //         e.Const(c -> c.String(v)),
+  //         __.option(s).fold(
+  //           ok -> e.Const(c -> c.String(ok)),
+  //           () -> e.Const(c -> c.Ident('null'))
+  //         )
+  //       ]
+  //     )
+  //     case GCFloat(f, s)     : 
+  //       e.Call(
+  //         e.Path('stx.g.lang.expr.GConstant.GConstantSum.GCFloat'),[
+  //           e.Const(c -> c.String(v)),
+  //           __.option(s).fold(
+  //             ok -> e.Const(c -> c.String(ok)),
+  //             () -> e.Const(c -> c.Ident('null'))
+  //           )]
+  //       );
+  //     case GCString(s, kind) : 
+  //       e.Call(
+  //         e.Path('stx.g.lang.expr.GConstant.GConstantSum.GCString'),
+  //         [e.Const(c -> c.String(s)),kind.spell()]
+  //       );
+  //     case GCIdent(s)        : 
+  //       e.Call(
+  //         e.Path('stx.g.lang.expr.GConstant.GConstantSum.GCIdent'),
+  //         [e.Const(c -> c.String(s))]
+  //       );
+  //     case GCRegexp(r, opt)  : 
+  //       e.Path('stx.g.lang.expr.GConstant.GConstantSum.GCRegexp'),
+  //       [
+  //         e.Const(c -> c.String(v)),
+  //         e.Const(c -> c.String(opt))
+  //       ]
+  //   }
+  // }   
 }

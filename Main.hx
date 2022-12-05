@@ -17,7 +17,7 @@ class Main{
       trace(PositionKind.unit());     
       #if !make
         __.log().trace('BOOT: ${__.bake()}');
-        // __.test(
+        // __.test().run(
         //   new stx.makro.gen.Package.Test().deliver()
         // );
       #else
