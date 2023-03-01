@@ -11,7 +11,8 @@ import haxe.macro.MacroStringTools;
 
 import haxe.macro.Type as StdType;
 
-class Plugin{
+
+@:keep class Plugin{
   static public macro function use(){
     //#if (test||debug)
     trace('stx.makro.Plugin.use');

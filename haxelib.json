@@ -12,18 +12,18 @@
   "releasenote": "",
   "version": "0.0.1",
   "dependencies": {
-    "tink_core"       : "git:https://github.com/haxetink/tink_core.git",
-    "tink_macro"      : "git:https://github.com/haxetink/tink_macro.git",
+    "tink_core"       : "",
+    "tink_macro"      : "",
 
-    "stx_pico"      : "git:https://github.com/ohmrun/stx_pico.git",
-    "stx_nano"      : "git:https://github.com/ohmrun/stx_nano.git",
-    "stx_fn"        : "git:https://github.com/ohmrun/stx_fn.git",
+    "stx_pico"      : "",
+    "stx_nano"      : "",
+    "stx_fn"        : "",
 
-    "stx_log"       : "git:https://github.com/ohmrun/stx_log.git",
-    "stx_assert"    : "git:https://github.com/ohmrun/stx_assert.git",
+    "stx_log"       : "",
+    "stx_assert"    : "",
 
-    "stx_fp"        : "git:https://github.com/ohmrun/stx_fp.git",
-    "stx_ds"        : "git:https://github.com/ohmrun/stx_ds.git"
+    "stx_fp"        : "",
+    "stx_ds"        : ""
   },
   "classPath": "src/main/haxe"
 }
