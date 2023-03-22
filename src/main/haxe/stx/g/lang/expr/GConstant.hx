@@ -51,8 +51,13 @@ abstract GConstant(GConstantSum) from GConstantSum to GConstantSum{
 class GConstantLift{
   static public function to_macro_at(self:GConstant,pos:Position){
     return switch(self){
-      case GCInt(v, s)       : CInt(v, s);       
-      case GCFloat(f, s)     : CFloat(f, s);     
+      #if (haxe_ver > 4.205) 
+      case GCInt(v, s)        : CInt(v, s);       
+      case GCFloat(f, s)      : CFloat(f, s);     
+      #else
+      case GCInt(v)           : CInt(v);
+      case GCFloat(f)         : CFloat(f);     
+      #end       
       case GCString(s, kind) : CString(s, __.option(kind).map(x -> x.to_macro_at(pos)).defv(null)); 
       case GCIdent(s)        : CIdent(s);        
       case GCRegexp(r, opt)  : CRegexp(r, opt);  

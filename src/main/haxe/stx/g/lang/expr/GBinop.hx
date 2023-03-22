@@ -25,13 +25,15 @@ enum GBinopSum{
   GOpInterval;//`...`
   GOpArrow;//`=>`
   GOpIn;//`in`
-  GOpNullCoal;//`??`
+
+  //GOpNullCoal;//`??`
  }
  @:using(stx.g.lang.expr.GBinop.GBinopLift)
  abstract GBinop(GBinopSum) from GBinopSum to GBinopSum{
    public function new(self) this = self;
    @:noUsing static public function lift(self:GBinopSum):GBinop return new GBinop(self);
  
+
    public function prj():GBinopSum return this;
    private var self(get,never):GBinop;
    private function get_self():GBinop return lift(this);
@@ -67,7 +69,7 @@ enum GBinopSum{
       case GOpInterval        : OpInterval;
       case GOpArrow           : OpArrow;
       case GOpIn              : OpIn;
-      case GOpNullCoal        : OpNullCoal;
+      //case GOpNullCoal        : OpNullCoal;
     }
   } 
   // static public function spell(self:GBinop){

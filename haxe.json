@@ -20,7 +20,8 @@
       "--interp" : true
     },
     "test" : {
-      "-cp": "src/test/haxe",
+      "-L" : "stx_test",
+      "-cp": "src/test/haxe", 
       "-D" : ["stx.log.filter.show=false"],
       "expr" : {
         "-main" : "stx.makro.expr.Test",

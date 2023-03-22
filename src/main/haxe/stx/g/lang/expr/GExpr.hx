@@ -4,7 +4,7 @@ enum GExprSum{
   GEConst(c:GConstant);
   GEArray(e1:GExpr, e2:GExpr);
   GEBinop(op:GBinop, e1:GExpr, e2:GExpr);
-  GEField(e:GExpr, field:String, ?kind:GEFieldKind);
+  GEField(e:GExpr, field:String #if (haxe_ver > 4.205), ?kind:GEFieldKind #end);
   GEParenthesis(e:GExpr);
   GEObjectDecl(fields:Cluster<GObjectField>);
   GEArrayDecl(values:Cluster<GExpr>);
@@ -70,9 +70,15 @@ class GExprCtr extends Clazz{
   public function Binop(op,l:CTR<GExprCtr,GExpr>,r:CTR<GExprCtr,GExpr>){
     return lift(GEBinop(op,l(this),r(this)));
   }
+  #if (haxe_ver > 4.205)
   public function Field(e:CTR<GExprCtr,GExpr>,field:String,?kind){
     return lift(GEField(e(this),field,kind));
   }
+  #else
+  public function Field(e:CTR<GExprCtr,GExpr>,field:String){
+    return lift(GEField(e(this),field));
+  }
+  #end
   public function Parenthesis(e:CTR<GExprCtr,GExpr>){
     return lift(GEParenthesis(e(this)));
   }
@@ -173,7 +179,11 @@ class GExprLift{
           case GEConst(c)                     : EConst(c.to_macro_at(pos));
           case GEArray(e1, e2)                : EArray(f(e1), f(e2));
           case GEBinop(op, e1, e2)            : EBinop(op.to_macro_at(pos), f(e1), f(e2));
+          #if (haxe_ver > 4.205) 
           case GEField(e, field, kind)        : EField(f(e), field, __.option(kind).map(x -> x.to_macro_at(pos)).defv(null));
+          #else
+          case GEField(e, field)              : EField(f(e), field);
+          #end
           case GEParenthesis(e)               : EParenthesis(f(e));
           case GEObjectDecl(fields)           : EObjectDecl(fields.map(e -> e.to_macro_at(pos)).prj());
           case GEArrayDecl(values)            : EArrayDecl(values.map(e -> e.to_macro_at(pos)).prj());

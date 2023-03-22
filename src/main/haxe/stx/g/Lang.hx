@@ -43,7 +43,9 @@ typedef GFieldDef           = stx.g.lang.expr.GField.GFieldDef;
 typedef GFieldCtr           = stx.g.lang.expr.GField.GFieldCtr;
 
 
+#if (hax_ver > 4.205)
 typedef GEFieldKind          = stx.g.lang.expr.GEFieldKind;
+#end
 
 typedef GFieldType          = stx.g.lang.expr.GFieldType;
 typedef GFieldTypeSum       = stx.g.lang.expr.GFieldType.GFieldTypeSum;

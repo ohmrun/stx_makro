@@ -83,7 +83,9 @@
        case GOpInterval: "...";
        case GOpArrow: "=>";
        case GOpIn: "in";
+       #if (haxe_ver > 4.205)
        case GOpNullCoal: "??";
+       #end
        case GOpAssignOp(op):
          printBinop(op) + "=";
      }

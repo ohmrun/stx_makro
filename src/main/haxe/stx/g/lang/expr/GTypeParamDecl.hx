@@ -50,7 +50,9 @@ class GTypeParamDeclLift{
       constraints : __.option(self.constraints).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
       params      : __.option(self.params).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
       meta        : __.option(self.meta).map(x -> x.map(y -> y.to_macro_at(pos)).prj()).defv([]),
+      #if (haxe_ver > 4.205) 
       defaultType : __.option(self.defaultType).map(x -> x.to_macro_at(pos)).defv(null)
+      #end
     };
   }
 }
