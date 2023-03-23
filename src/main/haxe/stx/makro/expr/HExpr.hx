@@ -30,7 +30,7 @@ package stx.makro.expr;
   }  
   #if macro
   @:noUsing static public function getType(self:HExpr):HType{
-    return Context.typeof(self.toExpr());
+    return HType.lift(Context.typeof(self.toExpr()));
   }
   #end
   static public function ref(str:String,pos:Position):HExpr{

@@ -1,11 +1,11 @@
 package stx.makro.type;
 
 @:using(stx.makro.type.HType.HTypeLift)
-@:forward abstract HType(StdType) from StdType to StdType{
+@:forward abstract HType(StdMacroType) from StdMacroType to StdMacroType{
   static public var _(default,never) = HTypeLift;
   public function new(self) this = self;
 
-  @:noUsing static public function lift(self:StdType):HType return new HType(self);
+  @:noUsing static public function lift(self:StdMacroType):HType return new HType(self);
 
   #if macro
   public function followWithAbstracts(){
@@ -38,9 +38,12 @@ package stx.makro.type;
   public function get_fields():Array<ClassField>{
     return _.get_fields(this);
   }
+  public function prj(){
+    return this;
+  }
 }
 class HTypeLift{
-  @:noUsing static private function lift(self:StdType):HType return HType.lift(self);
+  @:noUsing static private function lift(self:StdMacroType):HType return HType.lift(self);
 
   static public function arity(type:HType):Int{
     return switch (type) {
@@ -59,7 +62,7 @@ class HTypeLift{
     }
     return -1;
   }
-  static public function makro(t:StdType):HType{
+  static public function makro(t:StdMacroType):HType{
     return new stx.makro.HType(t);
   }
   static public function getMeta(t:HType){
@@ -112,14 +115,14 @@ class HTypeLift{
   }
   public static function isInt(type:Type):Bool{
     return switch(type){
-      case getPath(type) => Some("StdTypes.Int"): true;
+      case getPath(type) => Some("StdMacroTypes.Int"): true;
       default : false;
     }
   }
-  static public function isInStdType(type:Type):Bool{
+  static public function isInStdMacroType(type:Type):Bool{
     return switch(type){
       case TAbstract(a,_) : 
-        a.get().module == "StdTypes";
+        a.get().module == "StdMacroTypes";
         default : false; 
     }
   }

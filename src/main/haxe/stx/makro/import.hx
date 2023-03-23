@@ -18,7 +18,7 @@ using stx.Nano;
 
 import stx.makro.alias.StdExprDef;
 import stx.makro.alias.StdConstant;
-import stx.makro.alias.StdType;
+import stx.makro.alias.StdMacroType;
 
 import haxe.Exception;
 using stx.Pico;

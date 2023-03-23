@@ -5,7 +5,7 @@ typedef HClassAndParamDef = { t : Ref<ClassType>, params:Array<Type> };
 @:forward abstract HClassAndParam(HClassAndParamDef) from HClassAndParamDef{
   public function new(self) this = self;
   
-  @:from static public function fromType(obj:{t:Ref<StdClassType>, params:StdArray<StdType>}):HClassAndParam{
+  @:from static public function fromType(obj:{t:Ref<StdClassType>, params:StdArray<StdMacroType>}):HClassAndParam{
     var t = {
       get       : () -> (obj.t.get():ClassType),
       toString  : () -> obj.t.toString()

@@ -9,7 +9,7 @@ import haxe.macro.Type;
 import haxe.macro.ExprTools;
 import haxe.macro.MacroStringTools;
 
-import haxe.macro.Type as StdType;
+import haxe.macro.Type as StdMacroType;
 
 class Plugin{
   static public macro function use(){
@@ -37,7 +37,7 @@ class Plugin{
       ));
     // #end
   }
-  static function method(arr:Cluster<StdType>){
+  static function method(arr:Cluster<StdMacroType>){
     for(t in arr){
       var type    = HType._.makro(t);
       var base    = __.option(type.getBaseType()).force();

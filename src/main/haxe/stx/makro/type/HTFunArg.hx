@@ -1,6 +1,6 @@
 package stx.makro.type;
 
-typedef HTFunArgDef = { t : StdType, opt : Bool, name : String };
+typedef HTFunArgDef = { t : StdMacroType, opt : Bool, name : String };
 
 @:forward abstract HTFunArg(HTFunArgDef) from HTFunArgDef{
   public function equals(that:HTFunArg){

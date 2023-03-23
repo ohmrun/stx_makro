@@ -1,5 +1,8 @@
 package stx;
 
+using stx.Pico;
+using stx.Nano;
+
 import haxe.ds.StringMap;
 import stx.makro.alias.StdMetadataEntry;
 

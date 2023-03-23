@@ -38,7 +38,7 @@ class HClassTypeLift{
   }
   static public function ancestors(c:HClassType):Array<HClassAndParam>{
     var out = __.option(c.superClass).map(
-      function rec(x:{t:Ref<ClassType>, params:StdArray<StdType>}):Array<HClassAndParam>{
+      function rec(x:{t:Ref<ClassType>, params:StdArray<StdMacroType>}):Array<HClassAndParam>{
         var next : HClassType = x.t.get();
         if(c.name == "NotherConfig"){
           //trace(next);
