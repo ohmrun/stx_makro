@@ -20,6 +20,11 @@ import stx.makro.alias.StdExprDef;
 import stx.makro.alias.StdConstant;
 import stx.makro.alias.StdType;
 
+import haxe.Exception;
+using stx.Pico;
+using stx.Nano;
+using stx.Ds;
+
 using stx.Fn;
 using stx.Fp;
 using stx.Ds;
