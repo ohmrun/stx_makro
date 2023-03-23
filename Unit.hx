@@ -9,6 +9,6 @@ import stx.makro.Type;
 
 class Unit{
   static public function main(){
-    stx.makro.test.TestCall;
+    
   }
 }

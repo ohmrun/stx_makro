@@ -23,6 +23,7 @@ class GExpr extends OrdCls<GExprT>{
           ord = comply(e2I,e2II);
         }
         ord;
+      #if (haxe_ver > 4.205)
       case [GEField(eI,fieldI,kindI),GEField(eII,fieldII,kindII)] :
         var ord = comply(eI,eII);
         if(ord.is_not_less_than()){
@@ -32,6 +33,14 @@ class GExpr extends OrdCls<GExprT>{
           ord = Ord.NullOr(new GEFieldKind()).comply(kindI,kindII);
         }
         ord;
+      #else
+      case [GEField(eI,fieldI),GEField(eII,fieldII)] :
+        var ord = comply(eI,eII);
+        if(ord.is_not_less_than()){
+          ord = Ord.String().comply(fieldI,fieldII);
+        }
+        ord;
+      #end
       case [GEParenthesis(eI),GEParenthesis(eII)] :
         comply(eI,eII);
       case [GEObjectDecl(fieldsI),GEObjectDecl(fieldsII)] :

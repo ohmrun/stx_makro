@@ -22,6 +22,7 @@ class GExpr implements EqApi<GExprT> extends Clazz{
           eq = comply(e2I,e2II);
         }
         eq;
+      #if (haxe_ver > 4.205)
       case [GEField(eI,fieldI,kindI),GEField(eII,fieldII,kindII)] :
         var eq = comply(eI,eII);
         if(eq.is_ok()){
@@ -31,6 +32,14 @@ class GExpr implements EqApi<GExprT> extends Clazz{
           eq = Eq.NullOr(new GEFieldKind()).comply(kindI,kindII);
         }
         eq;
+      #else
+      case [GEField(eI,fieldI),GEField(eII,fieldII)] :
+        var eq = comply(eI,eII);
+        if(eq.is_ok()){
+          eq = Eq.String().comply(fieldI,fieldII);
+        }
+        eq;
+      #end
       case [GEParenthesis(eI),GEParenthesis(eII)] :
         comply(eI,eII);
       case [GEObjectDecl(fieldsI),GEObjectDecl(fieldsII)] :
