@@ -13,7 +13,7 @@ package stx.makro.type;
 }
 class HEnumTypeLift{  
   @:noUsing static public function getModule(e:HEnumType):Module{
-    return Module.lift({
+    return stx.makro.core.Module.lift({
       name    : e.name,
       pack    : Way.lift(e.pack),
       module  : new haxe.io.Path(e.module)
