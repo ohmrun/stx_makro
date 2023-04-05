@@ -42,7 +42,7 @@ class Plugin{
       var type    = HType._.makro(t);
       var base    = __.option(type.getBaseType()).force();
       var entries = base.meta.get().filter(
-          (mde) -> mde.name.startsWith(":stx.")//TODO -> too general
+          (mde) -> mde.name.startsWith(":stx.makro")//TODO -> too general
       );
       //__.log().trace(_ -> _.pure(entries));
       for(entry in entries){
