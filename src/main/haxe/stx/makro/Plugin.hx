@@ -14,7 +14,7 @@ import haxe.macro.Type as StdMacroType;
 class Plugin{
   static public macro function use(){
     //#if (test||debug)
-    trace('stx.makro.Plugin.use');
+    __.log().info('stx.makro.Plugin.use');
     //#end
     var args          = __.sys().args();
     var gen_location  = Way.fromPath(new haxe.io.Path(__.sys().cwd().get())).concat(['src','gen','haxe']);

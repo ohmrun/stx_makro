@@ -2,7 +2,7 @@ using stx.Pico;
 using stx.Nano;
 
 using stx.Log;
-using stx.Bake;
+using Bake;
 
 import stx.makro.test.TestCaller.TestCallerPackage;
 import stx.makro.test.TestCall;
