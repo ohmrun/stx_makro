@@ -16,22 +16,22 @@ class Main{
     static public function boot(){
       trace(PositionKind.unit());     
       #if !make
-        __.log().trace('BOOT: ${__.bake()}');
+        __.log().trace('BOOT: ${Bake.pop()}');
         // __.test().run(
         //   new stx.makro.gen.Package.Test().deliver()
         // );
       #else
-        __.log().trace('BOOT MAKE: ${__.bake()}');
+        __.log().trace('BOOT MAKE: ${Bake.pop()}');
       #end
     }
     static public function main(){}
   #elseif make
     static public function main(){
-      __.log().trace('MAIN MAKE: ${__.bake()}');
+      __.log().trace('MAIN MAKE: ${Bake.pop()}');
     }
   #else
     static public function main(){
-      __.log().trace('MAIN: ${__.bake()}');
+      __.log().trace('MAIN: ${Bake.pop()}');
       //var d : a.b.OH3 = {};
     }
   #end

@@ -55,7 +55,7 @@ class PublishEnumAbstractTest extends TestCase{
     }catch(e:haxe.Exception){
       trace(e);
     }  
-    //__.bake().publish(GTypeDefinition._.to_macro_at(tdef,haxe.macro.Context.currentPos()));
+    //Bake.pop().publish(GTypeDefinition._.to_macro_at(tdef,haxe.macro.Context.currentPos()));
   
     return macro {};
   }
