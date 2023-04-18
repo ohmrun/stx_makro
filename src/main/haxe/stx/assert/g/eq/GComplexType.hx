@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GComplexType as GComplexTypeT;
 
-class GComplexType implements EqApi<GComplexTypeT> extends Clazz{
+class GComplexType extends stx.assert.eq.term.Base<GComplexTypeT> {
   public function comply(lhs:GComplexTypeT,rhs:GComplexTypeT){
     return switch([lhs,rhs]){
       case [GTPath(pI),GTPath(pII)]                           : 

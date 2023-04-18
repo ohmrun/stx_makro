@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GTypeParamDecl as GTypeParamDeclT;
 
-class GTypeParamDecl implements EqApi<GTypeParamDeclT> extends Clazz{
+class GTypeParamDecl extends stx.assert.eq.term.Base<GTypeParamDeclT> {
   public function comply(lhs:GTypeParamDeclT,rhs:GTypeParamDeclT){
     var eq = Eq.String().comply(lhs.name,rhs.name);
     if(eq.is_ok()){

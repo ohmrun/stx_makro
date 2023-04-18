@@ -26,7 +26,9 @@ enum GBinopSum{
   GOpArrow;//`=>`
   GOpIn;//`in`
 
-  //GOpNullCoal;//`??`
+  #if (haxe_ver > 4.205) 
+  GOpNullCoal;//`??`
+  #end
  }
  @:using(stx.g.lang.expr.GBinop.GBinopLift)
  abstract GBinop(GBinopSum) from GBinopSum to GBinopSum{
@@ -69,7 +71,9 @@ enum GBinopSum{
       case GOpInterval        : OpInterval;
       case GOpArrow           : OpArrow;
       case GOpIn              : OpIn;
-      //case GOpNullCoal        : OpNullCoal;
+      #if (haxe_ver > 4.205)
+      case GOpNullCoal        : OpNullCoal;
+      #end
     }
   } 
   // static public function spell(self:GBinop){

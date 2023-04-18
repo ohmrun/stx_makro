@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GConstant as GConstantT;
 
-class GConstant implements EqApi<GConstantT> extends Clazz{
+class GConstant extends stx.assert.eq.term.Base<GConstantT> {
   public function comply(lhs:GConstantT,rhs:GConstantT){
     return switch([lhs,rhs]){
       case [GCInt(vI, sI),GCInt(vII, sII)]      :

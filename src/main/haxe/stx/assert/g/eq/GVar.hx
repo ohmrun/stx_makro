@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GVar as GVarT;
 
-class GVar implements EqApi<GVarT> extends Clazz{
+class GVar extends stx.assert.eq.term.Base<GVarT> {
   public function comply(lhs:GVarT,rhs:GVarT){
     var eq = Eq.String().comply(lhs.name,rhs.name);
     if(eq.is_ok()){

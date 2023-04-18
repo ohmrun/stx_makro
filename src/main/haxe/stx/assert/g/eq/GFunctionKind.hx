@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GFunctionKind as GFunctionKindT;
 
-class GFunctionKind implements EqApi<GFunctionKindT> extends Clazz{
+class GFunctionKind extends stx.assert.eq.term.Base<GFunctionKindT> {
   public function comply(lhs:GFunctionKindT,rhs:GFunctionKindT){
     return switch([lhs,rhs]){
       case [GFAnonymous,GFAnonymous] : AreEqual;

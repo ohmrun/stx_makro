@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GTypeDefKind as GTypeDefKindT;
 
-class GTypeDefKind implements EqApi<GTypeDefKindT> extends Clazz{
+class GTypeDefKind extends stx.assert.eq.term.Base<GTypeDefKindT> {
   public function comply(lhs:GTypeDefKindT,rhs:GTypeDefKindT){
     return switch([lhs,rhs]){
       case [GTDEnum,GTDEnum] : AreEqual;

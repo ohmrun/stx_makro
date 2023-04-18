@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GField as GFieldT;
 
-class GField implements EqApi<GFieldT> extends Clazz{
+class GField extends stx.assert.eq.term.Base<GFieldT> {
   public function comply(lhs:GFieldT,rhs:GFieldT){
     var eq = Eq.String().comply(lhs.name,rhs.name);
     if(eq.is_ok()){

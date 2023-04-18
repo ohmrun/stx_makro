@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GExpr as GExprT;
 
-class GExpr implements EqApi<GExprT> extends Clazz{
+class GExpr extends stx.assert.eq.term.Base<GExprT> {
   public function comply(lhs:GExprT,rhs:GExprT):Equaled{
     return switch([lhs,rhs]){
       case [GEConst(cI),GEConst(cII)] :

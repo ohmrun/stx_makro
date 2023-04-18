@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GFieldType as GFieldTypeT;
 
-class GFieldType implements EqApi<GFieldTypeT> extends Clazz{
+class GFieldType extends stx.assert.eq.term.Base<GFieldTypeT> {
   public function comply(lhs:GFieldTypeT,rhs:GFieldTypeT){
     return switch([lhs,rhs]){
       case [GFVar(tI,eI),GFVar(tII,eII)] : 

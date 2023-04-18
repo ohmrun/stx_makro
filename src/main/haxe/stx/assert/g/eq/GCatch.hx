@@ -2,7 +2,7 @@ package stx.assert.g.eq;
 
 import stx.g.lang.expr.GCatch as GCatchT;
 
-class GCatch implements EqApi<GCatchT> extends Clazz{
+class GCatch extends stx.assert.eq.term.Base<GCatchT> {
   public function comply(lhs:GCatchT,rhs:GCatchT):Equaled{
     var eq = Eq.String().comply(lhs.name,rhs.name);
     return if(eq.is_ok()){
