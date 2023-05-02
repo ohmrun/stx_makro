@@ -8,7 +8,7 @@
       "stx_pico","stx_nano","stx_fn","stx_fp","stx_ds","bake","stx_makro"
     ],
     "unit" : {
-      "--macro": ["include('stx.assert',true)"],
+      "--macro": ["include('stx.assert',true)","include('stx.makro',true)"],
       "-main" : "Unit",
       "interp" : {
         "--interp" : true
