@@ -24,7 +24,7 @@ class Increment{
 
 }
 
-@:enum abstract EnumeryThing(Int){
+enum abstract EnumeryThing(Int){
   static public var index(get,null) : Int;
   public static inline function get_index(){
     if(index == null){index = 0;}

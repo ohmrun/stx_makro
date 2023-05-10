@@ -25,6 +25,6 @@ class EnumAbstractTest extends TestCase{
     });
   }
 }
-@:enum abstract LiteralEnumAbstractTestType(std.String) from std.String to std.String {
+enum abstract LiteralEnumAbstractTestType(std.String) from std.String to std.String {
 	public var AGENCY : stx.g.test.LiteralEnumAbstractTestType = "tooo";
 }
