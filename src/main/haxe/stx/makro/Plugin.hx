@@ -14,6 +14,21 @@ import haxe.macro.MacroStringTools;
 
 import haxe.macro.Type as StdMacroType;
 #end
+/**
+ * Any class with metadata starting `stx.makro` will be used in the following way:
+ * e.g in `stx.makro.Test.use(__,1)`
+ * `stx.makro.Test` is constructed with no parameters
+ * `use` is called with the `haxe.macro.Type` where the metadata is found denoted by `__`, and 1
+ * so the class should look like
+ * ```haxe
+ * package stx.makro;
+ * class Test{
+ *  public function use(type:haxe.macro.Type,int:Int){
+ *    ///...
+ *  }
+ * }
+ * ```
+ */
 class Plugin{
   static public macro function use(){
     //#if (test||debug)
