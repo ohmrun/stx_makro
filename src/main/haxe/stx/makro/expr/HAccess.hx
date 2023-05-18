@@ -1,6 +1,6 @@
 package stx.makro.expr;
 
-abstract HAccess(StdAccess) from StdAccess to StdAccess{
+@:forward abstract HAccess(StdAccess) from StdAccess to StdAccess{
   public function new(self) this = self;
   @:noUsing static public function lift(self:StdAccess):HAccess return new HAccess(self);
 

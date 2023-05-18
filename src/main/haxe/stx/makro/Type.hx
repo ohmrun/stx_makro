@@ -5,6 +5,7 @@ typedef MakroTypeFailureSum     = stx.fail.MakroTypeFailure.MakroTypeFailureSum;
 typedef MakroTypeFailure        = stx.fail.MakroTypeFailure;
 
 typedef HAbstractType           = stx.makro.type.HAbstractType;
+typedef HDefType                = stx.makro.type.HDefType;
 typedef HType                   = stx.makro.type.HType;
 typedef HTFunArg                = stx.makro.type.HTFunArg;
 typedef HTFunArgCluster         = stx.makro.type.HTFunArgCluster;
@@ -12,7 +13,7 @@ typedef Identity                = stx.makro.type.Identity;
 
 typedef HBaseType               = stx.makro.type.HBaseType;
 
-typedef HTypeParameter          = stx.makro.type.HTypeParameter;
+typedef HSimpleTypeIdentifier          = stx.makro.type.HSimpleTypeIdentifier;
 typedef HModuleType             = stx.makro.type.HModuleType;
 typedef HEnumValueConstructor   = stx.makro.type.HEnumValueConstructor;
 

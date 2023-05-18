@@ -25,6 +25,14 @@ typedef HConstant             = stx.makro.expr.HConstant;
 
 typedef HMetadataEntry        = stx.makro.expr.HMetadataEntry;
 
+typedef HTypeDefinition       = stx.makro.expr.HTypeDefinition;
+typedef HField                = stx.makro.expr.HField;
+typedef HFieldType            = stx.makro.expr.HFieldType;
+typedef HTypeDefKind          = stx.makro.expr.HTypeDefKind;
+//typedef HClassTypeDefKind     = stx.makro.expr.HClassTypeDefKind;
+typedef HPropAccessSum        = stx.makro.expr.HPropAccess.HPropAccessSum;
+typedef HPropAccess           = stx.makro.expr.HPropAccess;
+typedef HTypePath             = stx.makro.expr.HTypePath;
 
 
 

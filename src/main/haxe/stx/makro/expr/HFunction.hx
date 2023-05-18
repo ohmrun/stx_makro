@@ -9,7 +9,7 @@ package stx.makro.expr;
   }
 */
 @:using(stx.makro.expr.HFunction.HFunctionLift)
-abstract HFunction(Function) from Function to Function{
+@:forward abstract HFunction(Function) from Function to Function{
   public function new(self) this = self;
   @:noUsing static public function lift(self:Function):HFunction return new HFunction(self);
   @:noUsing static public function make(args:Cluster<HFunctionArg>,?params,?expr,?ret){

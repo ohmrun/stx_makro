@@ -1,7 +1,7 @@
 package stx.makro.expr;
 
 @:using(stx.makro.expr.HConstant.HConstantLift)
-abstract HConstant(StdConstant) from StdConstant to StdConstant{
+@:forward abstract HConstant(StdConstant) from StdConstant to StdConstant{
   static public var _(default,never) = HConstantLift;
   public function new(self) this = self;
   @:noUsing static public function lift(self:StdConstant) return new HConstant(self);

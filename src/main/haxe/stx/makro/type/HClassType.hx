@@ -4,7 +4,7 @@ package stx.makro.type;
 @:forward abstract HClassType(ClassType) from ClassType to ClassType{
   static public var _(default,never) = HClassTypeLift;
   public function new(self)this = self;
-  static public inline function lift(self) return new HClassType(self);
+  @:noUsing static public inline function lift(self:ClassType) return new HClassType(self);
   
   public function prj():ClassType{
     return this;

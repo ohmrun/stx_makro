@@ -70,14 +70,14 @@ class HTypeLift{
       (bt) -> bt.meta.get()
     ).def(()->[]);
   }
-  static public function getTypeVars(type:HType):Array<{id:HTypeParameter,type:HType}>{
+  static public function getTypeVars(type:HType):Array<{id:HSimpleTypeIdentifier,type:HType}>{
     var implementations    = getParamImplementations(type);
     var params             = getBaseType(type).params;
     var fields             = get_fields(type);
     var out                = [];
     for (i in 0...params.length){
       var param = params[i];
-      var p  = HTypeParameter.fromType(param.t);
+      var p  = HSimpleTypeIdentifier.fromType(param.t);
       __.log().trace('$p');
       var impl = implementations[i];
       

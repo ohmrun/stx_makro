@@ -1,6 +1,6 @@
 package stx.makro.expr;
 //@:using(stx.makro.expr.HExprDef.HExprDefLift)
-abstract HExprDef(StdExprDef){
+@:forward abstract HExprDef(StdExprDef){
   static public var _(default,never) = HExprDefLift;
   static public var MARK(default,null) = mark();
   static public var ZERO(default,null) = unit();

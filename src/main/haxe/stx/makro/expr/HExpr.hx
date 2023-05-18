@@ -1,7 +1,7 @@
 package stx.makro.expr;
 
 @:using(stx.makro.expr.HExpr.HExprLift)
-@:forward abstract HExpr(StdExpr) from StdExpr{
+@:forward abstract HExpr(StdExpr){
   static public var ZERO(default,never) : HExpr  = lift( {expr : EBlock([]), pos : null } );
   static public var _(default,never) = HExprLift;
   public function new(self) this = self;
@@ -20,7 +20,7 @@ package stx.makro.expr;
   //   return fromExpr(self);
   // }
   @:noUsing static public function fromExpr(self:haxe.macro.Expr):HExpr{
-    return self;
+    return lift(self);
   }
   @:noUsing static public function mark(pos:Position):HExpr{
     return HExprDef.MARK.to_macro_at(pos);
@@ -90,7 +90,7 @@ class HExprLift{
                         HFunction.make([],null,
                           HExprDef.EReturn(
                               HExprDef.EField(
-                                HConstant.CIdent('this').to_macro_at(pos).prj(),
+                                HConstant.CIdent('this').to_macro_at(pos),
                                 f.name
                               ).to_macro_at(pos)
                           ).to_macro_at(pos)

@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 
 @:using(stx.makro.expr.HFunctionArg.HFunctionArgLift)
-abstract HFunctionArg(StdFunctionArg) from StdFunctionArg to StdFunctionArg{
+@:forward abstract HFunctionArg(StdFunctionArg) from StdFunctionArg to StdFunctionArg{
   static public var _(default,never) = HFunctionArgLift;
   public inline function new(self:StdFunctionArg) this = self;
   static inline public function lift(self:StdFunctionArg):HFunctionArg return new HFunctionArg(self);

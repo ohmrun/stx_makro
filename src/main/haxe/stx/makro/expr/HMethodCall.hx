@@ -5,7 +5,7 @@ typedef HMethodCallDef = {
   var args : HExprCluster;
 }
 @:using(stx.makro.expr.HMethodCall.HMethodCallLift)
-abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
+@:forward abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
   public function new(self){
     this = self;
   }

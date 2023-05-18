@@ -1,6 +1,6 @@
 package stx.makro.expr;
 
-abstract HTypeParam(StdTypeParam) from StdTypeParam to StdTypeParam{
+@:forward abstract HTypeParam(StdTypeParam) from StdTypeParam to StdTypeParam{
   public function new(self) this = self;
   @:noUsing static public function lift(self:StdTypeParam):HTypeParam return new HTypeParam(self);
 

@@ -2,7 +2,7 @@ package stx.makro.expr;
 
 import haxe.macro.ExprTools;
 
-abstract HMetadataEntry(StdMetadataEntry) from StdMetadataEntry{
+@:forward abstract HMetadataEntry(StdMetadataEntry) from StdMetadataEntry{
   public function new(self){
     this = self;
   }

@@ -1,7 +1,7 @@
 package stx.makro.expr;
 
 @:using(stx.makro.expr.HTypeParamDecl.HTypeParamDeclLift)
-abstract HTypeParamDecl(StdTypeParamDecl) from StdTypeParamDecl to StdTypeParamDecl{
+@:forward abstract HTypeParamDecl(StdTypeParamDecl) from StdTypeParamDecl to StdTypeParamDecl{
   static public var _(default,never) = HTypeParamDeclLift;
   public function new(self) this = self;
   @:noUsing static public function lift(self:StdTypeParamDecl):HTypeParamDecl return new HTypeParamDecl(self);
