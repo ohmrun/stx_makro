@@ -30,6 +30,16 @@
           "--interp" : true
         }
       }
+    },
+    "feat" : {
+      "comparable" : {
+        "-main"     : "stx.makro.feat.comparable.Test",
+        "-L"        : "stx_test",
+        "-cp"       :  "src/test/haxe", 
+        "interp" : {
+          "--interp" : true
+        }
+      }
     }
   }
 }

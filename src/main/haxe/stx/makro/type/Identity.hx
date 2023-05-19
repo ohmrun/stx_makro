@@ -44,7 +44,7 @@ class IdentityLift{
 				var ags = rst.map(f).join("_");
 				'${f(id)}_$ags';
 			case TIdentity(id):
-				stx.makro.core.Module._.toName(id);
+				stx.makro.type.core.Module._.toName(id);
 			case TComposed(first,other):
 				'${f(first)}_${f(other)}';
 				
@@ -69,7 +69,7 @@ class IdentityLift{
 			case TParametrised(t, params):
 				'${toString(t)}<${params.map(toString).join(',')}>';
 			case TIdentity(ident):
-				stx.makro.core.Module._.toString(ident);
+				stx.makro.type.core.Module._.toString(ident);
 			case TComposed(first, other):
 				'${toString(first)}${toString(other)}';
 		}

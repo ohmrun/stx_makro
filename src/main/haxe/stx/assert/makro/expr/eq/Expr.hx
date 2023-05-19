@@ -10,6 +10,6 @@ class Expr extends EqCls<TExpr>{
   public function new(){}
 
   public function comply(a:TExpr,b:TExpr):Equaled{
-    return new HExprDef().comply(THExprDef.lift(a.expr),THExprDef.lift(b.expr));
+    return Eq.Makro().Expr().HExprDef.comply(THExprDef.lift(a.expr),THExprDef.lift(b.expr));
   }
 }

@@ -2,6 +2,8 @@ package stx.assert.makro.expr.ord;
 
 import stx.makro.expr.HFunctionKind as HFunctionKindT;
 
+final Ord = __.assert().Ord();
+
 class HFunctionKind extends OrdCls<HFunctionKindT>{
   public function new(){}
   public function comply(lhs:HFunctionKindT,rhs:HFunctionKindT){

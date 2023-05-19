@@ -29,7 +29,7 @@ class HConstant extends EqCls<THConstant>{
 	    case [CString(sI, kindI),CString(sII, kindII)]  :
         var eq = seq.comply(sI,sII);
         if(eq.are_not_equal()){
-          new stx.assert.makro.expr.eq.StringLiteralKind().comply(kindI,kindII);
+          Eq.Makro().Expr().StringLiteralKind.comply(kindI,kindII);
         }
         eq;
 	    case [CIdent(sI),CIdent(sII)]                   : 

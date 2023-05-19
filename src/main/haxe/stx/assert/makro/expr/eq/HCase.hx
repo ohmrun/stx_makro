@@ -6,15 +6,16 @@ final Eq = __.assert().Eq();
 
 class HCase extends EqCls<THCase>{
 
-  public function new(){}
+  public function new(){
+  }
 
   public function comply(a:THCase,b:THCase):Equaled{
-    var eq = Eq.Array(new stx.assert.makro.expr.eq.Expr()).comply(a.values,b.values);
+    var eq = Eq.Array(Eq.Makro().Expr().Expr).comply(a.values,b.values);
     if(eq.is_ok()){
-      eq =  Eq.NullOr(new stx.assert.makro.expr.eq.Expr()).comply(a.guard,b.guard);
+      eq =  Eq.NullOr(Eq.Makro().Expr().Expr).comply(a.guard,b.guard);
     }
     if(eq.is_ok()){
-      eq =  Eq.NullOr(new stx.assert.makro.expr.eq.Expr()).comply(a.expr,b.expr);
+      eq =  Eq.NullOr(Eq.Makro().Expr().Expr).comply(a.expr,b.expr);
     }
     return eq;
   }

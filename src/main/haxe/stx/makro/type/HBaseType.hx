@@ -12,7 +12,7 @@ class HBaseTypeLift{
     return b.params.map((tp)->tp.t);
   }
   static public function getModule(b:BaseType):Module{
-    return stx.makro.core.Module.lift({
+    return stx.makro.type.core.Module.lift({
       name    : b.name,
       pack    : Way.lift(b.pack),
       module  : None

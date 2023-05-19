@@ -1,4 +1,4 @@
-package stx.makro.core;
+package stx.makro.type.core;
 
 typedef MethodRefDef = {
   >ModuleDef,

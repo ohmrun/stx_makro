@@ -2,11 +2,13 @@ package stx.assert.makro.expr.eq;
 
 import stx.makro.expr.HComplexType as THComplexType;
 
+final Eq = __.assert().Eq();
+
 class HComplexType extends stx.assert.eq.term.Base<THComplexType> {
   public function comply(lhs:THComplexType,rhs:THComplexType){
     return switch([lhs,rhs]){
       case [TPath(pI),TPath(pII)]                           : 
-        new HTypePath().comply(pI,pII);
+        Eq.Makro().Expr().HTypePath.comply(pI,pII);
       case [ComplexType.TFunction(argsI,retI),ComplexType.TFunction(argsII,retII)]  : 
         var eq = Eq.Cluster(this).comply(argsI,argsII);
         if(eq.is_ok()){
@@ -14,19 +16,19 @@ class HComplexType extends stx.assert.eq.term.Base<THComplexType> {
         }
         eq;
       case [ComplexType.TAnonymous(fieldsI),ComplexType.TAnonymous(fieldsII)]       : 
-        Eq.Cluster(new HField()).comply(fieldsI,fieldsII);
+        Eq.Cluster(Eq.Makro().Expr().HField).comply(fieldsI,fieldsII);
       case [TParent(tI),TParent(tII)]                       : 
         comply(tI,tII);
       case [TExtend(pI,fieldsI) ,TExtend(pII,fieldsII)]     : 
-        var lset = RedBlackSet.make(Comparable.Anon(new HTypePath(),new stx.assert.makro.expr.ord.HTypePath()));
+        var lset = RedBlackSet.make(Comparable.Anon(Eq.Makro().Expr().HTypePath,new stx.assert.makro.expr.ord.HTypePath()));
             lset = lset.concat(pI);
-        var rset = RedBlackSet.make(Comparable.Anon(new HTypePath(),new stx.assert.makro.expr.ord.HTypePath()));
+        var rset = RedBlackSet.make(Comparable.Anon(Eq.Makro().Expr().HTypePath,new stx.assert.makro.expr.ord.HTypePath()));
             rset = rset.concat(pII);
         var eq   = lset.equals(rset);
         if(eq.is_ok()){
-          var lset = RedBlackSet.make(Comparable.Anon(new HField(),new stx.assert.makro.expr.ord.HField()));
+          var lset = RedBlackSet.make(Comparable.Anon(Eq.Makro().Expr().HField,new stx.assert.makro.expr.ord.HField()));
             lset = lset.concat(fieldsI);
-          var rset = RedBlackSet.make(Comparable.Anon(new HField(),new stx.assert.makro.expr.ord.HField()));
+          var rset = RedBlackSet.make(Comparable.Anon(Eq.Makro().Expr().HField,new stx.assert.makro.expr.ord.HField()));
             rset = rset.concat(fieldsII);
           eq = lset.equals(rset);
         }

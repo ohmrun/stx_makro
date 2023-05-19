@@ -29,10 +29,10 @@ abstract AnonsMap(StringMap<String>){
   }
 }
 class LiftMakro{
-  static public function toModule(str:String):Option<stx.makro.core.Module>{
+  static public function toModule(str:String):Option<stx.makro.type.core.Module>{
     var arr             = str.split(".");
     var name : String   = arr.pop();
-    return Some(new stx.makro.core.Module({
+    return Some(new stx.makro.type.core.Module({
       name : name,
       pack : Way.lift(arr),
       module : None

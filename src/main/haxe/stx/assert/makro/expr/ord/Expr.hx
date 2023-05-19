@@ -8,7 +8,7 @@ final Ord = __.assert().Ord();
 
 class Expr extends OrdCls<TExpr>{
   public function new(){}
-  public function comply(lhs:TExpr,rhs:TExpr){
-    return new HExprDef().comply(THExprDef.lift(lhs.expr),THExprDef.lift(rhs.expr));
+  public function comply(lhs:TExpr,rhs:TExpr):Ordered{
+    return Ord.Makro().Expr().HExprDef.comply(THExprDef.lift(lhs.expr),THExprDef.lift(rhs.expr));
   }
 }

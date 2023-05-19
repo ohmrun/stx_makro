@@ -10,6 +10,6 @@ class HExpr extends OrdCls<THExpr>{
   public function new(){}
 
   public function comply(a:THExpr,b:THExpr):Ordered{
-    return new HExprDef().comply(THExprDef.lift(a.expr),THExprDef.lift(b.expr));
+    return Ord.Makro().Expr().HExprDef.comply(THExprDef.lift(a.expr),THExprDef.lift(b.expr));
   }
 }

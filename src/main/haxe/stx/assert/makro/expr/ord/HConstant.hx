@@ -2,6 +2,8 @@ package stx.assert.makro.expr.ord;
 
 import stx.makro.expr.HConstant as THConstant;
 
+final Ord = __.assert().Ord();
+
 class HConstant extends OrdCls<THConstant>{
   public function new(){}
   public function comply(lhs:THConstant,rhs:THConstant){

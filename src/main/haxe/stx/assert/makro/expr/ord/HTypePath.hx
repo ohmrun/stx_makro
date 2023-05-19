@@ -2,6 +2,8 @@ package stx.assert.makro.expr.ord;
 
 import stx.makro.expr.HTypePath as HTypePathT;
 
+final Ord = __.assert().Ord();
+
 class HTypePath extends OrdCls<HTypePathT>{
   public function new(){}
   public function comply(lhs:HTypePathT,rhs:HTypePathT){
@@ -13,7 +15,7 @@ class HTypePath extends OrdCls<HTypePathT>{
       ord = Ord.NullOr(Ord.String()).comply(lhs.sub,rhs.sub);
     }
     if(ord.is_not_less_than()){
-      ord = Ord.NullOr(Ord.Cluster(new HTypeParam())).comply(lhs.params,rhs.params);
+      ord = Ord.NullOr(Ord.Cluster(Ord.Makro().Expr().HTypeParam)).comply(lhs.params,rhs.params);
     }
     return ord;
   }

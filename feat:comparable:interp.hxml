@@ -1,0 +1,17 @@
+-main stx.makro.feat.comparable.Test
+-cp src/main/haxe
+-cp src/gen/haxe
+-cp src/test/haxe
+-lib hscript
+-lib tink_core
+-lib tink_macro
+-lib stx_pico
+-lib stx_nano
+-lib stx_fn
+-lib stx_fp
+-lib stx_ds
+-lib bake
+-D test=stx_makro
+-D no-deprecation-warnings
+--interp
+-L stx_test

@@ -2,6 +2,8 @@ package stx.assert.makro.expr.eq;
 
 import stx.makro.expr.HFunctionKind as HFunctionKindT;
 
+final Eq = __.assert().Eq();
+
 class HFunctionKind extends stx.assert.eq.term.Base<HFunctionKindT> {
   public function comply(lhs:HFunctionKindT,rhs:HFunctionKindT){
     return switch([lhs,rhs]){

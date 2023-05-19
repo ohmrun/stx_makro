@@ -153,7 +153,7 @@ class HTypeLift{
       None;
     }else{
       var base = getBaseType(t);
-      Some(stx.makro.core.Module.lift({
+      Some(stx.makro.type.core.Module.lift({
         name    : base.name,
         pack    : Way.lift(base.pack),
         module  : None

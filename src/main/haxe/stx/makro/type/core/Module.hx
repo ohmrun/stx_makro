@@ -1,6 +1,6 @@
-package stx.makro.core;
+package stx.makro.type.core;
 
-@:using(stx.makro.core.Module.ModuleLift)
+@:using(stx.makro.type.core.Module.ModuleLift)
 @:forward abstract Module(ModuleDef) from ModuleDef{
   static public var _(default,never) = ModuleLift;
   @:noUsing static public function lift(self:ModuleDef):Module{
@@ -10,7 +10,7 @@ package stx.makro.core;
     this = self;
   }
   public function cons(str:String):Module{
-    return stx.makro.core.Module.lift(switch([this.module,this.pack]){
+    return stx.makro.type.core.Module.lift(switch([this.module,this.pack]){
       case [None,p] if(p.length == 0)         : { module : None, pack : Way.lift([str]), name : this.name};
       case [Some(md),p] if(p.length == 0)     : { module : Some(new haxe.io.Path('$str${__.sep()}$md')), pack : Way.unit() , name : this.name };
       case [None,arr]                         : { module : None, pack : Way.lift([str]).concat(arr), name : this.name};
