@@ -7,7 +7,7 @@ typedef HAbstractType           = stx.makro.type.HAbstractType;
 typedef HDefType                = stx.makro.type.HDefType;
 typedef HType                   = stx.makro.type.HType;
 typedef HTFunArg                = stx.makro.type.HTFunArg;
-typedef HTFunArgCluster         = stx.makro.type.HTFunArgCluster;
+typedef HTFunArgArray         = stx.makro.type.HTFunArgArray;
 typedef Identity                = stx.makro.type.Identity;
 
 typedef HBaseType               = stx.makro.type.HBaseType;

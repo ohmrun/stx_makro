@@ -1,11 +1,11 @@
 package stx.makro.expr;
 
-typedef HExprArrayDef = Cluster<HExpr>;
+typedef HExprArrayDef = Array<HExpr>;
 
 @:forward abstract HExprArray(HExprArrayDef) from HExprArrayDef{
   public function new(self) this = self;
   @:noUsing static public function lift(self:HExprArrayDef):HExprArray return new HExprArray(self);
-  static public function unto(self:Cluster<StdExpr>):HExprArray{
+  static public function unto(self:Array<Expr>):HExprArray{
     return lift(self.map(HExpr.fromExpr));
   }
 

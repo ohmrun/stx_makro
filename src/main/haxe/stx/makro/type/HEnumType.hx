@@ -22,12 +22,12 @@ class HEnumTypeLift{
   static public function toBaseType(self:HEnumType):BaseType{
     return self.prj();
   }
-  @:noUsing static public function getConstructors(e:HEnumType):Map<String,HTFunArgCluster>{
+  @:noUsing static public function getConstructors(e:HEnumType):Map<String,HTFunArgArray>{
     return e.constructs.toArrayKV().fold(
-      (next,memo:Map<String,HTFunArgCluster>) -> next.into(
+      (next,memo:Map<String,HTFunArgArray>) -> next.into(
         (k,v) -> switch v.type {
           case TFun(args,_) : 
-            memo.set(k,(args:HTFunArgCluster));
+            memo.set(k,(args:HTFunArgArray));
             memo;
           default           : 
             memo.set(k,[]);

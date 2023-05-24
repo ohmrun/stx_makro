@@ -3,7 +3,7 @@ package stx.makro.expr.type;
 final Expr = __.makro().expr;
 
 class EnumType{
-  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:HTFunArgCluster->HTFunArgCluster->Option<HExpr>,pos){
+  @:noUsing static public function getSimpleBinaryCases(e0,e1,uses:HTFunArgArray->HTFunArgArray->Option<HExpr>,pos){
     function prep(str:String,p:HTFunArg):HTFunArg return  { name : '${str}${p.name}', opt : p.opt, t : p.t };
     
     return getBinaryCases(
@@ -58,7 +58,7 @@ class EnumType{
       []
     );
     Expr.HExprdef.Switch(
-      Expr.HExprdef.ArrayDecl([HExpr.mark(pos),HExpr.mark(pos)].imm()).to_macro_at(pos),
+      Expr.HExprdef.ArrayDecl([HExpr.mark(pos),HExpr.mark(pos)]).to_macro_at(pos),
       next.prj(),
       HExpr.make(null,pos)
     ).to_macro_at(pos);
@@ -66,7 +66,7 @@ class EnumType{
   @:noUsing static public function getSwitch(e:HEnumType,gen:Unary<HEnumValueConstructor,Array<Case>>,pos):HExpr{
     var cons  = HEnumType._.getConstructors(e);    
     var cases = cons.toIter().map(Field.fromCouple).map(
-          (c:Field<HTFunArgCluster>) -> HEnumValueConstructor.make(e,HEnumType._.getMoniker(e).call(c.key),c.val)
+          (c:Field<HTFunArgArray>) -> HEnumValueConstructor.make(e,HEnumType._.getMoniker(e).call(c.key),c.val)
         ).map(gen).fold(
           (next,memo:Array<Case>) ->  memo.concat(next),
           []
@@ -77,7 +77,7 @@ class EnumType{
       HExpr.make(null,pos)
     ).to_macro_at(pos);
   }
-  @:noUsing static public function getSimpleSwitch(e:StdEnumType,gen:HTFunArgCluster->Option<HExpr>,pos):HExpr{
+  @:noUsing static public function getSimpleSwitch(e:StdEnumType,gen:HTFunArgArray->Option<HExpr>,pos):HExpr{
     return getSwitch(e,
       function(cons){
         var args = HExprArray.lift(cons.args.map(
@@ -107,7 +107,7 @@ class EnumType{
     );
   }
   /**
-   * Creates a switch for EnumType e, use the names of the HTFunArgCluster to access the variables from HExpr
+   * Creates a switch for EnumType e, use the names of the HTFunArgArray to access the variables from HExpr
    * ref will be the $x in
    *  switch($x)...
    * HExpr will be the $expr in 

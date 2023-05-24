@@ -168,9 +168,9 @@ class LiftExprToHExpr{
     return HExpr.lift(self);
   }
 }
-class Lift{
+class LiftHTFunArgArrayWithMethodCallToExpr{
   #if macro
-  static public function call(self,m:HMethodCall,pos):HExpr{
+  static public function call(self:HTFunArgArray,m:HMethodCall,pos):HExpr{
     return new stx.makro.Module().expr.HExprdef.Call(
       m.to_macro_at(pos),
       HExprArray.unto((self.map(
