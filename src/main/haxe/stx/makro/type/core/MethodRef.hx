@@ -1,7 +1,7 @@
 package stx.makro.type.core;
 
 typedef MethodRefDef = {
-  >ModuleDef,
+  >MonikerDef,
   call : String,
 }
 
@@ -9,7 +9,7 @@ typedef MethodRefDef = {
   public function new(self){
     this = self;
   }
-  static public function fromModule(ident:Module,call:String):MethodRef{
+  static public function fromMoniker(ident:Moniker,call:String):MethodRef{
     return {
       name    : ident.name,
       pack    : __.option(ident.pack).def(Way.unit),
@@ -17,7 +17,7 @@ typedef MethodRefDef = {
       call    : call
     }
   }
-  public function toModule():Module{
+  public function toMoniker():Moniker{
     return {
       name    : this.name,
       pack    : this.pack,

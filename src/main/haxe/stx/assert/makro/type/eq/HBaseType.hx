@@ -28,6 +28,9 @@ class HBaseType extends EqCls<THBaseType>{
     if(eq.is_ok()){
       eq = Eq.Makro().Expr().Metadata.comply(a.meta.get(),b.meta.get());
     }
-    return throw UNIMPLEMENTED;
+    if(eq.is_ok()){
+      eq = Eq.NullOr(Eq.String()).comply(a.doc,b.doc);
+    }
+    return eq;
   }
 }

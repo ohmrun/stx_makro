@@ -1,5 +1,19 @@
 package stx.makro.expr;
 
+class HPropAccessCtr extends Clazz{
+  public function Fn():HPropAccess{
+    return HPropAccess.lift(PAccFn);
+  }
+  public function Default():HPropAccess{
+    return HPropAccess.lift(PAccDefault);
+  }
+  public function Null():HPropAccess{
+    return HPropAccess.lift(PAccNull);
+  }
+  public function Never():HPropAccess{
+    return HPropAccess.lift(PAccNever);
+  }
+}
 enum abstract HPropAccessSum(String) from String{
   var PAccFn        = "get";
   var PAccDefault   = "default";
@@ -20,8 +34,14 @@ enum abstract HPropAccessSum(String) from String{
   private var self(get,never):HPropAccess;
   private function get_self():HPropAccess return lift(this);
 
-  @:from static public function fromString(self:String){
-    return _.getting(self);
+  @:from static public function fromString(self:String):HPropAccess{
+    return switch(self){
+      case 'get'      : PAccFn;
+      case 'default'  : PAccDefault;
+      case 'null'     : PAccNull;
+      case 'never'    : PAccNever;
+      default          : throw 'unsupported HPropAcess "#${self}"';
+    }
   }
   @:to public function toString():String{
     return this.toString();
@@ -30,23 +50,5 @@ enum abstract HPropAccessSum(String) from String{
 class HPropAccessLift{
   static public inline function lift(self:HPropAccessSum):HPropAccess{
     return HPropAccess.lift(self);
-  }
-  static public function getting(self:HPropAccess){
-    return switch(self){
-      case PAccFn       : 'get';
-      case PAccDefault  : 'default';
-      case PAccNull     : 'null';
-      case PAccNever    : 'never';
-      default           : throw 'unsupported HPropAcess "#${self}"';
-    }
-  }
-  static public function setting(self:HPropAccess){
-    return switch(self){
-      case PAccFn       : 'set';
-      case PAccDefault  : 'default';
-      case PAccNull     : 'null';
-      case PAccNever    : 'never';
-      default           : throw 'unsupported HPropAcess "#${self}"';
-    }
   }
 }

@@ -1,9 +1,9 @@
 package stx.makro.expr.lift;
 
-class LiftModuleToHExpr{
-  static public function toHExpr(self:Module,pos){
+class LiftMonikerToHExpr{
+  static public function toHExpr(self:Moniker,pos){
     var id      = self;
-    var efield  = HExprDef.EField;
+    var efield  = HExprdef.EField;
     var ident   = Constant.CIdent.fn().then(x->stx.makro.expr.HExpr.LiftHExpr.Constant.toHExpr(x,pos));
     var head    = id.name;
 

@@ -30,9 +30,9 @@ class Eq extends Clazz{
   private function get_HAccess():HAccess{
     return __.option(this.HAccess).def(() -> this.HAccess = new HAccess());
   }
-  @:isVar public var HExprDef(get,null):HExprDef;
-  private function get_HExprDef():HExprDef{
-    return __.option(this.HExprDef).def(() -> this.HExprDef = new HExprDef());
+  @:isVar public var HExprdef(get,null):HExprdef;
+  private function get_HExprdef():HExprdef{
+    return __.option(this.HExprdef).def(() -> this.HExprdef = new HExprdef());
   }
   @:isVar public var HFieldType(get,null):HFieldType;
   private function get_HFieldType():HFieldType{
@@ -45,6 +45,10 @@ class Eq extends Clazz{
   @:isVar public var StringLiteralKind(get,null):stx.assert.makro.expr.eq.StringLiteralKind;
   private function get_StringLiteralKind():stx.assert.makro.expr.eq.StringLiteralKind{
     return __.option(this.StringLiteralKind).def(() -> this.StringLiteralKind = new stx.assert.makro.expr.eq.StringLiteralKind());
+  }
+  @:isVar public var HStringLiteralKind(get,null):stx.assert.makro.expr.eq.HStringLiteralKind;
+  private function get_HStringLiteralKind():stx.assert.makro.expr.eq.HStringLiteralKind{
+    return __.option(this.HStringLiteralKind).def(() -> this.HStringLiteralKind = new stx.assert.makro.expr.eq.HStringLiteralKind());
   }
   @:isVar public var HTypePath(get,null):HTypePath;
   private function get_HTypePath():HTypePath{
@@ -77,6 +81,10 @@ class Eq extends Clazz{
   @:isVar public var QuoteStatus(get,null):stx.assert.makro.expr.eq.QuoteStatus;
   private function get_QuoteStatus():stx.assert.makro.expr.eq.QuoteStatus{
     return __.option(this.QuoteStatus).def(() -> this.QuoteStatus = new stx.assert.makro.expr.eq.QuoteStatus());
+  }
+  @:isVar public var HQuoteStatus(get,null):stx.assert.makro.expr.eq.HQuoteStatus;
+  private function get_HQuoteStatus():stx.assert.makro.expr.eq.HQuoteStatus{
+    return __.option(this.HQuoteStatus).def(() -> this.HQuoteStatus = new stx.assert.makro.expr.eq.HQuoteStatus());
   }
   @:isVar public var HFunctionKind(get,null):HFunctionKind;
   private function get_HFunctionKind():HFunctionKind{

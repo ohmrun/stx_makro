@@ -12,15 +12,18 @@ package stx.makro.type;
   @:to public function toBaseType():BaseType{
     return this;
   }
-  public function interfaces(?ancestors:Bool):Array<HClassAndParam>{ return _.interfaces(this,ancestors); }
+  public function get_interface(?ancestors:Bool):Array<HClassAndParam>{ return _.get_interface(this,ancestors); }
 
-  public var fields(get,never):Cluster<HClassField>;
+/**
+ * This aliases weirdly
+ */
+//  public var fields(get,never):Cluster<HClassField>;
   public function get_fields():Cluster<HClassField>{
     return this.fields.get();
   }
 }
 class HClassTypeLift{
-  @:noUsing static public function interfaces(ct:HClassType,?ancestors:Bool=false):Array<HClassAndParam>{
+  @:noUsing static public function get_interface(ct:HClassType,?ancestors:Bool=false):Array<HClassAndParam>{
     return switch(ancestors){
       case true   : 
         ct.prj().interfaces
@@ -29,7 +32,7 @@ class HClassTypeLift{
             HClassType._.ancestors(ct)
               .flat_map(
                 (x) -> {
-                  return x.t.interfaces(ancestors).map((x) -> (x:HClassAndParam));
+                  return x.t.get_interface(ancestors).map((x) -> (x:HClassAndParam));
                 }
               )
           );

@@ -1,5 +1,17 @@
 package stx.makro.expr;
 
+class HFunctionKindCtr extends Clazz{
+	public function Anonymous(){
+		return HFunctionKind.lift(FAnonymous);
+	}
+	public function Named(name:String,?inlined:Bool){
+		return HFunctionKind.lift(FNamed(name,inlined));
+	}
+	public function Arrow(){
+		return HFunctionKind.lift(FArrow);
+	}
+}
+
 typedef HFunctionKindDef = haxe.macro.Expr.FunctionKind;
 
 @:using(stx.makro.expr.HFunctionKind.HFunctionKindLift)

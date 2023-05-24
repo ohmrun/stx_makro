@@ -1,6 +1,5 @@
 package stx.makro;
 
-
 typedef MakroTypeFailureSum     = stx.fail.MakroTypeFailure.MakroTypeFailureSum;
 typedef MakroTypeFailure        = stx.fail.MakroTypeFailure;
 
@@ -13,8 +12,8 @@ typedef Identity                = stx.makro.type.Identity;
 
 typedef HBaseType               = stx.makro.type.HBaseType;
 
-typedef HSimpleTypeIdentifier          = stx.makro.type.HSimpleTypeIdentifier;
-typedef HModuleType             = stx.makro.type.HModuleType;
+typedef HSimpleTypeIdentifier   = stx.makro.type.HSimpleTypeIdentifier;
+typedef HModuleType            = stx.makro.type.HModuleType;
 typedef HEnumValueConstructor   = stx.makro.type.HEnumValueConstructor;
 
 typedef HEnumType               = stx.makro.type.HEnumType;
@@ -32,5 +31,15 @@ class LiftClassType{
 class LiftEnumType{
   static public function makro(e:StdEnumType):HEnumType{
     return new HEnumType(e);
+  }
 }
+class LiftTypeToHType{
+  static public inline function toHType(self:haxe.macro.Type){
+    return HType.lift(self);
+  }
+}
+class LiftWildcard{
+  static public inline function Type(self:stx.makro.Module){
+    return new stx.makro.type.Module();
+  }
 }

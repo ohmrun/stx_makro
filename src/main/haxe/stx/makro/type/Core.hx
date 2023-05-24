@@ -1,5 +1,5 @@
 package stx.makro.type;
 
 typedef MethodRef       = stx.makro.type.core.MethodRef;
-typedef Module          = stx.makro.type.core.Module;
-typedef ModuleDef       = stx.makro.type.core.ModuleDef;
+typedef Moniker          = stx.makro.type.core.Moniker;
+typedef MonikerDef       = stx.makro.type.core.MonikerDef;

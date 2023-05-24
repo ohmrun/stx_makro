@@ -12,12 +12,15 @@ package stx.makro.type;
   }
 }
 class HEnumTypeLift{  
-  @:noUsing static public function getModule(e:HEnumType):Module{
-    return stx.makro.type.core.Module.lift({
+  @:noUsing static public function getMoniker(e:HEnumType):Moniker{
+    return stx.makro.type.core.Moniker.lift({
       name    : e.name,
       pack    : Way.lift(e.pack),
       module  : new haxe.io.Path(e.module)
     });
+  }
+  static public function toBaseType(self:HEnumType):BaseType{
+    return self.prj();
   }
   @:noUsing static public function getConstructors(e:HEnumType):Map<String,HTFunArgCluster>{
     return e.constructs.toArrayKV().fold(

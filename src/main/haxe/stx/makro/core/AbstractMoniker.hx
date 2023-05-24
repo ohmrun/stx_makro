@@ -1,6 +1,6 @@
 package stx.makro.core;
 
-typedef AbstractModule = {
+typedef AbstractMoniker = {
   >IdentDef,
   keys : Array<String>
 }

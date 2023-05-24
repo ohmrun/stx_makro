@@ -1,15 +1,15 @@
 package stx.assert.makro.expr.ord;
 
-import stx.makro.expr.HExprDef as THExprDef;
+import stx.makro.expr.HExprdef as THExprdef;
 import stx.makro.expr.HExpr as THExpr;
 import haxe.macro.Expr as TExpr;
 import haxe.macro.Expr.ExprDef as TExprDef;
 
 final Ord = __.assert().Ord();
 
-class HExprDef extends OrdCls<THExprDef>{
+class HExprdef extends OrdCls<THExprdef>{
   public function new(){}
-  public function comply(lhs:THExprDef,rhs:THExprDef):Ordered{
+  public function comply(lhs:THExprdef,rhs:THExprdef):Ordered{
     return switch([lhs.prj(),rhs.prj()]){
       case [TExprDef.EConst(cI),TExprDef.EConst(cII)] :
         Ord.Makro().Expr().HConstant.comply(cI,cII);

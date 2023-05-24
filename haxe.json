@@ -3,7 +3,6 @@
     "-D"   : ["test=stx_makro","no-deprecation-warnings"],
     "-cp" : ["src/main/haxe","src/gen/haxe"],
     "-lib" : [
-      "hscript",
       "tink_core","tink_macro",
       "stx_pico","stx_nano","stx_fn","stx_fp","stx_ds","bake"
     ],
@@ -32,10 +31,16 @@
       }
     },
     "feat" : {
+      "-L"        : "stx_test",
+      "-cp"       :  ["src/test/haxe","src/feat/haxe"], 
       "comparable" : {
         "-main"     : "stx.makro.feat.comparable.Test",
-        "-L"        : "stx_test",
-        "-cp"       :  "src/test/haxe", 
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "to_complex_type" : {
+        "-main"     : "stx.makro.ToComplexTypeTest",
         "interp" : {
           "--interp" : true
         }

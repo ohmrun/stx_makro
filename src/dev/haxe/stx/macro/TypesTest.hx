@@ -34,7 +34,7 @@ class TypesTest{
     //var out = Types.identify(a);
     //trace(out);
   }
-  public function testModulePack(){
+  public function testMonikerPack(){
     var a : types.TypeNamedAsPath = {};
     //Types.blum(a);
     var b : types.TypeNamedDifferentlyToPath.Fandango;
@@ -46,7 +46,7 @@ class TypesTest{
     var a = 1;
     var b = [];
     var c = {};
-    getTypeTestWrapper(types.TypedefsInModule);
+    getTypeTestWrapper(types.TypedefsInMoniker);
     getTypeTestWrapper(a);
     getTypeTestWrapper(Float);
   }

@@ -1,5 +1,12 @@
 package stx.makro.expr;
 
+class HMetadataCtr extends Clazz{
+  public function Make(meta:CTR<HMetadataEntryCtr,Array<HMetadataEntry>>){
+    return HMetadata.lift(
+      meta.apply(new HMetadataEntryCtr()).map(x -> x.prj())
+    );
+  }
+}
 typedef HMetadataDef = haxe.macro.Expr.Metadata;
 
 @:using(stx.makro.expr.HMetadata.HMetadataLift)

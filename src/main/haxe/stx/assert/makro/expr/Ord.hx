@@ -30,9 +30,9 @@ class Ord extends Clazz{
   private function get_HComplexType():HComplexType{
     return __.option(this.HComplexType).def(() -> this.HComplexType = new HComplexType());
   }
-  @:isVar public var HExprDef(get,null):HExprDef;
-  private function get_HExprDef():HExprDef{
-    return __.option(this.HExprDef).def(() -> this.HExprDef = new HExprDef());
+  @:isVar public var HExprdef(get,null):HExprdef;
+  private function get_HExprdef():HExprdef{
+    return __.option(this.HExprdef).def(() -> this.HExprdef = new HExprdef());
   }
   @:isVar public var HTypeParamDecl(get,null):HTypeParamDecl;
   private function get_HTypeParamDecl():HTypeParamDecl{
@@ -101,5 +101,13 @@ class Ord extends Clazz{
   @:isVar public var Binop(get,null):stx.assert.makro.expr.ord.Binop;
   private function get_Binop():stx.assert.makro.expr.ord.Binop{
     return __.option(this.Binop).def(() -> this.Binop = new stx.assert.makro.expr.ord.Binop());
+  }
+  @:isVar public var StringLiteralKind(get,null):stx.assert.makro.expr.ord.StringLiteralKind;
+  private function get_StringLiteralKind():stx.assert.makro.expr.ord.StringLiteralKind{
+    return __.option(this.StringLiteralKind).def(() -> this.StringLiteralKind = new stx.assert.makro.expr.ord.StringLiteralKind());
+  }
+  @:isVar public var HStringLiteralKind(get,null):HStringLiteralKind;
+  private function get_HStringLiteralKind():HStringLiteralKind{
+    return __.option(this.HStringLiteralKind).def(() -> this.HStringLiteralKind = new HStringLiteralKind());
   }
 }

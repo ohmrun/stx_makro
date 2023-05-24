@@ -1,8 +1,8 @@
 package types;
 
-typedef TypedefsInModule = {
+typedef TypedefsInMoniker = {
 
 }
-typedef TypedefsInModuleWithDifferentName = {
+typedef TypedefsInMonikerWithDifferentName = {
 
 }

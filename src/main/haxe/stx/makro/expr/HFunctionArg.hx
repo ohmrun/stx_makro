@@ -1,5 +1,20 @@
 package stx.makro.expr;
 
+final Expr = __.makro().expr;
+
+class HFunctionArgCtr extends Clazz{
+  public function Make(name:String,type:CTR<HComplexTypeCtr,HComplexType>,?opt:Bool,?value:CTR<HExprCtr,HExpr>,?meta:CTR<HMetadataEntryCtr,HMetadata>){
+    return HFunctionArg.lift({
+      name  : name,
+      type  : type(Expr.HComplexType),
+      opt   : opt,
+      value : __.option(value).map(f -> f(Expr.HExpr).prj()).defv(null),
+      meta  : __.option(meta).map(f -> f(Expr.HMetadataEntry)).defv(null)
+    });
+  }
+}
+
+typedef HFunctionArgDef = StdFunctionArg;
 
 @:using(stx.makro.expr.HFunctionArg.HFunctionArgLift)
 @:forward abstract HFunctionArg(StdFunctionArg) from StdFunctionArg to StdFunctionArg{

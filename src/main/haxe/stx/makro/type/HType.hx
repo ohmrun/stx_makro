@@ -18,8 +18,8 @@ package stx.makro.type;
   public function getIdentity(){
     return Identity._.getTypeIdentity(this);
   }
-  public function getModule(){
-    return _.getModule(this);
+  public function getMoniker(){
+    return _.getMoniker(this);
   }
   public function getBaseType(){
     return _.getBaseType(this);
@@ -70,8 +70,8 @@ class HTypeLift{
       (bt) -> bt.meta.get()
     ).def(()->[]);
   }
-  static public function getTypeVars(type:HType):Array<{id:HSimpleTypeIdentifier,type:HType}>{
-    var implementations    = getParamImplementations(type);
+  static public function getTypeVars(type:HType):Cluster<{id:HSimpleTypeIdentifier,type:HType}>{
+    var implementations    = get_params(type);
     var params             = getBaseType(type).params;
     var fields             = get_fields(type);
     var out                = [];
@@ -82,11 +82,11 @@ class HTypeLift{
       var impl = implementations[i];
       
       out.push({
-        id  : p,
-        type : impl
+        id    : p,
+        type  : impl
       });
     }
-    return out;
+    return out.imm();
   }
   static public function get_fields(type:Type):Array<ClassField>{
     return switch(type){
@@ -148,15 +148,15 @@ class HTypeLift{
         });
     }
   }
-  static public function getModule(t:Type):Option<Module>{
+  static public function getMoniker(t:Type):Option<Moniker>{
     return if(is_anonymous(t)){
       None;
     }else{
       var base = getBaseType(t);
-      Some(stx.makro.type.core.Module.lift({
+      Some(stx.makro.type.core.Moniker.lift({
         name    : base.name,
         pack    : Way.lift(base.pack),
-        module  : None
+        module  : __.option(new haxe.io.Path(base.module))
       }));
     } 
   }
@@ -172,7 +172,7 @@ class HTypeLift{
       default                       : null;
     }
   }
-  static public function getParamImplementations(t:Type):Array<Type>{
+  static public function get_params(t:Type):Array<Type>{
     return switch (t) {
       case TEnum( t , params )      : params;
       case TInst( t , params )      : params;

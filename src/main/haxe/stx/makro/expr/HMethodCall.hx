@@ -1,8 +1,10 @@
 package stx.makro.expr;
 
+final Expr = __.makro().expr;
+
 typedef HMethodCallDef = {
   var data : MethodRef;
-  var args : HExprCluster;
+  var args : HExprArray;
 }
 @:using(stx.makro.expr.HMethodCall.HMethodCallLift)
 @:forward abstract HMethodCall(HMethodCallDef) from HMethodCallDef{
@@ -12,7 +14,7 @@ typedef HMethodCallDef = {
   @:noUsing static public function pure(def:HMethodCallDef){
     return new HMethodCall(def);
   }
-  @:noUsing static public function make(ref:MethodRef,args:HExprCluster):HMethodCall{
+  @:noUsing static public function make(ref:MethodRef,args:HExprArray):HMethodCall{
     return pure({
       data : ref,
       args : args
@@ -23,7 +25,7 @@ typedef HMethodCallDef = {
   }
   
   public function to_macro_at(pos):HExpr{
-    return HExprDef.ECall(
+    return Expr.HExprdef.Call(
       stx.makro.expr.lift.LiftMethodRefToHExpr.toHExpr(this.data,pos),
       this.args
     ).to_macro_at(pos);
