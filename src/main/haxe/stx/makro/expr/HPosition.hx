@@ -6,7 +6,7 @@ class HPositionCtr extends Clazz{
       () -> { 
         return 
           #if (display || neko || interp) 
-            Context.currentPos() 
+            haxe.macro.Context.currentPos() 
           #else 
             null
           #end;

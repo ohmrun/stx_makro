@@ -71,16 +71,15 @@ class HTypeLift{
     ).def(()->[]);
   }
   static public function getTypeVars(type:HType):Cluster<{id:HSimpleTypeIdentifier,type:HType}>{
-    var implementations    = get_params(type);
+    var implementations    = get_type_applications(type);
     var params             = getBaseType(type).params;
     var fields             = get_fields(type);
     var out                = [];
     for (i in 0...params.length){
       var param = params[i];
-      var p  = HSimpleTypeIdentifier.fromType(param.t);
+      var p     = HSimpleTypeIdentifier.fromType(param.t);
       __.log().trace('$p');
-      var impl = implementations[i];
-      
+      var impl  = implementations[i];
       out.push({
         id    : p,
         type  : impl
@@ -172,13 +171,36 @@ class HTypeLift{
       default                       : null;
     }
   }
-  static public function get_params(t:Type):Array<Type>{
+  static public function get_type_applications(t:Type):Array<Type>{
     return switch (t) {
       case TEnum( t , params )      : params;
       case TInst( t , params )      : params;
       case TType( t , params )      : params;
       case TAbstract( t , params )  : params;
       default                       : [];
+    }
+  }
+  // static public function is_direct_type(t:Type){
+    
+  // }
+  static public function get_type_parameters(self:Type):Cluster<HTypeParameter>{
+    return __.option(getBaseType(self)).map(
+      x -> x.params
+    ).defv([]);
+  }
+  #if macro
+  
+  #end
+  static public function get_all_fields(self:Type){
+    return switch(self){
+      case TInst(ref,params) : 
+        final type    = ref.get();
+        final rest    = (type:HClassType);
+        final uppers  = rest.get_ancestors();
+        final fields  = uppers.flat_map(x -> x.data.fields.get());
+        // trace(fields.join("\n"));
+        fields;
+      default                 : [];
     }
   }
 }

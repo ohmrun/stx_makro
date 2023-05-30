@@ -9,6 +9,9 @@ class HTypePath extends OrdCls<HTypePathT>{
   public function comply(lhs:HTypePathT,rhs:HTypePathT){
     var ord = Ord.String().comply(lhs.name,rhs.name);
     if(ord.is_not_less_than()){
+      if(lhs.name == "DirectType" && lhs.pack[0] == "tink"){
+        return NotLessThan;
+      }
       ord = Ord.Array(Ord.String()).comply(lhs.pack,rhs.pack);
     }
     if(ord.is_not_less_than()){

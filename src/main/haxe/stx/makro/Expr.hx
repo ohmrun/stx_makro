@@ -126,6 +126,7 @@ typedef LiftConstantToHExpr         = stx.makro.expr.lift.LiftConstantToHExpr;
 typedef LiftMethodRefToHExpr        = stx.makro.expr.lift.LiftMethodRefToHExpr;
 typedef LiftMonikerToHExpr          = stx.makro.expr.lift.LiftMonikerToHExpr;
 
+
 class Cases{
   static public function foldKeys<T>(m:Monoid<T>,c:Case):Continuation<T,HExpr>{
     return function(constructor:HExpr->T):T{
@@ -179,4 +180,9 @@ class LiftHTFunArgArrayWithMethodCallToExpr{
     ).to_macro_at(pos);
   }
   #end
+}
+class LiftTypeGetMetadata{
+  static public function get_meta(self:HType):Cluster<HMetadataEntry>{
+    return __.option(self.getBaseType()).map(x -> x.meta.get()).defv([]);
+  }
 }

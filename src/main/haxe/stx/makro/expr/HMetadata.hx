@@ -18,6 +18,7 @@ typedef HMetadataDef = haxe.macro.Expr.Metadata;
   public function prj():HMetadataDef return this;
   private var self(get,never):HMetadata;
   private function get_self():HMetadata return lift(this);
+
 }
 class HMetadataLift{
   static public inline function lift(self:HMetadataDef):HMetadata{

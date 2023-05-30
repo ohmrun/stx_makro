@@ -44,6 +44,12 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "gen" : {
+        "-main" : "stx.makro.feat.track_generics.Test",
+        "interp" : {
+          "--interp" : true
+        }
       }
     }
   }
