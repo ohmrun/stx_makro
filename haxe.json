@@ -50,6 +50,12 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "materialize" : {
+        "-main" : "stx.makro.feat.materialize.Test",
+        "interp" : {
+          "--interp" : true
+        }
       }
     }
   }

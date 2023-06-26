@@ -30,7 +30,7 @@ class Test extends TestCase{
   }
   static public macro function go_test_complex_generic_structure(e:Expr){
     final type              = (e.toHExpr()).getType();
-    final applications      = type.get_type_applications();
+    final applications      = type.get_param_applications();
     final parameters        = type.get_type_parameters();
     // final applied        = type.apply_type_parameters();
     // trace(type);
