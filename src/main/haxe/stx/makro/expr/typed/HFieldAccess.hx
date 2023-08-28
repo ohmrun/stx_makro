@@ -1,7 +1,7 @@
 package stx.makro.expr.typed;
 
 /*
-  enum FieldAccess {
+  enum FieldAccess{
     FInstance(c:Ref<ClassType>, params:Array<Type>, cf:Ref<ClassField>);
     FStatic(c:Ref<ClassType>, cf:Ref<ClassField>);
     FAnon(cf:Ref<ClassField>);
