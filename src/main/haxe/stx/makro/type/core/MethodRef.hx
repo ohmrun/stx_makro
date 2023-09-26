@@ -24,4 +24,10 @@ typedef MethodRefDef = {
       module  : this.module
     };
   }
+  public function canonical(){
+    return switch(this.module){
+      case Some(v) : __.option(this.pack).defv(Way.unit()).toCluster().snoc(this.name).snoc(v.toString()).snoc(this.call).join(".");
+      default      : __.option(this.pack).defv(Way.unit()).toCluster().snoc(this.name).snoc(this.call).join(".");
+    }
+  }
 }

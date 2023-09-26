@@ -48,7 +48,7 @@ class Plugin{
     // #end
   }
   static function apply(self:ModuleType){
-
+    //TODO apply generics somehow?
     final v = switch(self){
       case TClassDecl(c)     : Some(TInst(c,[]));
       case TEnumDecl(e)      : Some(TEnum(e,[]));

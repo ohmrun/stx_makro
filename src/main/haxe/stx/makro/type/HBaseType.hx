@@ -76,4 +76,29 @@ class HBaseTypeLift{
     var out        = module_els[module_els.length-1] == b.name;
     return out;
   }
+  static public function copy(self:HBaseType,
+    ?pack:Array<String>,
+    ?name:String,
+    ?module:String,
+    ?pos:haxe.macro.Expr.Position,
+    ?isPrivate:Bool,
+    ?isExtern:Bool,
+    ?params:Array<TypeParameter>,
+    ?meta:MetaAccess,
+    ?doc:Null<String>,
+    ?exclude:()->Void
+  ){
+    return {
+      pack        : __.option(pack).def(() -> self.pack),
+      name        : __.option(name).def(() -> self.name),
+      module      : __.option(module).def(() -> self.module),
+      pos         : __.option(pos).def(() -> self.pos),
+      isPrivate   : __.option(isPrivate).def(() -> self.isPrivate),
+      isExtern    : __.option(isExtern).def(() -> self.isExtern),
+      params      : __.option(params).def(() -> self.params),
+      meta        : __.option(meta).def(() -> self.meta),
+      doc         : __.option(doc).def(() -> self.doc),
+      exclude     : __.option(exclude).def(() -> self.exclude)
+    }
+  }
 }

@@ -28,6 +28,12 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "identity" : {
+        "-main"   : "stx.makro.test.IdentityTest",
+        "interp"  : {
+          "--interp" : true
+        }
       }
     },
     "feat" : {
@@ -53,6 +59,33 @@
       },
       "materialize" : {
         "-main" : "stx.makro.feat.materialize.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "types_of_type" : {
+        "-main" : "stx.makro.feat.types_of_type.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "on_type_not_found" : {
+        "-main" : "stx.makro.feat.on_type_not_found.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "std_type" : {
+        "-main" : "stx.makro.feat.std_type.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "bind"     : {
+        "--macro" : [
+          "stx.makro.feat.bind.Plugin.use()"
+        ],
+        "-main" : "stx.makro.feat.bind.Test",
         "interp" : {
           "--interp" : true
         }

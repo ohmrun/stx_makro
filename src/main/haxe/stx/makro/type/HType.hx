@@ -41,6 +41,14 @@ package stx.makro.type;
   public function prj(){
     return this;
   }
+  public var pack(get,never):Cluster<String>;
+  private function get_pack():Cluster<String>{
+    return __.option(getBaseType()).map(x -> Cluster.lift(x.pack)).defv([].imm());
+  }
+  public var name(get,never):Option<String>;
+  private function get_name():Option<String>{
+    return __.option(getBaseType()).map(x -> x.name);
+  }
 }
 class HTypeLift{
   @:noUsing static private function lift(self:StdMacroType):HType return HType.lift(self);
@@ -216,7 +224,97 @@ class HTypeLift{
       default                 : [];
     }
   }
-  static public function get_construtor(){
+  static public function get_constructor(){
     
+  }
+  static public function is_type_parameter(self:HType){
+    return switch(self){
+      case TInst(t, params): switch(t.get().kind){
+        case KTypeParameter(_) : true;
+        default : false;
+      }
+      default : false;
+    }
+  }
+  static public function is_mono(self:HType){
+    return switch(self){
+      case TMono(t)   : true;
+      default         : false;
+    }
+  }
+  static public function getClassType(self:HType):Option<ClassType>{
+    return switch(self){
+      case TInst(t,_) : Some(t.get());
+      default         : None;
+    }
+  }
+  static public function getTypedef(self:HType):Option<DefType>{
+    return switch(self){
+      case TType(t,_) : Some(t.get());
+      default         : None;
+    }
+  }
+  static public function eatMonos(type:HType):HType{
+    function perhaps_apply(params:Array<TypeParameter>,applied_params:Array<Type>){
+      return params.zip(applied_params).map(
+        __.decouple(
+          (param:TypeParameter,applied_param:HType) -> {
+            trace('${param} ${applied_param}');
+            return applied_param.is_mono() ? param.t : applied_param;
+          }
+        )
+      );
+    }
+    function rec(type){
+      return switch(type){
+        case TMono(t)               : type;
+        case TEnum(t,params)        : 
+          final applied = perhaps_apply(t.get().params,params);
+          TEnum(t,applied);
+        case TInst(t,params)        : 
+          final applied = perhaps_apply(t.get().params,params);
+          TInst(t,applied);
+        case TType(t,params)        : 
+          final applied = perhaps_apply(t.get().params,params);
+          TType(t,applied);
+        case TFun(args, ret)        : 
+          final args  = args.map(x -> { name : x.name, opt : x.opt, t : rec(x.t)});
+          final ret   = rec(ret);
+          TFun(args,ret);
+        case TAnonymous(a)          : 
+          final t = a.get();
+          final fields              = 
+            (t.fields.map((cf:HClassField) -> cf.copy(null,rec(cf.type))):Array<ClassField>);
+          final tI : AnonType       = 
+            {
+              status :  t.status,
+              fields :  fields
+            };
+          final ref : Ref<AnonType> = 
+            {
+              get : () -> tI,
+              toString : a.toString
+            }
+          haxe.macro.Type.TAnonymous(ref);
+        case TDynamic(t)            : TDynamic(
+          t == null ? null : rec(t)
+        );
+        case TLazy(f)               : TLazy(() -> rec(f()));
+        case TAbstract(t, params)   : 
+          final applied = perhaps_apply(t.get().params,params);
+          TAbstract(t,applied);
+      }
+    }
+    return rec(type);
+  }
+  static public function stripTypeParameterPack(self:HType):HType{
+    return switch(self){
+      case TInst(t, params): switch(t.get().kind){
+        case KTypeParameter(_) : 
+          TInst({ get : () -> (t.get():HClassType).copy([],null,""), toString : t.toString },params);
+        default : throw 'Not a type parameter: $self';
+      }
+      default : throw 'Not a type parameter: $self';
+    }
   }
 }

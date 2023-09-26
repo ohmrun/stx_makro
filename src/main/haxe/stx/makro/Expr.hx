@@ -163,8 +163,11 @@ class LiftHTypeToComplexType{
    * This is as confusing as hell
    * @param self 
    */
+  static public function toComplexTypeTink(self:HType,opts){
+    return tink.macro.Types.toComplex(self.prj(),opts);
+  }
   static public function toComplexType(self:HType){
-    return tink.macro.Types.toComplex(self.prj());
+    return haxe.macro.TypeTools.toComplexType(self.prj());
   }
   #end
 }

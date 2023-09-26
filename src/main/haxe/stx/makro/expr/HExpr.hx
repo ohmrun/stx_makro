@@ -3,8 +3,11 @@ package stx.makro.expr;
 final Expr = __.makro().expr;
 
 class HExprCtr extends Clazz{
-  public function Make(def:CTR<HExprdefCtr,HExprdef>,?pos:Position){
-    return HExpr.make(def.apply(new HExprdefCtr()),pos);
+  public function Make(def:CTR<HExprdefCtr,HExprdef>,?pos:CTR<HPositionCtr,Position>){
+    return HExpr.make(
+      def.apply(new HExprdefCtr()),
+      __.option(pos).map(x -> x.apply(new HPositionCtr())).def(() -> new HPositionCtr().Make())
+    );
   }
 }
 

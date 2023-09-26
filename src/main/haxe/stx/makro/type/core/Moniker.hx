@@ -36,6 +36,9 @@ package stx.makro.type.core;
   @:from static public function fromIdentDef(self:IdentDef):Moniker{
     return new Moniker({ name : self.name, pack : self.pack, module : Option.unit() });
   }
+  static public function make(name,pack,module):Moniker{
+    return new Moniker({ name : name, pack : pack, module : module });
+  }
   public function canonical(){
     return _.canonical(this);
   }

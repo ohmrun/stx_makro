@@ -33,7 +33,8 @@ class RuntimeTest extends TestCase{
   static macro function goGetTypeVars(e:haxe.macro.Expr){ 
     final type  = e.toHExpr().getType();
     trace(type.getTypeVars());
-    final ctype = type.toComplexType();
+    final ctype = tink.macro.Sisyphus.toComplexType(type);
+    trace(ctype);
     trace(__.makro().printer.printComplexType(ctype));
     return macro {}; 
   }
@@ -46,6 +47,11 @@ class RuntimeTest extends TestCase{
   function from_above<T>(v:STX<T>):InnerGeneric<T>{
     return ([]:InnerGeneric<T>);
   }
+  #if macro
+  public static function compare_to_complex_algorithms(t){
+    trace
+  }
+  #end
 }
 class MacroTest extends TestCase{
   #if macro
