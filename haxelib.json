@@ -16,15 +16,15 @@
     "tink_core"       : "",
     "tink_macro"      : "",
 
-    "stx_pico"      : "",
-    "stx_nano"      : "",
-    "stx_fn"        : "",
+    "stx_pico"        : "",
+    "stx_nano"        : "",
+    "stx_fn"          : "",
 
-    "stx_log"       : "",
-    "stx_assert"    : "",
+    "stx_log"         : "",
+    "stx_assert"      : "",
 
-    "stx_fp"        : "",
-    "stx_ds"        : ""
+    "stx_fp"          : "",
+    "stx_ds"          : ""
   },
   "classPath": "src/main/haxe"
 }
