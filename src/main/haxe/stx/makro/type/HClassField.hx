@@ -43,4 +43,7 @@ class HClassFieldLift{
         overloads   : __.option(overloads).def(() -> self.overloads)
       }
   }
+  static public function is_function(self:HClassField){
+    return (self.kind:HFieldKind).is_method();
+  }
 }

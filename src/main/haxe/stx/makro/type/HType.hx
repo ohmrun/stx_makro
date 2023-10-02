@@ -49,6 +49,10 @@ package stx.makro.type;
   private function get_name():Option<String>{
     return __.option(getBaseType()).map(x -> x.name);
   }
+  public var module(get,never):Option<String>;
+  private function get_module():Option<String>{
+    return __.option(getBaseType()).map(x -> x.module);
+  }
 }
 class HTypeLift{
   @:noUsing static private function lift(self:StdMacroType):HType return HType.lift(self);
@@ -99,7 +103,7 @@ class HTypeLift{
     return switch(type){
       case TAnonymous( a ) : a.get().fields;
       case TInst(v,_)      : v.get().fields.get();
-      default               : [];
+      default              : [];
     }
   }
   public static function isNativeArray(type:Type):Bool{
@@ -307,6 +311,11 @@ class HTypeLift{
     }
     return rec(type);
   }
+  /**
+   * Useful for naming local type parameters in TypeDefinition
+   * @param self 
+   * @return HType
+   */
   static public function stripTypeParameterPack(self:HType):HType{
     return switch(self){
       case TInst(t, params): switch(t.get().kind){
@@ -317,4 +326,119 @@ class HTypeLift{
       default : throw 'Not a type parameter: $self';
     }
   }
+  /**
+   * Struct here refers to a typedef of an anonymous structure.
+   * @param self 
+   */
+  static public function is_struct(self:HType){
+    return switch(self){
+      case TType(t,_)  if(switch(t.get().type){ case TAnonymous(_) : true; default : false;})     : true;
+      default : false;
+    }  
+  }
+  static public function is_enum(self:HType){
+    return switch(self){
+      case TEnum(t,_)   : true;
+      default           : false;
+    }  
+  }
+  static public function get_convention(self:HType):HConstructorConvention{
+    return switch(self){
+      case TInst(_,_)                   : HCNew;
+      case x if ((x:HType).is_struct()) : HCInline;
+      case TType(t,_)                   : get_convention(t.get().type);
+      case TAbstract(t,_)               : HCNew;
+      default                           : HCInline;
+    }
+  }
+  /**
+   * Abstracts and Concrete Classes can be instantiated via `new`.
+   * @param self 
+   * @return Bool
+   */
+  //TODO this might also come as part of a constraint?
+  static public function is_newable(self:HType):Bool{
+    return switch(self){
+      case TAbstract(t,_) : true;
+      case TInst(t,_)     : true;
+      default             : false;
+    }
+  }
+  /**
+   * Abstracts and Concrete Classes can be instantiated via `new`.
+   * @param self 
+   * @return Option<HType>
+   */
+  static public function get_nearest_newable(self:HType):Option<HType>{
+    return switch(self){
+      case TInst(t,_) if (t.get().isAbstract)             : 
+        None;
+      case TInst(t,_)                                       : 
+        Some(self); 
+      case TType(t,_) 
+        if(
+          switch(t.get().type){ 
+            case TType(tI,_)      : true; 
+            default               : false;
+          }
+        )       : 
+        get_nearest_newable(t.get().type);
+      case TType(t,_)       : Some(t.get().type);
+      case TAbstract(t,_)   : Some(self);
+      default               : None;
+    }
+  }
+  /**
+  *  Abstracts and TypeDefs don't contain enough information to build themselves.
+  *  If the head type is one of these, you should more be looking for the face and body,
+  *  the body being class hierarchy or type extension chain.
+  * 
+   * @param self 
+   * @return Option
+   */
+  static public function get_face(self:HType):Option<HType>{
+    return switch(self){
+      case TInst(t,_)                 : Some(self); 
+      case TType(t,_) 
+        if(
+          switch(t.get().type){ 
+            case TType(tI,_)      : true; 
+            case TAbstract(tI,_)  : true; 
+            default               : false;
+          }
+        )       : 
+        get_face(t.get().type);
+      case TType(t,_)                 :  Some(t.get().type);
+      case TAbstract(t,_)   
+        if(
+          switch(t.get().type){ 
+            case TType(tI,_)      : true; 
+            case TAbstract(tI,_)  : true; 
+            default               : false;
+          }
+        )                             : get_face(t.get().type);
+      case TAbstract(t,_)             : Some(self);
+      default                         : None;
+    }
+  }
+  static public function get_vars(self:HType){
+    return self.fields.filter(x -> !(x:HClassField).is_function());
+  }
+  // /**
+  //  * The fields of a typedef over an anonymous type are in the fields property of it's type property.
+  //  * @param self 
+  //  */
+  // static public function get_scope(self:HType){
+  //   return switch(self){
+  //     case TInst(t,_)  : 
+  //       t.get().fields.get().map(x -> HEdge.fromClassField(x)).imm();
+  //     case TType(t,_) if (is_struct(self))  :
+  //       (t.get().type:HType).get_fields().map(x -> HEdge.fromClassField(x));
+  //     case TEnum(t,_) : 
+  //       Iter.fromIterator(t.get().constructs.iterator()).toCluster().map(x -> HEdge.fromHEnumField(x));
+  //     default : 
+  //       self.get_fields().map(x -> HEdge.fromClassField(x));
+  //   }
+  // }
+
 }

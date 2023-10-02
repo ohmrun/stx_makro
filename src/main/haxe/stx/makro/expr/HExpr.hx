@@ -18,7 +18,7 @@ typedef HExprDef = StdExpr;
   static public var ZERO(default,never) : HExpr  = lift( {expr : EBlock([]), pos : null } );
   static public var _(default,never) = HExprLift;
   public function new(self) this = self;
-  @:noUsing static public function lift(self:StdExpr):HExpr return new HExpr(self);
+  @:noUsing static public inline function lift(self:StdExpr):HExpr return new HExpr(self);
   public function prj():StdExpr return this;
   private var self(get,never):HExpr;
   private function get_self():HExpr return lift(this);

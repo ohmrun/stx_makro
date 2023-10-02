@@ -106,4 +106,25 @@ class HClassTypeLift{
   //     toString : 
   //   })
   // }
+  static public function get_constructor_field(self:HClassType):Option<ClassField>{
+    return self.get_fields().search(
+      x -> {
+        return x.name == "new";
+      }
+    ).or(
+      () -> {
+        final ancestors = self.get_ancestors();
+        return ancestors.map_filter(
+          (ancestor) -> {
+            return ancestor.data.fields.get().search(
+              x -> x.name == 'new'
+            );
+          }
+        ).head();
+      }
+    );
+  }
+  static public function get_vars(self:HClassType){
+    return self.fields.get().filter(x -> !(x:HClassField).is_function());
+  }
 }
