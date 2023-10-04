@@ -26,7 +26,7 @@ class HClassFieldLift{
     ?expr:Void->Null<TypedExpr>,
     ?pos:haxe.macro.Expr.Position,
     ?doc:Null<String>,
-    ?overloads:Ref<Array<ClassField>>):HClassField{
+    ?overloads:HRef<Array<ClassField>>):HClassField{
       return {
         name        : __.option(name).def(() -> self.name),
         type        : __.option(type).def(() -> self.type),
@@ -45,5 +45,12 @@ class HClassFieldLift{
   }
   static public function is_function(self:HClassField){
     return (self.kind:HFieldKind).is_method();
+  }
+  static public function is_writeable(self:HClassField){
+    return switch(self.kind){
+      case FVar(_, AccResolve)  : true;
+      case FVar(_, AccNormal)   : true;
+      default                   : false;
+    }
   }
 }

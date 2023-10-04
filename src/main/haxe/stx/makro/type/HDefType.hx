@@ -20,4 +20,7 @@ class HDefTypeLift{
   static public function toBaseType(self:DefType):HBaseType{
     return HBaseType.lift(self);
   }
+  static public function getIdent(self:DefType){
+    return Ident.make(self.name,self.pack);
+  }
 }

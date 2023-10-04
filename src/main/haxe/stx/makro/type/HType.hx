@@ -294,7 +294,7 @@ class HTypeLift{
               status :  t.status,
               fields :  fields
             };
-          final ref : Ref<AnonType> = 
+          final ref : HRef<AnonType> = 
             {
               get : () -> tI,
               toString : a.toString
@@ -422,9 +422,107 @@ class HTypeLift{
     }
   }
   static public function get_vars(self:HType){
-    return self.fields.filter(x -> !(x:HClassField).is_function());
+    return self.fields.filter(
+      x -> {
+        final field         = (x:HClassField); 
+        final is_function   = field.is_function();
+        final is_writeable  = field.is_writeable();
+        return !is_function && is_writeable;
+      }
+    );
   }
-  // /**
+  // static public function toHTypeParamDecl(self:HType){
+  //   return self.is_type_parameter().if_else(
+  //     () -> {
+
+  //     },
+  //     () -> None
+  //   )
+  // }
+    // /**
+  #if macro
+  static public function get_type_parameters(type:HType){
+    final params  = [];
+    function with_type_parameter(type){
+      params.push(type);
+    }
+    final self    = type;
+    __.log().trace(_ -> _.thunk(() -> self));
+    __.log().trace(_ -> _.thunk(() -> self.get_params()));
+    __.log().trace(_ -> _.thunk(() -> self.get_params_applied()));
+    //__.log().trace(self.getIdentity().toString());
+    //__.log().trace(haxe.macro.TypeTools.toString(self));
+    //final has_implementation = 
+    
+    
+    function add_type_parameters(t){
+      haxe.macro.TypeTools.iter(
+        t,
+        t -> {
+          final htype : HType     = t;
+          final is_type_parameter = htype.is_type_parameter();
+          __.log().trace('$htype ${is_type_parameter}');
+          if(is_type_parameter){
+            with_type_parameter(htype.stripTypeParameterPack());
+          }
+        }
+      );
+    }
+    add_type_parameters(self);
+    for (field in self.get_fields()){
+      add_type_parameters(field.type);
+    }
+    for (type in self.get_params_applied()){
+      add_type_parameters(type);
+    }
+    for (param in self.get_params()){
+      add_type_parameters(param.t);
+    }
+    switch(self){
+      case TEnum(t,_) : 
+        for(f in t.get().constructs){
+          switch(f.type){
+            case TFun(args,ret) : 
+              for(arg in args){
+                add_type_parameters(arg.t);
+              }
+            default : 
+          }
+        }
+      case TAbstract(t,_) : 
+        __.log().trace(_ -> _.thunk(() -> t.get().type));
+        add_type_parameters(t.get().type);
+        for (field in (t.get().type:HType).get_fields()){
+          add_type_parameters(field.type);
+        }
+      case TType(t,_) : 
+        __.log().trace(_ -> _.thunk(() -> t.get().type));
+        add_type_parameters(t.get().type);
+        for (field in (t.get().type:HType).get_fields()){
+          add_type_parameters(field.type);
+        }
+      default         : null;
+    }
+    return params;
+  }
+  static public function std_type(self:HType){
+    return stx.makro.type.HStdType.ensure(self);
+  }
+  #end
+  static public function get_type_string(self:HType):Option<String>{
+    return switch(self){
+      case TMono(t)               : __.option(t.toString());
+      case TEnum(t,params)        : __.option(t.toString());
+      case TInst(t,params)        : __.option(t.toString());
+      case TType(t,params)        : __.option(t.toString());
+      case TFun(args, ret)        : __.option();
+      case TAnonymous(a)          : __.option(a.toString());
+      case TDynamic(t)            : __.option(t).flat_map(x -> (x:HType).get_type_string());
+      case TLazy(f)               : get_type_string(f());
+      case TAbstract(t, params)   : __.option(t.toString());
+      case null                   : __.option();
+    }
+  }
   //  * The fields of a typedef over an anonymous type are in the fields property of it's type property.
   //  * @param self 
   //  */

@@ -169,6 +169,9 @@ class LiftHTypeToComplexType{
   static public function toComplexType(self:HType){
     return haxe.macro.TypeTools.toComplexType(self.prj());
   }
+  static public function toComplexTypeRuntime(self:HType){
+    return stx.makro.type.ToComplexTypeRuntime.apply(self);
+  }
   #end
 }
 class LiftExprToHExpr{

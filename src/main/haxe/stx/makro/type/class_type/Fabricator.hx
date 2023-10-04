@@ -18,7 +18,13 @@ class Fabricator extends Clazz{
       case false : 
         switch(type){
           case TInst(t,ps) : 
-            final var_fields            = this.type.get_vars();
+            final var_fields            = this.type.get_vars().map(
+              x -> {
+                x.type = (x.type:HType).std_type();
+                return x;
+              }
+            );
+            trace(var_fields);
             final var_assignment_exprs  = var_fields.map(
               f -> {
                 return e.HExpr.Make(
@@ -51,14 +57,19 @@ class Fabricator extends Clazz{
             final wayward_function_args = var_fields.map(
               f -> e.HFunctionArg.Make(
                 f.name,
-                ct -> (f.type:HType).toComplexType()
+                ct -> (f.type:HType).toComplexTypeRuntime()
               )
             );
+            trace(wayward_function_args);
+            final type_parameters  = this.type.get_type_parameters();
+
             final wayward_function = e.HFunction.Make(
               _ -> wayward_function_args.prj(),
-              _ -> HType.lift(type).eatMonos().toComplexType(),
+              _ -> HType.lift(type).eatMonos().toComplexTypeRuntime(),
               wayward_initialisation_expr,
-              tp -> ps.map(t -> tp.Make((t:HType).name.fudge())).prj()
+              tp -> type_parameters.map(
+                t -> tp.Make((t:HType).name.fudge())
+              ).prj()
             );
             wayward_function;
           default : throw 'not a ClassType';
