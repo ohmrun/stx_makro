@@ -2,14 +2,15 @@ package stx.makro.expr;
 
 using stx.makro.Expr;
 
+using stx.Pico;
+using stx.Nano;
 using stx.Show;
+using stx.Log;
 using stx.Test;
 
 class Test{
   static function main(){
     final log       = __.log().global;
-//          log.includes.push("**/*");    
-          log.level = TRACE;
     #if boot
       boot();
     #else
@@ -18,8 +19,8 @@ class Test{
   }
   static macro function boot(){
     final log         = __.log().global;
-          log.includes.push("**/*");    
-          log.level   = TRACE;
+          // log.includes.push("**/*");    
+          // log.level   = TRACE;
     __.test().run([],[]);
     return macro {};
   }
@@ -41,8 +42,8 @@ class WhatEnumAbstractLookLikeTest extends TestCase{
     var a : Blum = Hello;
     makro(a);
   }
-  static macro function makro(e:Expr){
-    final type = Context.typeof(e);
+  static macro function makro(e:haxe.macro.Expr){
+    final type = haxe.macro.Context.typeof(e);
     switch(type){
       case TAbstract(ref,params) :
         final t = ref.get();
@@ -74,7 +75,7 @@ class WhatPackageExprLookLikeTest extends TestCase{
   public function test(){
     makro(stx.makro.expr.Test);
   }
-  static macro function makro(e:Expr){
+  static macro function makro(e:haxe.macro.Expr){
     //trace(__.show(e));
     return macro {};
   }
@@ -83,8 +84,8 @@ class WhatIsFinalLookLikeTest extends TestCase{
   public function test(){
     makro(new HasFinal());
   }
-  private static macro function makro(e:Expr){
-    var type    : HType = Context.typeof(e);
+  private static macro function makro(e:haxe.macro.Expr){
+    var type    : stx.makro.type.HType = haxe.macro.Context.typeof(e);
     //trace(type.fields);
     return macro {};
   }
@@ -101,8 +102,8 @@ class ShimTest extends TestCase{
     var a = new SomethingSomething(); 
     makro(a);
   }
-  private static macro function makro(e:Expr){
-    var type    = Context.typeof(e);
+  private static macro function makro(e:haxe.macro.Expr){
+    var type    = haxe.macro.Context.typeof(e);
     // trace(type);
     // switch(type){
     //   case TType(r,[]) : trace(r.get().type);
@@ -114,7 +115,7 @@ class ShimTest extends TestCase{
     //     trace(r.get());
     //   default : null;
     // }
-    final pos     = Context.currentPos();
+    final pos     = haxe.macro.Context.currentPos();
     final fields  = HExpr._.shim(type,pos);
     //trace(fields); 
     return macro {};

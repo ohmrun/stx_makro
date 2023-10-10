@@ -72,7 +72,7 @@ class HStdType{
         params
       );
     }
-    return switch(self){
+    final res = switch(self){
       case TInst(t,params) if (is(t.get,"String"))        :
         final get = get_instance(t);
         make_instance_ref(get,params.map(apply));
@@ -114,6 +114,7 @@ class HStdType{
         make_abstract_ref(get,params);
       default : map(self,apply);
     }
+    return res;    
   }
   #end
 }

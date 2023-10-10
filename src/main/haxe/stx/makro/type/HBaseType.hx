@@ -38,16 +38,16 @@ class HBaseTypeCtr extends Clazz{
   }
   @:noUsing static public function make(pack,name,module,isPrivate,isExtern,params,meta,doc,exclude,pos){
     return lift({
-      pack : pack,
-      name : name,
-      module : module,
-      pos : pos,
+      pack      : pack,
+      name      : name,
+      module    : module,
+      pos       : pos,
       isPrivate : isPrivate,
-      isExtern : isExtern,
-      params : params,
-      meta : meta,
-      doc : doc,
-      exclude : exclude,
+      isExtern  : isExtern,
+      params    : params,
+      meta      : meta,
+      doc       : doc,
+      exclude   : exclude,
     });
   }
   public function new(self){

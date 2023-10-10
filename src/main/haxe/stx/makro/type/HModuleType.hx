@@ -1,5 +1,22 @@
 package stx.makro.type;
 
+final _e = __.makro().expr;
+final _t = __.makro().type;
+
+class HModuleTypeCtr extends Clazz{
+  public function TClassDecl(c:CTR<HClassTypeCtr,HClassType>){
+    return TClassDecl(c.apply(_t.HClassType));
+  }
+  public function TEnumDecl(e:CTR<HEnumTypeCtr,HEnumType>){
+    return TEnumDecl(e.apply(_t.HEnumType));
+  }
+  public function TTypeDecl(t:CTR<HDefTypeCtr,HDefType>){
+    return TTypeDecl(t.apply(_t.HDefType));
+  }
+  public function TAbstract(a:CTR<HAbstractTypeCtr,HAbstractType>){
+    return TAbstract(a.apply(_t.HAbstractType));
+  }
+}
 @:using(stx.makro.type.HModuleType.HModuleTypeLift)
 @:forward abstract HModuleType(StdModuleType) from StdModuleType{
   static public var _(default,never) = HModuleTypeLift;

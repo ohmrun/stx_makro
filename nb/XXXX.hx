@@ -17,3 +17,10 @@ GTypeDefinitionDef = name pack kind:GTypeDefKind fields:Cluster<GField> ?params:
 GTypeParamDeclDef = name ?constraints:Cluster<GComplexType> ?params:Cluster< > ?meta ?defaultType:Null<GComplexType>;
 GFieldKind { Normal; Safe; }
 GAccessSum =  GAPublic	GAPrivate	GAStatic	GAOverride	GADynamic	GAInline	GAMacro	GAFinal	GAExtern	GAAbstract	GAOverload
+
+typedef Function = {
+	var args : Array<FunctionArg>;
+	var ret : Null<ComplexType>;
+	var expr : Null<HExpr>;
+	@:optional var params : Array<TypeParamDecl>;
+}

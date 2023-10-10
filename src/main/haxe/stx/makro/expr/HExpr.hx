@@ -97,7 +97,7 @@ class HExprLift{
                     Expr.HFieldType.FProp(
                       PAccFn,
                       PAccNever,
-                      f.type.toHType().toComplexType(),
+                      f.type.toHType().toComplexTypeRuntime(),
                       Expr.HExprdef.Function(
                         Expr.HFunction.Make([],null,
                           Expr.HExprdef.Return(

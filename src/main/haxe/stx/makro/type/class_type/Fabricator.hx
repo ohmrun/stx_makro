@@ -1,5 +1,13 @@
 package stx.makro.type.class_type;
 
+//using stx.makro.type.class_type.Fabricator.Logging;
+
+// class Logging{
+//   static public function log(wildcard:Wildcard){
+//     return stx.Log.empty();
+//   }
+// }
+
 final e = __.makro().expr;
 
 #if macro
@@ -24,7 +32,7 @@ class Fabricator extends Clazz{
                 return x;
               }
             );
-            trace(var_fields);
+            __.log().trace('${var_fields}');
             final var_assignment_exprs  = var_fields.map(
               f -> {
                 return e.HExpr.Make(
@@ -53,14 +61,14 @@ class Fabricator extends Clazz{
               ${constructor_expr}
               return value;
             });
-            trace(__.makro().printer.printExpr(wayward_initialisation_expr.prj()));
+            __.log().trace(__.makro().printer.printExpr(wayward_initialisation_expr.prj()));
             final wayward_function_args = var_fields.map(
               f -> e.HFunctionArg.Make(
                 f.name,
                 ct -> (f.type:HType).toComplexTypeRuntime()
               )
             );
-            trace(wayward_function_args);
+            __.log().trace('${wayward_function_args}');
             final type_parameters  = this.type.get_type_parameters();
 
             final wayward_function = e.HFunction.Make(
