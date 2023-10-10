@@ -89,6 +89,12 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "type_incoming"     : {
+        "-main" : "stx.makro.feat.type_incoming.Test",
+        "interp" : {
+          "--interp" : true
+        }
       }
     }
   }

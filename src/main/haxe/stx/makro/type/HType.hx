@@ -43,15 +43,15 @@ package stx.makro.type;
   }
   public var pack(get,never):Cluster<String>;
   private function get_pack():Cluster<String>{
-    return __.option(getBaseType()).map(x -> Cluster.lift(x.pack)).defv([].imm());
+    return getBaseType().map(x -> Cluster.lift(x.pack)).defv([].imm());
   }
   public var name(get,never):Option<String>;
   private function get_name():Option<String>{
-    return __.option(getBaseType()).map(x -> x.name);
+    return getBaseType().map(x -> x.name);
   }
   public var module(get,never):Option<String>;
   private function get_module():Option<String>{
-    return __.option(getBaseType()).map(x -> x.module);
+    return getBaseType().map(x -> x.module);
   }
 }
 class HTypeLift{
@@ -84,7 +84,7 @@ class HTypeLift{
   }
   static public function getTypeVars(type:HType):Cluster<{id:HSimpleTypeIdentifier,type:HType}>{
     var implementations    = get_params_applied(type);
-    var params             = getBaseType(type).params;
+    var params             = getBaseType(type).fudge().params;
     var fields             = get_fields(type);
     var out                = [];
     for (i in 0...params.length){
@@ -144,43 +144,23 @@ class HTypeLift{
     }
   }
   static public function getPath(t:HType):Option<String>{
-    var bt : HBaseType = getBaseType(t);
-    return switch(bt == null){
-      case true   : None;
-      case false :
-        Some(if(!HBaseType._.is_module_name_consistent(bt)){
-          '${bt.module}.${bt.name}';
-        }else{
-          if(bt.hasPack()){
-            '${bt.module}';
-          }else{
-            bt.name;
-          }
-        });
-    }
+    return t.getBaseType().map(
+      x -> x.getMoniker().canonical()
+    );
   }
   static public function getMoniker(t:Type):Option<Moniker>{
-    return if(is_anonymous(t)){
-      None;
-    }else{
-      var base = getBaseType(t);
-      Some(stx.makro.type.core.Moniker.lift({
-        name    : base.name,
-        pack    : Way.lift(base.pack),
-        module  : __.option(new haxe.io.Path(base.module))
-      }));
-    } 
+    return getBaseType(t).map(bt -> bt.getMoniker());
   }
   static public function is_anonymous(t:Type):Bool{
-    return getBaseType(t) == null;
+    return !getBaseType(t).is_defined();
   }
-  static public function getBaseType(t:Type):Null<BaseType>{
+  static public function getBaseType(t:Type):Option<HBaseType>{
     return switch (t) {
-      case TEnum( t , params )      : t.get();
-      case TInst( t , params )      : t.get();
-      case TType( t , params )      : t.get();
-      case TAbstract( t , params )  : t.get();
-      default                       : null;
+      case TEnum( t , params )      : Some((t.get():BaseType));
+      case TInst( t , params )      : Some((t.get():BaseType));
+      case TType( t , params )      : Some((t.get():BaseType));
+      case TAbstract( t , params )  : Some((t.get():BaseType));
+      default                       : None;
     }
   }
   static public function get_params_applied(t:Type):Array<Type>{
@@ -196,7 +176,7 @@ class HTypeLift{
     
   // }
   static public function get_params(self:Type):Cluster<HTypeParameter>{
-    return __.option(getBaseType(self)).map(
+    return getBaseType(self).map(
       x -> x.params
     ).defv([]);
   }

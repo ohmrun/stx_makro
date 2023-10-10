@@ -59,11 +59,7 @@ class HBaseTypeLift{
     return b.params.map((tp)->tp.t);
   }
   static public function getMoniker(b:BaseType):Moniker{
-    return stx.makro.type.core.Moniker.lift({
-      name    : b.name,
-      pack    : Way.lift(b.pack),
-      module  : __.option(new haxe.io.Path(b.module))
-    });
+    return Moniker.fromBaseType(b);
   }
   static public function hasPack(b:BaseType):Bool{
     return b.pack != null && b.pack.length > 0;

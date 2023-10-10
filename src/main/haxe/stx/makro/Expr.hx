@@ -193,6 +193,6 @@ class LiftHTFunArgArrayWithMethodCallToExpr{
 }
 class LiftTypeGetMetadata{
   static public function get_meta(self:HType):Cluster<HMetadataEntry>{
-    return __.option(self.getBaseType()).map(x -> x.meta.get()).defv([]);
+    return self.getBaseType().map(x -> x.meta.get()).defv([]);
   }
 }

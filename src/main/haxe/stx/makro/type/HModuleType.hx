@@ -5,7 +5,7 @@ final _t = __.makro().type;
 
 class HModuleTypeCtr extends Clazz{
   public function TClassDecl(c:CTR<HClassTypeCtr,HClassType>){
-    return TClassDecl(c.apply(_t.HClassType));
+  return TClassDecl(c.apply(_t.HClassType));
   }
   public function TEnumDecl(e:CTR<HEnumTypeCtr,HEnumType>){
     return TEnumDecl(e.apply(_t.HEnumType));
@@ -18,7 +18,7 @@ class HModuleTypeCtr extends Clazz{
   }
 }
 @:using(stx.makro.type.HModuleType.HModuleTypeLift)
-@:forward abstract HModuleType(StdModuleType) from StdModuleType{
+@:forward abstract HModuleType(StdModuleType) from StdModuleType to StdModuleType{
   static public var _(default,never) = HModuleTypeLift;
   public function new(self) this = self;
   

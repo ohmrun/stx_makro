@@ -64,12 +64,8 @@ class HEnumTypeCtr extends Clazz{
   }
 }
 class HEnumTypeLift{  
-  @:noUsing static public function getMoniker(e:HEnumType):Moniker{
-    return stx.makro.type.core.Moniker.lift({
-      name    : e.name,
-      pack    : Way.lift(e.pack),
-      module  : new haxe.io.Path(e.module)
-    });
+  static public function getMoniker(e:HEnumType):Moniker{
+    return (e.prj():HBaseType).getMoniker();
   }
   static public function toBaseType(self:HEnumType):BaseType{
     return self.prj();

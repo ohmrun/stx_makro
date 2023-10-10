@@ -44,7 +44,7 @@ class IdentityLift{
 				var ags = rst.map(f).join("_");
 				'${f(id)}_$ags';
 			case TIdentity(id):
-				stx.makro.type.core.Moniker._.toName(id);
+				stx.makro.type.core.Moniker._.to_name(id);
 			case TComposed(first,other):
 				'${f(first)}_${f(other)}';
 				
