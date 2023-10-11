@@ -2,6 +2,9 @@ package stx.makro.type.core;
 
 /**
  * Represents an identity including name, pack and module, but excluding type parameters
+ * 
+ * Note, `BaseType` doubles up the information between `pack` and `module` if the module is named
+ * differently from the type. 
  */
 @:using(stx.makro.type.core.Moniker.MonikerLift)
 @:forward abstract Moniker(MonikerDef) from MonikerDef{
