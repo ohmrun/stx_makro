@@ -25,12 +25,9 @@ typedef MethodRefDef = {
     };
   }
   /**
-   * TODO:: Does the compiler report different module structure at different times?
    */
   public function canonical(){
-    return switch(this.module){
-      case Some(v) : [v.toString()].imm().snoc(this.call).join(".");
-      default      : __.option(this.pack).defv(Way.unit()).toCluster().snoc(this.name).snoc(this.call).join(".");
-    }
+    final under = Moniker.make(this.name,this.pack,this.module);
+    return '${under.canonical()}.${this.call}';
   }
 }

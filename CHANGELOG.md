@@ -2,6 +2,15 @@
 ## [Unreleased]
 
 
+<a name="v0.4.0"></a>
+## [v0.4.0] - 2023-10-18
+### Feat
+- better logging
+
+### Fix
+- HRef reference loop in Ord & Eq
+
+
 <a name="v0.3.0"></a>
 ## [v0.3.0] - 2023-10-11
 ### Dev
@@ -23,6 +32,7 @@
 - TypeExpr boilerplate
 
 
-[Unreleased]: https://github.com/ohmrun/stx_makro/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/ohmrun/stx_makro/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/ohmrun/stx_makro/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/ohmrun/stx_makro/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/ohmrun/stx_makro/compare/v0.1.0...v0.2.0

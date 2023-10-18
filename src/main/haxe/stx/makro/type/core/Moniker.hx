@@ -34,7 +34,9 @@ package stx.makro.type.core;
     return _.canonical(this);
   }
   static public function fromBaseType(self:BaseType){
-    final module = __.option(self.module).filter(x -> x!= "").flat_map(x -> x.split(".").last());
+    final module = __.option(self.module).filter(x -> x!= "").flat_map(x -> x.split(".").last()).filter(
+      x -> x != self.name
+    );
     return make(self.name,self.pack,module);
   }
 }
@@ -52,6 +54,12 @@ class MonikerLift{
       case [None,arr] if(arr.length == 0)  : id.name;
       case [None,arr]                      : '${arr.join("_")}_${id.name}';
       case [Some(module),_]                : '${StringTools.replace(module.toString(),__.sep(),"_")}_${id.name}';
+    }
+  }
+  static public function get_path(self:Moniker):Cluster<String>{
+    return switch([self.module,self.pack]){
+      case [Some(x),ar] : ar.snoc(x);
+      case [None,ar]    : ar;
     }
   }
 }

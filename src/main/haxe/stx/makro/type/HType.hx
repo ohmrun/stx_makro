@@ -488,6 +488,49 @@ class HTypeLift{
   static public function std_type(self:HType){
     return stx.makro.type.HStdType.ensure(self);
   }
+  static public function hackey_get_type_even_if_in_module(str:String):Option<HType>{
+    return try{
+      final type = Context.getType(str);  
+      Some(type);
+    }catch(e:Dynamic){
+      final next = str.split(".");
+      final last = next.pop();
+      final scnd = (next.pop():Chars).capitalize_first_letter();
+      final inpt = next.snoc(scnd);
+      try{
+        final module  = Context.getModule(inpt.join("."));
+        final type    = module.search(
+          x -> (x:HType).name.map(x-> x == last).defv(false)
+        );
+        type;
+      }catch(e:Dynamic){
+        None;
+      }
+    }
+  }
+  static public function hackey_get_module_of(str:String):Option<String>{
+    return try{
+      final type = Context.getType(str);  
+      None;
+    }catch(e:Dynamic){
+      final next = str.split(".");
+      final last = next.pop();
+      final scnd = (next.pop():Chars).capitalize_first_letter();
+      final inpt = next.snoc(scnd);
+      try{
+        final module  = Context.getModule(inpt.join("."));
+        final type    = module.search(
+          x -> (x:HType).name.map(x-> x == last).defv(false)
+        );
+        type.is_defined().if_else(
+          () -> Some(inpt.join(".")),
+          () -> None
+        );
+      }catch(e:Dynamic){
+        None;
+      }
+    }
+  }
   #end
   static public function get_type_string(self:HType):Option<String>{
     return switch(self){
@@ -503,20 +546,7 @@ class HTypeLift{
       case null                   : __.option();
     }
   }
-  //  * The fields of a typedef over an anonymous type are in the fields property of it's type property.
-  //  * @param self 
-  //  */
-  // static public function get_scope(self:HType){
-  //   return switch(self){
-  //     case TInst(t,_)  : 
-  //       t.get().fields.get().map(x -> HEdge.fromClassField(x)).imm();
-  //     case TType(t,_) if (is_struct(self))  :
-  //       (t.get().type:HType).get_fields().map(x -> HEdge.fromClassField(x));
-  //     case TEnum(t,_) : 
-  //       Iter.fromIterator(t.get().constructs.iterator()).toCluster().map(x -> HEdge.fromHEnumField(x));
-  //     default : 
-  //       self.get_fields().map(x -> HEdge.fromClassField(x));
-  //   }
+  // static public function is_composite_concrete_type(self:HType):Bool{
+  //   return throw UNIMPLEMENTED;    
   // }
-
 }

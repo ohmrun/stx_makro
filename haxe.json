@@ -95,6 +95,24 @@
         "interp" : {
           "--interp" : true
         }
+      },
+      "module_type_cleverness"     : {
+        "--macro" : [
+          "stx.makro.feat.module_type_cleverness.Plugin.use()"
+        ],
+        "-main" : "stx.makro.feat.module_type_cleverness.Test",
+        "interp" : {
+          "--interp" : true
+        }
+      },
+      "type_variables"     : {
+        "--macro" : [
+          "stx.makro.feat.type_variables.Plugin.use()"
+        ],
+        "-main" : "stx.makro.feat.type_variables.Test",
+        "interp" : {
+          "--interp" : true
+        }
       }
     }
   }
