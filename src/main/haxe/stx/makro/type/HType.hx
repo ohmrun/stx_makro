@@ -243,7 +243,7 @@ class HTypeLift{
       return params.zip(applied_params).map(
         __.decouple(
           (param:TypeParameter,applied_param:HType) -> {
-            trace('${param} ${applied_param}');
+            __.log().trace('${param} ${applied_param}');
             return applied_param.is_mono() ? param.t : applied_param;
           }
         )
@@ -489,24 +489,32 @@ class HTypeLift{
     return stx.makro.type.HStdType.ensure(self);
   }
   static public function hackey_get_type_even_if_in_module(str:String):Option<HType>{
-    return try{
-      final type = Context.getType(str);  
-      Some(type);
-    }catch(e:Dynamic){
-      final next = str.split(".");
-      final last = next.pop();
-      final scnd = (next.pop():Chars).capitalize_first_letter();
-      final inpt = next.snoc(scnd);
-      try{
-        final module  = Context.getModule(inpt.join("."));
-        final type    = module.search(
-          x -> (x:HType).name.map(x-> x == last).defv(false)
+    return __.makro().context.getType(str).map(Some).rectify(
+      e  -> {
+        __.log().warn('$e');
+        final next = str.split(".");
+        final last = __.option(next.pop());
+        final scnd = __.option((next.pop():Chars)).map(x -> x.capitalize_first_letter());
+        return last.zip(scnd).fold(
+          __.decouple(
+            (last,scnd) -> {
+              final input = next.snoc(scnd).join(".");
+              return __.makro().context.getModule(input).map(
+                module -> module.search(
+                  x -> (x:HType).name.map(x-> x == last).defv(false)
+                )
+              );
+            }
+          ),
+          () -> __.accept(None)
         );
-        type;
-      }catch(e:Dynamic){
-        None;
       }
-    }
+    ).recover(
+      e -> {
+        __.log().warn('$e');
+        return None;
+      }
+    );
   }
   static public function hackey_get_module_of(str:String):Option<String>{
     return try{
